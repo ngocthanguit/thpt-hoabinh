@@ -1,0 +1,62 @@
+body{
+  background-color: #E5ECF4;
+}
+.container{
+  background-color: white;
+}
+footer {
+  background-color: #555;
+  color: white;
+  padding: 15px;
+}
+
+
+#footer{
+  height:90px;   /* Height of the footer */
+  background:#6cf;
+  margin-top: 10px;
+}
+.well{
+  padding: 0px 15px;
+  margin-top: 10px;
+  background-color: white;
+}
+.panel{
+margin-top: 10px;
+margin-bottom: 0px;
+}
+.content-view{
+  padding-right: 10px;
+  padding-left: 0px;
+}
+
+hr{
+  margin: 0px;
+}
+
+/*------------------------------------*/
+.navbar{
+  background-color: #115D9D;
+  border: none;
+}
+.navbar-inverse .navbar-nav>li>a, .navbar-header .navbar-brand{
+  color: white;
+  font-size: 16px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.navbar-collapse .nav>li:hover>a, .navbar-collapse .nav>li.active>a, .navbar-collapse .nav>li.dropdown:hover>a, .navbar-collapse .nav>li.dropdown.active>a, .navbar-header .navbar-brand:hover, .navbar-header .navbar-brand.active{
+  color: black;
+  background-color: #ddd;
+}
+.dropdown-menu>li>a:hover, .dropdown-menu>li.dropdown>a:hover{
+  background:#5fd4f7;
+}
+@media (min-width: 768px) {
+  .nav>li:before{ position: absolute; left: 0; top:15%; height:70%; width:1px; background:#5fd4f7; content:"";}
+}
+/*------------------------------------*/
+.side-panel{
+  padding: 5px;
+  margin: 0px;
+  text-align: left;
+}

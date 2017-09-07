@@ -1,7 +1,5 @@
 package edu.vn.thpthoabinh.controller;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,8 +15,17 @@ public class PageController {
 	@Autowired
 	private CategoryDAO categoryDAO;
 	
-	@RequestMapping(value = {"/", "/home", "/index"})
+	@RequestMapping(value = {"/"})
 	public ModelAndView index(){
+		ModelAndView mv = new ModelAndView("trangchu");
+		//passing the list of category
+		mv.addObject("categories",categoryDAO.list());
+		mv.addObject("title", "Home");
+		mv.addObject("userClickHome", true);
+		return mv;
+	}
+	@RequestMapping(value = {"/home", "/index"})
+	public ModelAndView index1(){
 		ModelAndView mv = new ModelAndView("page");
 		//passing the list of category
 		mv.addObject("categories",categoryDAO.list());
