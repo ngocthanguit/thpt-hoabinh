@@ -41,22 +41,42 @@ hr{
 }
 .navbar-inverse .navbar-nav>li>a, .navbar-header .navbar-brand{
   color: white;
-  font-size: 16px;
+  font-size: 14px;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 .navbar-collapse .nav>li:hover>a, .navbar-collapse .nav>li.active>a, .navbar-collapse .nav>li.dropdown:hover>a, .navbar-collapse .nav>li.dropdown.active>a, .navbar-header .navbar-brand:hover, .navbar-header .navbar-brand.active{
   color: black;
   background-color: #ddd;
+ 
 }
 .dropdown-menu>li>a:hover, .dropdown-menu>li.dropdown>a:hover{
   background:#5fd4f7;
 }
 @media (min-width: 768px) {
   .nav>li:before{ position: absolute; left: 0; top:15%; height:70%; width:1px; background:#5fd4f7; content:"";}
+.navbar{
+  height: 40px;
+  margin-bottom: 0px;
+}
 }
 /*------------------------------------*/
 .side-panel{
-  padding: 5px;
+  padding-left: 0px;
   margin: 0px;
   text-align: left;
+}
+.side-panel ul{
+	margin: 0px;
+}
+.main-content{
+	text-align: justify;
+}
+.p-t-h-b{
+		position:fixed;
+		left:0;
+		top:0;
+		width:98%;
+		height:100%;
+		z-index:9999;
+		background:url(../images/pre-loader.gif) 50% no-repeat #fff
 }

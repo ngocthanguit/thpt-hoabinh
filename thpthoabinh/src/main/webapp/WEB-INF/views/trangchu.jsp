@@ -14,14 +14,15 @@
 <!-- Bootstrap Core CSS -->
 <link href="${css}/bootstrap.min.css" rel="stylesheet">
 
-<!-- Custom CSS -->
-<link href="${css}/mystyle.css" rel="stylesheet">
-<!--
-<link href="${css}/bootstrap-readable-theme.css" rel="stylesheet">
--->
+
+
+
 <!-- Bootstrap Dropdown Hover CSS -->
 <link href="${css}/animate.min.css" rel="stylesheet">
 <link href="${css}/bootstrap-dropdownhover.min.css" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link href="${css}/mystyle.css" rel="stylesheet">
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -32,6 +33,7 @@
 
 </head>
 <body>
+<div class="p-t-h-b">
 	<div class="container">
 		<div class="row">
 			<div class="header-section span12">
@@ -238,7 +240,7 @@
 					<div class="panel-heading">
 						<h3 class="panel-title">Tìm Kiếm</h3>
 					</div>
-					<div class="panel-body side-panel">
+					<div class="panel-body search-panel">
 						<form role="search">
 							<div class="form-group input-group">
 								<input type="text" class="form-control" placeholder="Search..">
@@ -293,7 +295,7 @@
 			</div>
 
 			<div class="col-sm-8 content-view ">
-				<div class="well">THIS IS CONTENT Lorem ipsum dolor sit amet,
+				<div class="well main-content">THIS IS CONTENT Lorem ipsum dolor sit amet,
 					consectetur adipisicing elit. Pariatur praesentium sed ipsum error
 					quibusdam voluptatibus aspernatur voluptas nostrum libero, optio
 					sunt similique obcaecati enim eius tempore accusantium! Labore
@@ -374,5 +376,6 @@
 	
 	<!-- Bootstrap Dropdown Hover JS -->
 	<script src="${js}/bootstrap-dropdownhover.js"></script>
+	</div>
 </body>
 </html>

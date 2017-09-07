@@ -11,64 +11,81 @@ import javax.persistence.Id;
 public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int Id;
 	
-	private String name;
+	private String Name;
 	
-	private String description;
+	private String Description;
 	
-	@Column(name="image_url")
-	private String imageURL;
-	@Column(name="is_active")
-	private boolean active = true;
+	private String ImageUrl;
 	
-	@Override
-	public String toString() {
-		return "Category [id=" + id + ", name=" + name + ", description="
-				+ description + ", imageURL=" + imageURL + ", active=" + active
-				+ "]";
-	}
+	private boolean IsActive = true;
+	
+	
 	public Category() {
 		super();
 	}
-	public Category(int id, String name, String description,
-			String imageURL, boolean active) {
+	public Category(int id, String name, String description, String imageUrl, boolean isActive) {
 		super();
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.imageURL = imageURL;
-		this.active = active;
+		Id = id;
+		Name = name;
+		Description = description;
+		ImageUrl = imageUrl;
+		IsActive = isActive;
 	}
+
 	public int getId() {
-		return id;
+		return Id;
 	}
+
+
 	public void setId(int id) {
-		this.id = id;
+		Id = id;
 	}
+
+
 	public String getName() {
-		return name;
+		return Name;
 	}
+
+
 	public void setName(String name) {
-		this.name = name;
+		Name = name;
 	}
+
+
 	public String getDescription() {
-		return description;
+		return Description;
 	}
+
+
 	public void setDescription(String description) {
-		this.description = description;
+		Description = description;
 	}
-	public String getImageURL() {
-		return imageURL;
+
+
+	public String getImageUrl() {
+		return ImageUrl;
 	}
-	public void setImageURL(String imageURL) {
-		this.imageURL = imageURL;
+
+
+	public void setImageUrl(String imageUrl) {
+		ImageUrl = imageUrl;
 	}
-	public boolean isActive() {
-		return active;
+
+
+	public boolean isIsActive() {
+		return IsActive;
 	}
-	public void setActive(boolean active) {
-		this.active = active;
+
+
+	public void setIsActive(boolean isActive) {
+		IsActive = isActive;
 	}
-	
+	@Override
+	public String toString() {
+		return "Category [Id=" + Id + ", Name=" + Name + ", Description=" + Description + ", ImageUrl=" + ImageUrl
+				+ ", IsActive=" + IsActive + "]";
+	}
+
 }
