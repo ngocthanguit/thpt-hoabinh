@@ -70,3 +70,23 @@ footer {
 	bottom: 0;
 	height: 60px;
 }
+.help-block {
+	color: #ff0000;
+}
+/* landing css */
+
+.landingImg {
+	width: auto;
+	height : 180px;
+}
+
+
+.se-pre-con{
+		position:fixed;
+		left:0;
+		top:0;
+		width:98%;
+		height:100%;
+		z-index:9999;
+		background:url(../images/pre-loader.gif) 50% no-repeat #fff
+}

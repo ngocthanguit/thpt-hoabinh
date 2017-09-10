@@ -14,9 +14,6 @@
 <!-- Bootstrap Core CSS -->
 <link href="${css}/bootstrap.min.css" rel="stylesheet">
 
-
-
-
 <!-- Bootstrap Dropdown Hover CSS -->
 <link href="${css}/animate.min.css" rel="stylesheet">
 <link href="${css}/bootstrap-dropdownhover.min.css" rel="stylesheet">

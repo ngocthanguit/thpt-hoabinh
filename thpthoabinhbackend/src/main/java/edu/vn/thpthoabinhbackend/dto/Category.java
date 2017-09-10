@@ -1,14 +1,20 @@
 package edu.vn.thpthoabinhbackend.dto;
 
 
-import javax.persistence.Column;
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Category {
+public class Category implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int Id;
@@ -19,7 +25,7 @@ public class Category {
 	
 	private String ImageUrl;
 	
-	private boolean IsActive = true;
+	private boolean Active = true;
 	
 	
 	public Category() {
@@ -31,7 +37,7 @@ public class Category {
 		Name = name;
 		Description = description;
 		ImageUrl = imageUrl;
-		IsActive = isActive;
+		Active = isActive;
 	}
 
 	public int getId() {
@@ -74,18 +80,18 @@ public class Category {
 	}
 
 
-	public boolean isIsActive() {
-		return IsActive;
+	public boolean isActive() {
+		return Active;
 	}
 
 
-	public void setIsActive(boolean isActive) {
-		IsActive = isActive;
+	public void setActive(boolean isActive) {
+		Active = isActive;
 	}
 	@Override
 	public String toString() {
 		return "Category [Id=" + Id + ", Name=" + Name + ", Description=" + Description + ", ImageUrl=" + ImageUrl
-				+ ", IsActive=" + IsActive + "]";
+				+ ", IsActive=" + Active + "]";
 	}
 
 }

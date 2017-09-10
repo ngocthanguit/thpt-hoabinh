@@ -41,7 +41,7 @@ hr{
 }
 .navbar-inverse .navbar-nav>li>a, .navbar-header .navbar-brand{
   color: white;
-  font-size: 14px;
+  font-size: 15px;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 .navbar-collapse .nav>li:hover>a, .navbar-collapse .nav>li.active>a, .navbar-collapse .nav>li.dropdown:hover>a, .navbar-collapse .nav>li.dropdown.active>a, .navbar-header .navbar-brand:hover, .navbar-header .navbar-brand.active{
@@ -61,17 +61,47 @@ hr{
 }
 /*------------------------------------*/
 .side-panel{
-  padding-left: 0px;
+  padding-left: 5px;
+  padding-top: 10px;
   margin: 0px;
   text-align: left;
 }
 .side-panel ul{
-	margin: 0px;
+	padding: 0px;
+	margin-left: 20px;
 }
 .main-content{
 	text-align: justify;
 }
-.p-t-h-b{
+.panel-body{
+	padding: 5px;
+}
+.search-panel{
+	padding: 10px 10px 0px;
+}
+/* Custom styling*/
+.wrapper{
+	min-height: 100%;
+	position: relative;
+}
+
+.footer{
+	position: absolute;
+	bottom: 0;
+	height: 60px;
+}
+.help-block {
+	color: #ff0000;
+}
+/* landing css */
+
+.landingImg {
+	width: auto;
+	height : 180px;
+}
+
+
+.se-pre-con{
 		position:fixed;
 		left:0;
 		top:0;
@@ -79,4 +109,11 @@ hr{
 		height:100%;
 		z-index:9999;
 		background:url(../images/pre-loader.gif) 50% no-repeat #fff
+}
+#dropdownMenu1{
+	height: 40px;
+	font-size: 15px;
+	background: inherit;
+	color: #ffffff;
+	top: 5px;
 }

@@ -1,10 +1,10 @@
-<div class="container footer">
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 	<hr>
-	<footer>
-		<div class="row">
-			<div class="col-lg-12">
-				<p>Copyright &copy; Your Website 2014</p>
-			</div>
-		</div>
+	<footer id="footer" class="container text-center">
+		<h5>
+			<b>Trường THPT Hòa Bình</b>
+		</h5>
+		<p>Địa chỉ: Thị Xã An Nhơn - Tỉnh Bình Định</p>
 	</footer>
-</div>
+

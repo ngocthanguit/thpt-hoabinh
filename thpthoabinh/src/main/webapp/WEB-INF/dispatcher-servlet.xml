@@ -10,8 +10,8 @@
    	http://www.springframework.org/schema/mvc
    	http://www.springframework.org/schema/mvc/spring-mvc.xsd
    	">
-   	<context:component-scan base-package="edu.vn.thpthoabinh.controller"/>
-   	<context:component-scan base-package="edu.vn.thpthoabinhbackend"/>
+   	<context:component-scan base-package="edu.vn.thpthoabinh"/>
+   	
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
 		<property name="prefix" value="/WEB-INF/views/"/>
