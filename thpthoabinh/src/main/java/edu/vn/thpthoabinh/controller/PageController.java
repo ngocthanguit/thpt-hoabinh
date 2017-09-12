@@ -1,5 +1,7 @@
 package edu.vn.thpthoabinh.controller;
 
+import java.text.SimpleDateFormat;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import edu.vn.thpthoabinhbackend.dao.CategoryDAO;
 import edu.vn.thpthoabinhbackend.dao.PostDAO;
 import edu.vn.thpthoabinhbackend.dto.Category;
+import edu.vn.thpthoabinhbackend.dto.Post;
 
 @Controller
 public class PageController {
@@ -60,7 +63,21 @@ public class PageController {
 		mv.addObject("userClickContact", true);
 		return mv;
 	}
-	
+	//Methods to load all the products and based on category
+		@RequestMapping(value = "/show/post/{id}")
+		public ModelAndView showPost(@PathVariable("id")int id){
+			ModelAndView mv = new ModelAndView("test");
+			Post post = postDAO.get(id);
+			String dateCreated = new SimpleDateFormat("E, dd/MM/yyyy - HH:mm").format(post.getDateCreated());
+			mv.addObject("title", post.getTitle());
+			//passing the list of category
+			mv.addObject("categories",categoryDAO.list());
+			mv.addObject("latestPosts", postDAO.getLatestActivePosts(10));
+			mv.addObject("post", post);
+			mv.addObject("dateCreated", dateCreated);
+			mv.addObject("userClickPost", true);
+			return mv;
+		}
 	//Methods to load all the products and based on category
 	@RequestMapping(value = "/show/all/products")
 	public ModelAndView showAllProducts(){

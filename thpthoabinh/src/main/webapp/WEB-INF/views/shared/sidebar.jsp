@@ -33,7 +33,7 @@
 					2010</a></li>
 			<li><a href="">Chùm ảnh ngày bế giảng năm học 2009 - 2010</a></li> -->
 			<c:forEach items="${latestPosts}" var="post">
-				<li><a href="${contextRoot}/show/category/${post.id}/products">${post.title}</a></li>
+				<li><a href="${contextRoot}/show/post/${post.id}">${post.title}</a></li>
 			</c:forEach>
 			
 		</ul>

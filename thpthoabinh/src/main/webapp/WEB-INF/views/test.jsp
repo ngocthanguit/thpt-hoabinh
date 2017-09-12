@@ -41,7 +41,7 @@
 </head>
 
 <body>
-	
+
 	<div class="wrapper">
 
 		<div class="container">
@@ -81,13 +81,18 @@
 						<div class="row">
 							<div class="col-sm-4">
 
-								<%@include file="./shared/sidebar.jsp" %>
+								<%@include file="./shared/sidebar.jsp"%>
 
 							</div>
 
 							<div class="col-sm-8 content-view ">
-								
-								<%@include file="home.jsp"%>
+							
+								<c:if test="${userClickHome == true}">
+									<%@include file="home.jsp"%>
+								</c:if>
+								<c:if test="${userClickPost == true}">
+									<%@include file="post.jsp"%>
+								</c:if>
 
 							</div>
 						</div>
