@@ -27,9 +27,9 @@ public class Post implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int Id;
-	@NotBlank(message = "Please enter post title!")
+	@NotBlank(message = "Vui lòng nhập tiêu đề!")
 	private String Title;
-	@NotBlank(message = "Please enter post content!")
+	@NotBlank(message = "Vui lòng nhập nội dung!")
 	private String PContent;
 	@JsonIgnore
 	private int AuthorId;

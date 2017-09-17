@@ -1,4 +1,4 @@
-package edu.vn.thpthoabinh.validate;
+package edu.vn.thpthoabinh.validator;
 
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

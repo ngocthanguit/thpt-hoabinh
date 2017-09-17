@@ -49,21 +49,21 @@ public class FileUtil {
 	
 		String imageURL = "http://placehold.it/640X480?text=No Image";
 		String destinationServerFile = REAL_PATH + code + ".jpg";
-		String destinationProjectFile = REAL_PATH + code + ".jpg";
+//		String destinationProjectFile = REAL_PATH + code + ".jpg";
 				
 		try {
 			URL url = new URL(imageURL);				
 			try (	
 					InputStream is = url.openStream();
 					OutputStream osREAL_PATH = new FileOutputStream(destinationServerFile);
-					OutputStream osABS_PATH = new FileOutputStream(destinationProjectFile);
+//					OutputStream osABS_PATH = new FileOutputStream(destinationProjectFile);
 				){
 			
 				byte[] b = new byte[2048];
 				int length;
 				while((length = is.read(b))!= -1) {
 					osREAL_PATH.write(b, 0, length);
-					osABS_PATH.write(b, 0, length);
+//					osABS_PATH.write(b, 0, length);
 				}
 			}			
 		}

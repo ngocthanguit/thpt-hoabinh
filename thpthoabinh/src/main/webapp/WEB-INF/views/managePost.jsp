@@ -28,7 +28,7 @@
 							<div class="col-md-8">
 								<sf:input type="text" path="title" class="form-control"
 									placeholder="Nhập tiêu đề" />
-								<sf:errors path="title" cssClass="help-block" element="em"/> 
+								<sf:errors path="Title" cssClass="help-block" element="em"/> 
 							</div>
 						</div>
 						
@@ -38,7 +38,7 @@
 							<div class="col-md-8">
 								<sf:textarea path="pContent" class="form-control"
 									placeholder="Nhập nội dung bài viết!" /> 
-								<sf:errors path="pContent" cssClass="help-block" element="em"/>
+								<sf:errors path="PContent" cssClass="help-block" element="em"/>
 							</div>
 						</div>
 

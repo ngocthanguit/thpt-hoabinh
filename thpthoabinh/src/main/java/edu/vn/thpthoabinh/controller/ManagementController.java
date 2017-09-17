@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.vn.thpthoabinh.util.FileUtil;
 import edu.vn.thpthoabinh.util.SlugUtil;
-import edu.vn.thpthoabinh.validate.PostValidator;
+import edu.vn.thpthoabinh.validator.PostValidator;
 import edu.vn.thpthoabinhbackend.dao.CategoryDAO;
 import edu.vn.thpthoabinhbackend.dao.PostDAO;
 import edu.vn.thpthoabinhbackend.dto.Category;
@@ -57,10 +57,10 @@ public class ManagementController {
 		
 		if(success != null) {
 			if(success.equals("product")){
-				mv.addObject("message", "Product submitted successfully!");
+				mv.addObject("message", "Lưu bài viết thành công!");
 			}	
 			else if (success.equals("category")) {
-				mv.addObject("message", "Category submitted successfully!");
+				mv.addObject("message", "Lưu loại bài viết thành công!");
 			}
 		}
 			
@@ -88,12 +88,15 @@ public class ManagementController {
 	
 	
 	@RequestMapping(value = "/post", method=RequestMethod.POST)
-	public String managePostProduct(@Valid @ModelAttribute("product") Post post, 
+	public String managePostProduct(@Valid @ModelAttribute("post") Post post, 
 			BindingResult results, Model model, HttpServletRequest request) {
 		
 		// mandatory file upload check
 		if(post.getId() == 0) {
 			new PostValidator().validate(post, results);
+//			if(post.getFile() == null || post.getFile().getOriginalFilename().equals("")) {
+//				post.setImage("default.jpg");
+//			}
 		}
 		else {
 			// edit check only when the file has been selected

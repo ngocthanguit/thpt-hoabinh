@@ -137,9 +137,16 @@ $(function(){
 					           	{data: 'image',
 					           	 bSortable: false,
 					           		mRender: function(data,type,row) {
-					           			return '<img src="' + window.contextRoot
-										+ '/resources/images/' + data
-										+ '.jpg" class="dataTableImg"/>';					           			
+					           			if(data == null || data == ""){
+					           				return '<img src="' + window.contextRoot
+											+ '/resources/images/default' 
+											+ '.jpg" class="dataTableImg"/>';
+					           			}else{
+					           				return '<img src="' + window.contextRoot
+											+ '/resources/images/' + data
+											+ '.jpg" class="dataTableImg"/>';
+					           			}
+					           								           			
 					           		}
 					           	},
 					           	{
