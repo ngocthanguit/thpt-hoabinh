@@ -99,7 +99,7 @@
 						<li><a href="#">One more separated link</a></li>
 					</ul></li>
 				<security:authorize access="hasAuthority('ADMIN')">
-					<li><a href="${contextRoot }/manage">Quản Lý</a></li>
+					<li><a href="${contextRoot }/manage/post">Quản Lý</a></li>
 				</security:authorize>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">

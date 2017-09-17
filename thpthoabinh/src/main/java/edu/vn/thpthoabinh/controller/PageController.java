@@ -68,13 +68,13 @@ public class PageController {
 		public ModelAndView showPost(@PathVariable("id")int id){
 			ModelAndView mv = new ModelAndView("test");
 			Post post = postDAO.get(id);
-			String dateCreated = new SimpleDateFormat("E, dd/MM/yyyy - HH:mm").format(post.getDateCreated());
+//			String dateCreated = new SimpleDateFormat("E, dd/MM/yyyy - HH:mm").format(post.getDateCreated());
 			mv.addObject("title", post.getTitle());
 			//passing the list of category
 			mv.addObject("categories",categoryDAO.list());
 			mv.addObject("latestPosts", postDAO.getLatestActivePosts(10));
 			mv.addObject("post", post);
-			mv.addObject("dateCreated", dateCreated);
+//			mv.addObject("dateCreated", dateCreated);
 			mv.addObject("userClickPost", true);
 			return mv;
 		}

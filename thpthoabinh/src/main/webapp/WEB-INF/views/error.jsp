@@ -27,7 +27,7 @@
 <link href="${css}/myapp.css" rel="stylesheet">
 
 
-<title>Online Shopping - ${title}</title>
+<title>THPT HÒA BÌNH - ${title}</title>
 
 </head>
 

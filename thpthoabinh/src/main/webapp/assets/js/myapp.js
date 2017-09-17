@@ -36,6 +36,29 @@ $(function(){
 		break;
 	}
 	
+	function getFormattedDate(secs) {
+			dateParse = new Date(secs);
+		  var year = dateParse.getFullYear();
+
+		  var month = (1 + dateParse.getMonth()).toString();
+		  month = month.length > 1 ? month : '0' + month;
+
+		  var day = dateParse.getDate().toString();
+		  day = day.length > 1 ? day : '0' + day;
+		  
+		  var hour = dateParse.getHours().toString();
+		  hour = hour.length > 1 ? hour : '0' + hour;
+		  
+		  var minute = dateParse.getMinutes().toString();
+		  minute = minute.length > 1 ? minute : '0' + minute;
+		  
+		  return day + '/' + month + '/' + year + ' - ' + hour + ':' + minute;
+	}
+	
+	var toTimeString = function(secs) {
+		day = new Date(secs);
+//		return day.getDate() + '/' + (day.getMonth() + 1) + '/' + day.getFullYear();
+	};
 /*validating the loginform*/
 	
 	// validating the product form element	
@@ -89,5 +112,138 @@ $(function(){
 		   }, 3000
 		);		
 	}
+	
+	
+	// list of all products for admin
+	var $productsTable = $('#postsTable');
+	
+	
+	if($productsTable.length) {
+		
+		var jsonUrl = window.contextRoot + '/json/data/admin/all/posts';
+		console.log(jsonUrl);
+		
+		$productsTable.DataTable({
+					lengthMenu : [ [ 10, 30, 50, -1 ], [ '10 Records', '30 Records', '50 Records', 'ALL' ] ],
+					pageLength : 30,
+					ajax : {
+						url : jsonUrl,
+						dataSrc : ''
+					},
+					columns : [		
+					           	{data: 'id'},
+
+
+					           	{data: 'image',
+					           	 bSortable: false,
+					           		mRender: function(data,type,row) {
+					           			return '<img src="' + window.contextRoot
+										+ '/resources/images/' + data
+										+ '.jpg" class="dataTableImg"/>';					           			
+					           		}
+					           	},
+					           	{
+									data : 'title'
+								},
+								{
+									data : 'authorId'
+								},
+								{
+									data : 'categoryId',
+								},
+								{
+									data : 'dateCreated',
+									mRender: function(data,type,row) {
+					           			return getFormattedDate(data)			           			
+					           		}
+								},
+								{
+									data : 'slug',
+									
+								},
+								{
+									data : 'active',
+									bSortable : false,
+									mRender : function(data, type, row) {
+										var str = '';
+										if(data) {											
+											str += '<label class="switch"> <input type="checkbox" value="'+row.id+'" checked="checked">  <div class="slider round"> </div></label>';
+											
+										}else {
+											str += '<label class="switch"> <input type="checkbox" value="'+row.id+'">  <div class="slider round"> </div></label>';
+										}
+										
+										return str;
+									}
+								},
+								{
+									data : 'id',
+									bSortable : false,
+									mRender : function(data, type, row) {
+
+										var str = '';
+										str += '<a href="'
+												+ window.contextRoot
+												+ '/manage/'
+												+ data
+												+ '/product" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></a> &#160;';
+
+										return str;
+									}
+								}					           	
+					],
+					
+					
+					initComplete: function () {
+						var api = this.api();
+						api.$('.switch input[type="checkbox"]').on('change' , function() {							
+							var dText = (this.checked)? 'You want to activate the Product?': 'You want to de-activate the Product?';
+							var checked = this.checked;
+							var checkbox = $(this);
+							debugger;
+						    bootbox.confirm({
+						    	size: 'medium',
+						    	title: 'Product Activation/Deactivation',
+						    	message: dText,
+						    	callback: function (confirmed) {
+							        if (confirmed) {
+							            $.ajax({							            	
+							            	type: 'GET',
+							            	url: window.contextRoot + '/manage/post/'+checkbox.prop('value')+'/activation',
+							        		timeout : 100000,
+							        		success : function(data) {
+							        			displaySnackbar(data);							        										        			
+							        		},
+							        		error : function(e) {
+							        			displaySnackbar('ERROR: '+ e);
+							        			//display(e);
+							        		}						            	
+							            });
+							        }
+							        else {							        	
+							        	checkbox.prop('checked', !checked);
+							        }
+						    	}
+						    });																											
+						});
+							
+					}
+				});
+	}
+	
+	
+	// display snack bar
+	function displaySnackbar(result){
+	    // Get the snackbar DIV
+	    var x = document.getElementById("snackbar");
+	    x.innerHTML = result
+	    // Add the "show" class to DIV
+	    x.className = "show";
+	    // After 3 seconds, remove the show class from DIV
+	    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+	}
+	
+	
+	
 })
 

@@ -12,12 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import net.sourceforge.jtds.jdbc.DateTime;
 @Component
 @Entity
 public class Post implements Serializable {
@@ -38,9 +37,11 @@ public class Post implements Serializable {
 	@JsonIgnore
 	private int CategoryId;
 	private int ViewCount;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss:SSSS")
 	private Date DateCreated;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss:SSSS")
 	private Date DateModified;
-	private String Alias;
+	private String Slug;
 	private String Image;
 	@Transient
 	private MultipartFile file;
@@ -56,6 +57,10 @@ public class Post implements Serializable {
 	// default constructor
 	public Post() {
 		this.Image = "IMG" + UUID.randomUUID().toString().substring(26).toUpperCase();
+		this.Active = true;
+		this.ViewCount = 0;
+		this.DateCreated = new Date();
+		this.DateModified = new Date();
 	}
 
 	public int getId() {
@@ -130,12 +135,12 @@ public class Post implements Serializable {
 		DateModified = dateModified;
 	}
 
-	public String getAlias() {
-		return Alias;
+	public String getSlug() {
+		return Slug;
 	}
 
-	public void setAlias(String alias) {
-		Alias = alias;
+	public void setSlug(String slug) {
+		Slug = slug;
 	}
 
 	public String getImage() {
@@ -154,7 +159,7 @@ public class Post implements Serializable {
 	public String toString() {
 		return "Post [Id=" + Id + ", Title=" + Title + ", PContent=" + PContent + ", AuthorId=" + AuthorId + ", Active="
 				+ Active + ", CategoryId=" + CategoryId + ", ViewCount=" + ViewCount + ", DateCreated=" + DateCreated
-				+ ", DateModified=" + DateModified + ", Alias=" + Alias + ", Image=" + Image + ", file=" + file + "]";
+				+ ", DateModified=" + DateModified + ", Slug=" + Slug + ", Image=" + Image + ", file=" + file + "]";
 	}
 
 }

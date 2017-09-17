@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="panel panel-primary">
 	<div class="panel-heading">
 		<h3 class="panel-title">Tìm Kiếm</h3>
@@ -33,7 +34,9 @@
 					2010</a></li>
 			<li><a href="">Chùm ảnh ngày bế giảng năm học 2009 - 2010</a></li> -->
 			<c:forEach items="${latestPosts}" var="post">
-				<li><a href="${contextRoot}/show/post/${post.id}">${post.title}</a></li>
+				<fmt:parseDate pattern="yyyy-MM-dd HH:mm:ss.SSSSSS" value="${post.dateCreated}" var="parsedDate" />
+				
+				<li><a href="${contextRoot}/show/post/${post.id}">${post.title}</a> - <fmt:formatDate value="${parsedDate}" pattern="dd/MM/yyyy - HH:mm" /></li>
 			</c:forEach>
 			
 		</ul>
