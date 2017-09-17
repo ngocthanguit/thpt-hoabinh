@@ -12,8 +12,8 @@
 	</c:if>
 
 	<div class="row">
-		<div class="col-xs-offset-2 col-xs-8">
-			<div class="panel panel-primary">
+		<div class="col-xs-11">
+			<div class="panel panel-primary manage-body">
 
 				<div class="panel-heading">
 
@@ -24,8 +24,8 @@
 				<div class="panel-body">
 					<sf:form class="form-horizontal" modelAttribute="post" action="${contextRoot}/manage/post" method="POST" enctype="multipart/form-data">
 						<div class="form-group">
-							<label class="control-label col-md-4">Tiêu Đề</label>
-							<div class="col-md-8">
+							<label class="control-label col-md-2">Tiêu Đề</label>
+							<div class="col-md-10">
 								<sf:input type="text" path="title" class="form-control"
 									placeholder="Nhập tiêu đề" />
 								<sf:errors path="Title" cssClass="help-block" element="em"/> 
@@ -34,18 +34,17 @@
 						
 
 						<div class="form-group">
-							<label class="control-label col-md-4">Nội Dung</label>
-							<div class="col-md-8">
-								<sf:textarea path="pContent" class="form-control"
+							<label class="control-label col-md-2">Nội Dung</label>
+							<div class="col-md-10">
+								<sf:textarea path="pContent" class="form-control" rows="15" id="editor1"
 									placeholder="Nhập nội dung bài viết!" /> 
 								<sf:errors path="PContent" cssClass="help-block" element="em"/>
 							</div>
 						</div>
 
-
 						<div class="form-group">
-							<label class="control-label col-md-4">Ảnh Bài Viết</label>
-							<div class="col-md-8">
+							<label class="control-label col-md-2">Ảnh Bài Viết</label>
+							<div class="col-md-10">
 								<sf:input type="file" path="file" class="form-control"/>
 								<sf:errors path="file" cssClass="help-block" element="em"/> 
 							</div>
@@ -53,8 +52,8 @@
 
 
 						<div class="form-group">
-							<label class="control-label col-md-4">Loại Bài Viết</label>
-							<div class="col-md-8">
+							<label class="control-label col-md-2">Loại Bài Viết</label>
+							<div class="col-md-10">
 								<sf:select path="categoryId" items="${categories}" itemLabel="name" itemValue="id" class="form-control"/>
 							
 								<div class="text-right">
@@ -182,3 +181,4 @@
 	
 	</div>
 
+	

@@ -4,6 +4,7 @@
 <spring:url var="css" value="/resources/css" />
 <spring:url var="js" value="/resources/js" />
 <spring:url var="images" value="/resources/images" />
+<spring:url var="editor" value="/resources/editor" />
 
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
@@ -32,6 +33,11 @@
 
 <!-- Custom CSS -->
 <link href="${css}/mystyle.css" rel="stylesheet">
+
+<script src="${editor}/ckeditor.js"></script>
+
+
+
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -82,12 +88,12 @@
 					<div class="container text-center">
 						<div class="row">
 							<c:if test="${manage != true}">
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 
 									<%@include file="./shared/sidebar.jsp"%>
 
 								</div>
-								<div class="col-sm-8 content-view ">
+								<div class="col-sm-9 content-view ">
 
 									<c:if test="${userClickHome == true}">
 										<%@include file="home.jsp"%>
@@ -135,6 +141,7 @@
 		<!-- DataTable Bootstrap Script -->
 		<script src="${js}/bootbox.min.js"></script>
 
+		
 
 		<!-- Bootstrap Dropdown Hover JS -->
 		<script src="${js}/bootstrap-dropdownhover.js"></script>

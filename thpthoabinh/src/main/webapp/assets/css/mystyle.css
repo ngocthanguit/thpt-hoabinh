@@ -173,6 +173,10 @@ input:checked + .slider:before {
 	height : 180px;
 }
 
+.manage-body, #postsTable{
+	
+	margin-left: 6px;
+}
 
 .se-pre-con{
 		position:fixed;

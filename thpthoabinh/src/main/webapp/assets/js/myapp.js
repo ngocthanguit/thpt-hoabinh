@@ -250,6 +250,34 @@ $(function(){
 	    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 	}
 	
+	CKEDITOR.replace( 'editor1' );
+	// This is for pasting content to post content
+//	$(document).ready(function(){
+//        //put yer code in here
+//
+//        ['paste'].forEach(function(event) {
+//            document.addEventListener(event, function(e) {
+//                e.preventDefault();
+//                var pastedText = undefined;
+//
+//                if (window.clipboardData && window.clipboardData.getData) { // IE
+//
+//                    pastedText = window.clipboardData.getData('Text');
+//
+//                } else if (e.clipboardData && e.clipboardData.getData) {
+//
+//                    pastedText = e.clipboardData.getData('text/html');
+//
+//                }
+//
+//                $("#post-content").html(pastedText);
+//
+//            });
+//        });
+//
+//    });
+	
+	
 	
 	
 })
