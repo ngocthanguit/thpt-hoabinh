@@ -75,7 +75,7 @@
 			</div>
 		</div>
 
-		<div class="container text-center">
+		<div class="container text-center main-content">
 			<div class="row">
 				<!-- Navigation -->
 				<%@include file="./shared/navbar.jsp"%>

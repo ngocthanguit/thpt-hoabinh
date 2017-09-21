@@ -17,7 +17,7 @@ public class PostValidator implements Validator {
 		
 		Post post = (Post) target;
 		if(post.getFile() == null || post.getFile().getOriginalFilename().equals("")) {
-			errors.rejectValue("file", null, "Please select a file to upload!");
+			errors.rejectValue("file", null, "Vui lòng chọn một file ảnh để upload!");
 			return;
 		}
 		if(! (post.getFile().getContentType().equals("image/jpeg") || 
@@ -25,7 +25,7 @@ public class PostValidator implements Validator {
 				post.getFile().getContentType().equals("image/gif")
 			 )
 			{
-				errors.rejectValue("file", null, "Please select an image file to upload!");
+				errors.rejectValue("file", null, "Vui lòng lựa chọn file hình ảnh!");
 				return;	
 			}
 

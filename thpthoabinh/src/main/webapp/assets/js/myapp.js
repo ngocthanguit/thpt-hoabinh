@@ -24,14 +24,14 @@ $(function(){
 	case "About Us":
 		$('#about').addClass('active');
 		break;
-	case "All Products":
-		$('#listProducts').addClass('active');
+	case "All Posts":
+		$('#listPosts').addClass('active');
 		break;
 	case "Contact Us":
 		$('#contact').addClass('active');
 		break;
 	default:
-		$('#listProducts').addClass('active');
+		$('#listPosts').addClass('active');
 		$('#a_'+menu).addClass('active');
 		break;
 	}
@@ -55,11 +55,65 @@ $(function(){
 		  return day + '/' + month + '/' + year + ' - ' + hour + ':' + minute;
 	}
 	
-	var toTimeString = function(secs) {
-		day = new Date(secs);
-//		return day.getDate() + '/' + (day.getMonth() + 1) + '/' + day.getFullYear();
-	};
-/*validating the loginform*/
+	
+	// jQuery Validation Code
+
+	//methods required for validation
+	
+	function errorPlacement(error, element) {
+		// Add the 'help-block' class to the error element
+		error.addClass("help-block");
+		
+		// add the error label after the input element
+		error.insertAfter(element);
+		
+		
+		// add the has-feedback class to the
+		// parent div.validate in order to add icons to inputs
+		element.parents(".validate").addClass("has-feedback");	
+
+	}	
+	
+	
+	
+	// validating the product form element	
+	// fetch the form element
+	$categoryForm = $('#categoryForm');
+	
+	if($categoryForm.length) {
+		
+		$categoryForm.validate({			
+				rules: {
+					name: {
+						required: true,
+						minlength: 3
+					},
+					description: {
+						required: true,
+						minlength: 3					
+					}				
+				},
+				messages: {					
+					name: {
+						required: 'Please enter product name!',
+						minlength: 'Please enter atleast five characters'
+					},
+					description: {
+						required: 'Please enter product name!',
+						minlength: 'Please enter atleast five characters'
+					}					
+				},
+				errorElement : "em",
+				errorPlacement : function(error, element) {
+					errorPlacement(error, element);
+				}				
+			}
+		
+		);
+		
+	}
+	
+	/*validating the loginform*/
 	
 	// validating the product form element	
 	// fetch the form element
@@ -102,6 +156,43 @@ $(function(){
 	}
 		
 	
+	// validating post form
+	// fetch the form element
+	$postForm = $('#postForm');
+	
+	if($postForm.length) {
+		
+		$postForm.validate({			
+				rules: {
+					title: {
+						required: true,
+						minlength: 5
+					},
+					pContent: {
+						required: true,
+						minlength: 5					
+					}				
+				},
+				messages: {					
+					title: {
+						required: 'Vui lòng nhập tiêu đề bài viết!',
+						minlength: 'Vui lòng nhập ít nhất 5 kí tự'
+					},
+					pContent: {
+						required: 'Vui lòng nhập nội dung bài viết!',
+						minlength: 'Vui lòng nhập ít nhất 5 kí tự'
+					}					
+				},
+				errorElement : "em",
+				errorPlacement : function(error, element) {
+					errorPlacement(error, element);
+				}				
+			}
+		
+		);
+		
+	}
+	
 	
 	/*------*/
 	/* for fading out the alert message after 3 seconds */
@@ -114,18 +205,18 @@ $(function(){
 	}
 	
 	
-	// list of all products for admin
-	var $productsTable = $('#postsTable');
+	// list of all posts for admin
+	var $postsTable = $('#postsTable');
 	
 	
-	if($productsTable.length) {
+	if($postsTable.length) {
 		
 		var jsonUrl = window.contextRoot + '/json/data/admin/all/posts';
 		console.log(jsonUrl);
 		
-		$productsTable.DataTable({
-					lengthMenu : [ [ 10, 30, 50, -1 ], [ '10 Records', '30 Records', '50 Records', 'ALL' ] ],
-					pageLength : 30,
+		$postsTable.DataTable({
+					lengthMenu : [ [ 10, 20, 30, -1 ], [ '10 Records', '30 Records', '50 Records', 'ALL' ] ],
+					pageLength : 10,
 					ajax : {
 						url : jsonUrl,
 						dataSrc : ''
@@ -193,7 +284,7 @@ $(function(){
 												+ window.contextRoot
 												+ '/manage/'
 												+ data
-												+ '/product" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></a> &#160;';
+												+ '/post" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></a> &#160;';
 
 										return str;
 									}
@@ -204,13 +295,13 @@ $(function(){
 					initComplete: function () {
 						var api = this.api();
 						api.$('.switch input[type="checkbox"]').on('change' , function() {							
-							var dText = (this.checked)? 'You want to activate the Product?': 'You want to de-activate the Product?';
+							var dText = (this.checked)? 'You want to activate the Post?': 'You want to de-activate the Post?';
 							var checked = this.checked;
 							var checkbox = $(this);
 							debugger;
 						    bootbox.confirm({
 						    	size: 'medium',
-						    	title: 'Product Activation/Deactivation',
+						    	title: 'Post Activation/Deactivation',
 						    	message: dText,
 						    	callback: function (confirmed) {
 							        if (confirmed) {
@@ -250,32 +341,10 @@ $(function(){
 	    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 	}
 	
-	CKEDITOR.replace( 'editor1' );
-	// This is for pasting content to post content
-//	$(document).ready(function(){
-//        //put yer code in here
-//
-//        ['paste'].forEach(function(event) {
-//            document.addEventListener(event, function(e) {
-//                e.preventDefault();
-//                var pastedText = undefined;
-//
-//                if (window.clipboardData && window.clipboardData.getData) { // IE
-//
-//                    pastedText = window.clipboardData.getData('Text');
-//
-//                } else if (e.clipboardData && e.clipboardData.getData) {
-//
-//                    pastedText = e.clipboardData.getData('text/html');
-//
-//                }
-//
-//                $("#post-content").html(pastedText);
-//
-//            });
-//        });
-//
-//    });
+	CKEDITOR.replace( 'editor1',{
+		width: 885,
+		height: 400
+	} );
 	
 	
 	

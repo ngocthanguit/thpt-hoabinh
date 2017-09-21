@@ -27,16 +27,16 @@ public class GlobalDefaultExceptionHandler {
 	}
 	
 	
-	@ExceptionHandler(ProductNotFoundException.class)
-	public ModelAndView handlerProductNotFoundException() {
+	@ExceptionHandler(PostNotFoundException.class)
+	public ModelAndView handlerPostNotFoundException() {
 		
 		ModelAndView mv = new ModelAndView("error");
 		
-		mv.addObject("errorTitle", "Product not available!");
+		mv.addObject("errorTitle", "Post not available!");
 		
-		mv.addObject("errorDescription", "The product you are looking for is not available right now!");
+		mv.addObject("errorDescription", "The Post you are looking for is not available right now!");
 		
-		mv.addObject("title", "Product Unavailable");
+		mv.addObject("title", "Post Unavailable");
 		
 		return mv;
 	}

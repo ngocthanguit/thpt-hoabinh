@@ -12,7 +12,7 @@
 	</c:if>
 
 	<div class="row">
-		<div class="col-xs-11">
+		<div class="col-xs-12">
 			<div class="panel panel-primary manage-body">
 
 				<div class="panel-heading">
@@ -22,10 +22,10 @@
 				</div>
 
 				<div class="panel-body">
-					<sf:form class="form-horizontal" modelAttribute="post" action="${contextRoot}/manage/post" method="POST" enctype="multipart/form-data">
+					<sf:form class="form-horizontal" id="postForm" modelAttribute="post" action="${contextRoot}/manage/post" method="POST" enctype="multipart/form-data">
 						<div class="form-group">
-							<label class="control-label col-md-2">Tiêu Đề</label>
-							<div class="col-md-10">
+							<label class="control-label col-md-1">Tiêu Đề</label>
+							<div class="col-md-11">
 								<sf:input type="text" path="title" class="form-control"
 									placeholder="Nhập tiêu đề" />
 								<sf:errors path="Title" cssClass="help-block" element="em"/> 
@@ -34,8 +34,8 @@
 						
 
 						<div class="form-group">
-							<label class="control-label col-md-2">Nội Dung</label>
-							<div class="col-md-10">
+							<label class="control-label col-md-1">Nội Dung</label>
+							<div class="col-md-11">
 								<sf:textarea path="pContent" class="form-control" rows="15" id="editor1"
 									placeholder="Nhập nội dung bài viết!" /> 
 								<sf:errors path="PContent" cssClass="help-block" element="em"/>
@@ -43,8 +43,8 @@
 						</div>
 
 						<div class="form-group">
-							<label class="control-label col-md-2">Ảnh Bài Viết</label>
-							<div class="col-md-10">
+							<label class="control-label col-md-1">Ảnh Bài Viết</label>
+							<div class="col-md-11">
 								<sf:input type="file" path="file" class="form-control"/>
 								<sf:errors path="file" cssClass="help-block" element="em"/> 
 							</div>
@@ -52,8 +52,8 @@
 
 
 						<div class="form-group">
-							<label class="control-label col-md-2">Loại Bài Viết</label>
-							<div class="col-md-10">
+							<label class="control-label col-md-1">Loại Bài Viết</label>
+							<div class="col-md-11">
 								<sf:select path="categoryId" items="${categories}" itemLabel="name" itemValue="id" class="form-control"/>
 							
 								<div class="text-right">

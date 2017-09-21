@@ -39,7 +39,7 @@ public class ManagementController {
 	private CategoryDAO categoryDAO;		
 
 	@RequestMapping("/post")
-	public ModelAndView manageProduct(@RequestParam(name="success",required=false)String success) {		
+	public ModelAndView managePost(@RequestParam(name="success",required=false)String success) {		
 
 		ModelAndView mv = new ModelAndView("test");	
 		mv.addObject("title","Post Management");		
@@ -56,7 +56,7 @@ public class ManagementController {
 
 		
 		if(success != null) {
-			if(success.equals("product")){
+			if(success.equals("post")){
 				mv.addObject("message", "Lưu bài viết thành công!");
 			}	
 			else if (success.equals("category")) {
@@ -69,11 +69,11 @@ public class ManagementController {
 	}
 
 	
-	@RequestMapping("/{id}/product")
-	public ModelAndView manageProductEdit(@PathVariable int id) {		
+	@RequestMapping("/{id}/post")
+	public ModelAndView managePostEdit(@PathVariable int id) {		
 
 		ModelAndView mv = new ModelAndView("test");	
-		mv.addObject("title","Product Management");		
+		mv.addObject("title","Post Management");		
 		mv.addObject("manage",true);	
 		mv.addObject("userClickManagePost",true);
 		
@@ -88,7 +88,7 @@ public class ManagementController {
 	
 	
 	@RequestMapping(value = "/post", method=RequestMethod.POST)
-	public String managePostProduct(@Valid @ModelAttribute("post") Post post, 
+	public String managePostPost(@Valid @ModelAttribute("post") Post post, 
 			BindingResult results, Model model, HttpServletRequest request) {
 		
 		// mandatory file upload check
@@ -126,13 +126,13 @@ public class ManagementController {
 			FileUtil.uploadFile(request, post.getFile(), post.getImage()); 
 		 }
 		
-		return "redirect:/manage/post?success=product";
+		return "redirect:/manage/post?success=post";
 	}
 
 	
 	@RequestMapping(value = "/post/{id}/activation", method=RequestMethod.GET)
 	@ResponseBody
-	public String managePostProductActivation(@PathVariable int id) {		
+	public String managePostPostActivation(@PathVariable int id) {		
 		Post post = postDAO.get(id);
 		boolean isActive = post.isActive();
 		post.setActive(!isActive);

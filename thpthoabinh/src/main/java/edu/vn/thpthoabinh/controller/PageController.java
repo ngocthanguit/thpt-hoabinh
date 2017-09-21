@@ -63,7 +63,7 @@ public class PageController {
 		mv.addObject("userClickContact", true);
 		return mv;
 	}
-	//Methods to load all the products and based on category
+	//Methods to load all the posts and based on category
 		@RequestMapping(value = "/show/post/{id}")
 		public ModelAndView showPost(@PathVariable("id")int id){
 			ModelAndView mv = new ModelAndView("test");
@@ -78,19 +78,19 @@ public class PageController {
 			mv.addObject("userClickPost", true);
 			return mv;
 		}
-	//Methods to load all the products and based on category
-	@RequestMapping(value = "/show/all/products")
-	public ModelAndView showAllProducts(){
+	//Methods to load all the posts and based on category
+	@RequestMapping(value = "/show/all/posts")
+	public ModelAndView showAllPosts(){
 		ModelAndView mv = new ModelAndView("page");
 		
-		mv.addObject("title", "All Products");
+		mv.addObject("title", "All Posts");
 		//passing the list of category
 		mv.addObject("categories",categoryDAO.list());
-		mv.addObject("userClickAllProducts", true);
+		mv.addObject("userClickAllPosts", true);
 		return mv;
 	}
-	@RequestMapping(value = "/show/category/{id}/products")
-	public ModelAndView showCategoryProducts(@PathVariable("id")int id){
+	@RequestMapping(value = "/show/category/{id}/posts")
+	public ModelAndView showCategoryPosts(@PathVariable("id")int id){
 		ModelAndView mv = new ModelAndView("page");
 		
 		//categoryDAO to fetch a single category
@@ -101,7 +101,7 @@ public class PageController {
 		mv.addObject("categories",categoryDAO.list());
 		//passing a single category
 		mv.addObject("category",category);
-		mv.addObject("userClickCategoryProducts", true);
+		mv.addObject("userClickCategoryPosts", true);
 		return mv;
 	}
 	
@@ -111,10 +111,10 @@ public class PageController {
 		ModelAndView mv= new ModelAndView("login");
 		mv.addObject("title", "Login");
 		if(error!=null) {
-			mv.addObject("message", "Username and Password is invalid!");
+			mv.addObject("message", "Sai username hoặc password!");
 		}
 		if(logout!=null) {
-			mv.addObject("logout", "You have logged out successfully!");
+			mv.addObject("logout", "Bạn đã đăng xuất thành công!");
 		}
 		return mv;
 	}

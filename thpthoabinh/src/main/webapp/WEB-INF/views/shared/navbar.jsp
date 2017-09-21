@@ -24,82 +24,55 @@
 						Thiệu <span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu dropdownhover-bottom" role="menu" style="">
-						<li><a href="#">Action</a></li>
-						<li><a href="#">Another action</a></li>
-						<li><a href="#">Another action</a></li>
-						<li><a href="#">Something else here</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Separated link</a></li>
-						<li class="divider"></li>
-						<li><a href="#">One more separated link</a></li>
+						<li><a href="#">Giới Thiệu Chung</a></li>
+						<li><a href="#">Thành Tích Nhà Trường</a></li>
+						
 					</ul></li>
-				<li><a href="#">TKB</a></li>
-				<li><a href="#">Thông Tin Hoạt Động</a></li>
-				<li><a href="#">Tham Khảo</a></li>
+				<li><a href="#">Học Tập</a></li>
+				<li><a href="#">Quản Lý</a></li>
+				
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-expanded="false">Tài
-						Nguyên<span class="caret"></span>
+					data-toggle="dropdown" role="button" aria-expanded="false">Tuyển Sinh<span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu dropdownhover-bottom" role="menu" style="">
-						<li><a href="#">Hình ảnh hoạt động</a></li>
-						<li><a href="#">Video giảng dạy</a></li>
-						<li class="dropdown"><a href="#">Another dropdown <span
-								class="caret"></span></a>
-							<ul class="dropdown-menu dropdownhover-right">
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Another action</a></li>
-								<li><a href="#">Something else here</a></li>
-								<li class="divider"></li>
-								<li><a href="#">Separated link</a></li>
-								<li class="divider"></li>
-								<li><a href="#">One more separated link</a></li>
-							</ul></li>
-						<li class="dropdown"><a href="#">Another dropdown 2 <span
-								class="caret"></span></a>
-							<ul class="dropdown-menu dropdownhover-right" style="">
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Another action</a></li>
-								<li><a href="#">Another action</a></li>
-								<li class="dropdown"><a href="#">Another dropdown <span
-										class="caret"></span></a>
-									<ul class="dropdown-menu dropdownhover-right"
-										style="bottom: auto; top: -32px;">
-										<li><a href="#">Action</a></li>
-										<li><a href="#">Another action</a></li>
-										<li><a href="#">Something else here</a></li>
-										<li class="divider"></li>
-										<li><a href="#">Separated link</a></li>
-										<li class="divider"></li>
-										<li><a href="#">One more separated link</a></li>
-									</ul></li>
-								<li><a href="#">Something else here</a></li>
-								<li class="divider"></li>
-								<li><a href="#">Separated link</a></li>
-								<li class="divider"></li>
-								<li><a href="#">One more separated link</a></li>
-							</ul></li>
-						<li><a href="#">Something else here</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Separated link</a></li>
-						<li class="divider"></li>
-						<li><a href="#">One more separated link</a></li>
+						<li><a href="#">Thông Tin Từ BGD</a></li>
+						<li><a href="#">Thông Tin Liên Thông ĐH, CĐ</a></li>
+						<li><a href="#">Thông tin Tuyển Sinh</a></li>
+						<li><a href="#">Tư Vấn Tuyển Sinh</a></li>
+						<li><a href="#">Điểm Thi ĐH & CĐ</a></li>
+						<li><a href="#">Dữ liệu Tuyển Sinh</a></li>
+						<li><a href="#">Bản đồ TP HCM</a></li>
+						<li><a href="#">Đề Thi & Tra điểm Từ Bộ</a></li>
+						<li><a href="#">Điểm chuẩn các trường</a></li>
+						<li><a href="#">Hướng nghiệp Việt</a></li>
+						<li><a href="#">Chỉ Tiêu TS ĐH,CĐ</a></li>
 					</ul></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-expanded="false">Giáo
-						Dục <span class="caret"></span>
+					data-toggle="dropdown" role="button" aria-expanded="false">HS-SV HB<span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu dropdownhover-top" role="menu"
 						style="bottom: 100%; top: auto;">
-						<li><a href="#">Action</a></li>
-						<li><a href="#">Another action</a></li>
-						<li><a href="#">Something else here</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Separated link</a></li>
-						<li class="divider"></li>
-						<li><a href="#">One more separated link</a></li>
-					</ul></li>
+						<li><a href="#">Ban liên lạc học sinh cũ</a></li>
+						<li><a href="#">Học sinh đậu ĐH&CĐ các năm</a></li>
+						<li><a href="#">Diễn đàn Hòa Bình</a></li>
+						<li><a href="#">Đáp án & Đề các năm</a></li>
+						<li><a href="#">Ứng Dụng CNTT</a></li>
+						<li><a href="#">Tư Liệu ƯD CNTT</a></li>
+						<li><a href="#">Cộng đồng hs-sv Hòa Bình</a></li>
+					</ul>
+				</li>
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown" role="button" aria-expanded="false">Sổ Vàng<span class="caret"></span>
+				</a>
+					<ul class="dropdown-menu dropdownhover-top" role="menu"
+						style="bottom: 100%; top: auto;">
+						<li><a href="#">Học Sinh Đậu ĐH & CĐ</a></li>
+						<li><a href="#">Thành Tích Của HS & GV</a></li>
+					</ul>
+				</li>
+				<li><a href="#">Liên Hệ</a></li>
 				<security:authorize access="hasAuthority('ADMIN')">
-					<li><a href="${contextRoot }/manage/post">Quản Lý</a></li>
+					<li><a href="${contextRoot }/manage/post">Admin</a></li>
 				</security:authorize>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
@@ -129,9 +102,6 @@
 						</li>    			    
 			    	</security:authorize>                    
 			    </ul>  
-			
-			
-			
 			
 		</div>
 		<!-- /.navbar-collapse -->
