@@ -18,6 +18,6 @@ public interface PostDAO {
 	// business methods
 	List<Post> listActivePosts();	
 	List<Post> listActivePostsByCategory(int categoryId);
-	List<Post> getLatestActivePosts(int count);
+	List<Post> getLatestActivePosts(int categoryId, int pos, int count);
 	
 }

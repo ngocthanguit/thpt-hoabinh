@@ -121,13 +121,14 @@ public class PostDAOImpl implements PostDAO {
 	}
 
 	@Override
-	public List<Post> getLatestActivePosts(int count) {
+	public List<Post> getLatestActivePosts(int categoryId, int pos, int count) {
 		return sessionFactory
 				.getCurrentSession()
-					.createQuery("FROM Post WHERE Active = :active ORDER BY Id", Post.class)
+					.createQuery("FROM Post WHERE Active = :active AND CategoryId = :categoryId ORDER BY Id", Post.class)
 						.setParameter("active", true)
-//							.setFirstResult(0)
-//							.setMaxResults(count)
+						.setParameter("categoryId",categoryId)
+							.setFirstResult(pos)
+							.setMaxResults(count)
 								.getResultList();
 	}
 

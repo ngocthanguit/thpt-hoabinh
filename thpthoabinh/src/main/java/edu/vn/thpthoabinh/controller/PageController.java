@@ -1,6 +1,6 @@
 package edu.vn.thpthoabinh.controller;
 
-import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +22,15 @@ import edu.vn.thpthoabinhbackend.dto.Post;
 
 @Controller
 public class PageController {
+	private static final int  TIN_TUC = 1;
+	private static final int  THONG_BAO_CHUNG = 2;
+	private static final int  THONG_BAO_GIAO_VIEN = 3;
+	private static final int  TKB = 4;
+	private static final int  THONG_TIN_HOAT_DONG = 5;
+	private static final int  GIAO_DUC_KHUYEN_HOC = 6;
+	private static final int  CONG_DOAN = 7;
+	private static final int  TUYEN_SINH = 8;
+	private static final int  DOAN_THANH_NIEN = 9;
 	
 	@Autowired
 	private CategoryDAO categoryDAO;
@@ -33,7 +42,44 @@ public class PageController {
 		ModelAndView mv = new ModelAndView("test");
 		//passing the list of category
 		mv.addObject("categories",categoryDAO.list());
-		mv.addObject("latestPosts", postDAO.getLatestActivePosts(10));
+		List<Post> listTinTuc = postDAO.getLatestActivePosts(TIN_TUC, 0, 10);
+		if(listTinTuc != null && listTinTuc.size() > 0) {
+			mv.addObject("listTinTuc", listTinTuc);
+		}
+		List<Post> listThongBaoChung = postDAO.getLatestActivePosts(THONG_BAO_CHUNG, 0, 10);
+		if(listThongBaoChung != null && listThongBaoChung.size() > 0) {
+			mv.addObject("listThongBaoChung", listThongBaoChung);
+		}
+		List<Post> listThongBaoGiaoVien = postDAO.getLatestActivePosts(THONG_BAO_GIAO_VIEN, 0, 10);
+		if(listThongBaoGiaoVien != null && listThongBaoGiaoVien.size() > 0) {
+			mv.addObject("listThongBaoGiaoVien", listThongBaoGiaoVien);
+		}
+		List<Post> listTKB = postDAO.getLatestActivePosts(TKB, 0, 10);
+		if(listTKB != null && listTKB.size() > 0) {
+			mv.addObject("listTKB", listTKB);
+		}
+		List<Post> listThongTinHoatDong = postDAO.getLatestActivePosts(THONG_TIN_HOAT_DONG, 0, 10);
+		if(listThongTinHoatDong != null && listThongTinHoatDong.size() > 0) {
+			mv.addObject("listThongTinHoatDong", listThongTinHoatDong);
+		}
+		List<Post> listGDKH = postDAO.getLatestActivePosts(GIAO_DUC_KHUYEN_HOC, 0, 10);
+		if(listGDKH != null && listGDKH.size() > 0) {
+			mv.addObject("listGDKH", listGDKH);
+		}
+		List<Post> listCongDoan = postDAO.getLatestActivePosts(CONG_DOAN, 0, 10);
+		if(listCongDoan != null && listCongDoan.size() > 0) {
+			mv.addObject("listCongDoan", listCongDoan);
+		}
+		List<Post> listTuyenSinh = postDAO.getLatestActivePosts(TUYEN_SINH, 0, 10);
+		if(listTuyenSinh != null && listTuyenSinh.size() > 0) {
+			mv.addObject("listTuyenSinh", listTuyenSinh);
+		}
+		List<Post> listDoanThanhNien = postDAO.getLatestActivePosts(DOAN_THANH_NIEN, 0, 10);
+		if(listDoanThanhNien != null && listDoanThanhNien.size() > 0) {
+			mv.addObject("listDoanThanhNien", listDoanThanhNien);
+		}
+		
+		
 		mv.addObject("title", "Home");
 		mv.addObject("userClickHome", true);
 		return mv;
@@ -68,13 +114,11 @@ public class PageController {
 		public ModelAndView showPost(@PathVariable("id")int id){
 			ModelAndView mv = new ModelAndView("test");
 			Post post = postDAO.get(id);
-//			String dateCreated = new SimpleDateFormat("E, dd/MM/yyyy - HH:mm").format(post.getDateCreated());
 			mv.addObject("title", post.getTitle());
 			//passing the list of category
 			mv.addObject("categories",categoryDAO.list());
-			mv.addObject("latestPosts", postDAO.getLatestActivePosts(10));
+			mv.addObject("latestPosts", postDAO.getLatestActivePosts(TIN_TUC, 0, 10));
 			mv.addObject("post", post);
-//			mv.addObject("dateCreated", dateCreated);
 			mv.addObject("userClickPost", true);
 			return mv;
 		}

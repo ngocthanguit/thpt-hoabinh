@@ -95,11 +95,11 @@ $(function(){
 				},
 				messages: {					
 					name: {
-						required: 'Please enter product name!',
+						required: 'Please enter category title!',
 						minlength: 'Please enter atleast five characters'
 					},
 					description: {
-						required: 'Please enter product name!',
+						required: 'Please enter category description!',
 						minlength: 'Please enter atleast five characters'
 					}					
 				},

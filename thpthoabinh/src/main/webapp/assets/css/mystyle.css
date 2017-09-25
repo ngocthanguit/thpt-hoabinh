@@ -256,4 +256,42 @@ However, delay the fade out process for 2.5 seconds */
 
 .main-content{
 	border: #cacaca solid 1px;
+	text-align: left;
+}
+.main-list-annount{
+	list-style-image: url("../images/list-style.png");
+	padding: 0px;
+	margin-left: 20px;
+}
+.panel{
+	background: none repeat scroll 0 0 #fdfdfd;
+	border: 1px solid #ddd;
+}
+
+.panel > .heading-main {
+    background: url("../images/bg-h.gif") repeat-x scroll left bottom #ffffff;
+    border-bottom: 1px solid #e6e6e6;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	color: #8000ff;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 14px;
+	font-weight: bold;
+	height: 35px;
+	padding: 8px 10px;
+	text-align: left;
+	text-transform: uppercase;
+	margin: 0;
+}
+.panel > .panel-body{
+	text-align: left;
+}
+.panel-foot{
+	text-align: right;
+	color: #00ff00;
+	font-size: 12px;
+}
+.post-content{
+	padding: 5px;
+	overflow: auto;
 }

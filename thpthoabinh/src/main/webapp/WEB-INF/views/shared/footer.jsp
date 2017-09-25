@@ -1,6 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-	<hr>
 	<footer id="footer" class="container text-center">
 		<h5>
 			<b>Trường THPT Hòa Bình</b>
