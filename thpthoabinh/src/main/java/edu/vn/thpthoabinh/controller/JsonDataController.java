@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.vn.thpthoabinhbackend.dao.PostDAO;
+import edu.vn.thpthoabinhbackend.dao.UserDAO;
 import edu.vn.thpthoabinhbackend.dto.Post;
+import edu.vn.thpthoabinhbackend.dto.User;
 
 @Controller
 @RequestMapping("/json/data")
@@ -17,6 +19,8 @@ public class JsonDataController {
 
 	@Autowired
 	private PostDAO postDAO;
+	@Autowired
+	private UserDAO userDAO;
 	
 
 	@RequestMapping("/admin/all/posts")
@@ -56,7 +60,12 @@ public class JsonDataController {
 		return postDAO.getPostsByParam("purchases", 5);				
 	}
 	
-	
+	@RequestMapping("/admin/all/users")
+	@ResponseBody
+	public List<User> getAllUsersList() {		
+		return userDAO.list();
+				
+	}	
 	
 	
 }

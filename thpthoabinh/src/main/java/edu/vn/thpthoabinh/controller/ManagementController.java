@@ -23,8 +23,10 @@ import edu.vn.thpthoabinh.util.SlugUtil;
 import edu.vn.thpthoabinh.validator.PostValidator;
 import edu.vn.thpthoabinhbackend.dao.CategoryDAO;
 import edu.vn.thpthoabinhbackend.dao.PostDAO;
+import edu.vn.thpthoabinhbackend.dao.UserDAO;
 import edu.vn.thpthoabinhbackend.dto.Category;
 import edu.vn.thpthoabinhbackend.dto.Post;
+import edu.vn.thpthoabinhbackend.dto.User;
 
 @Controller
 @RequestMapping("/manage")
@@ -36,12 +38,14 @@ public class ManagementController {
 	private PostDAO postDAO;
 	
 	@Autowired
-	private CategoryDAO categoryDAO;		
+	private CategoryDAO categoryDAO;	
+	@Autowired
+	private UserDAO userDAO;	
 
 	@RequestMapping("/post")
 	public ModelAndView managePost(@RequestParam(name="success",required=false)String success) {		
 
-		ModelAndView mv = new ModelAndView("test");	
+		ModelAndView mv = new ModelAndView("page");	
 		mv.addObject("title","Post Management");		
 		mv.addObject("manage",true);	
 		mv.addObject("userClickManagePost",true);
@@ -72,14 +76,12 @@ public class ManagementController {
 	@RequestMapping("/{id}/post")
 	public ModelAndView managePostEdit(@PathVariable int id) {		
 
-		ModelAndView mv = new ModelAndView("test");	
+		ModelAndView mv = new ModelAndView("page");	
 		mv.addObject("title","Post Management");		
 		mv.addObject("manage",true);	
 		mv.addObject("userClickManagePost",true);
 		
 		Post post = postDAO.get(id);
-		post.setViewCount(post.getViewCount() + 1);
-		postDAO.update(post);
 		mv.addObject("post", post);
 
 		return mv;
@@ -109,7 +111,7 @@ public class ManagementController {
 			model.addAttribute("message", "Validation fails for adding the post!");
 			model.addAttribute("manage",true);	
 			model.addAttribute("userClickManagePost",true);
-			return "test";
+			return "page";
 		}			
 		
 		post.setSlug(SlugUtil.makeSlug(post.getTitle()));
@@ -159,7 +161,65 @@ public class ManagementController {
 		return new Category();
 	}
 	
+	@RequestMapping("/user")
+	public ModelAndView manageUser(@RequestParam(name="success",required=false)String success) {		
+
+		ModelAndView mv = new ModelAndView("page");	
+		mv.addObject("title","User Management");		
+		mv.addObject("manage",true);	
+		mv.addObject("userClickManageUser",true);
+		
+		User user = new User();
+		
+		mv.addObject("user", user);
+		if(success != null) {
+			if(success.equals("user")){
+				mv.addObject("message", "Cập nhật user thành công!");
+			}	
+		}
+		return mv;
+		
+	}
 	
+	@RequestMapping("/{id}/user")
+	public ModelAndView manageUserEdit(@PathVariable int id) {		
+
+		ModelAndView mv = new ModelAndView("page");	
+		mv.addObject("title","User Management");		
+		mv.addObject("manage",true);	
+		mv.addObject("userClickManageUser",true);
+		
+		User user = userDAO.get(id);
+		mv.addObject("fullName", user.getFullName());
+		mv.addObject("email", user.getEmail());
+		mv.addObject("phone", user.getPhone());
+		mv.addObject("profile", user.getProfile());
+		mv.addObject("role", user.getRole());
+		return mv;
+	}
+	
+	@RequestMapping(value = "/user/{id}/activation", method=RequestMethod.GET)
+	@ResponseBody
+	public String manageUserPostActivation(@PathVariable int id) {		
+		User user = userDAO.get(id);
+		boolean isActive = user.isActive();
+		user.setActive(!isActive);
+		userDAO.update(user);		
+		return (isActive)? "User Dectivated Successfully!": "User Activated Successfully";
+	}
+	
+	@RequestMapping(value = "/updateuser", method = RequestMethod.POST)
+	public String adminUpdateUser(@RequestParam("username") String username, @RequestParam("role") String role) {
+//		ModelAndView mv = new ModelAndView("/user");	
+//		mv.addObject("title","User Management");		
+//		mv.addObject("manage",true);	
+//		mv.addObject("userClickManageUser",true);
+//		mv.addObject("message","Cập nhật user thành công!");
+		User user = userDAO.getByUsername(username);
+		user.setRole(role);
+		userDAO.update(user);
+		return "redirect:/manage/user?success=user";
+	}
 }
 
 	

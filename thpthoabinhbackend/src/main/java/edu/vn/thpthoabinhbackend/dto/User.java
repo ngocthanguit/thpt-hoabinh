@@ -29,15 +29,15 @@ public class User implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int Id;
-	@NotBlank(message = "Please enter username!")
+	@NotBlank(message = "Vui lòng nhập tên đăng nhập!")
 	private String Username;
-	@NotBlank(message = "Please enter password!")
+	@NotBlank(message = "Vui lòng nhập mật khẩu!")
 	private String Password;
-	@NotBlank(message = "Please enter full name!")
+	@NotBlank(message = "Vui lòng nhập họ tên!")
 	private String FullName;
-	@NotBlank(message = "Please enter email address!")	
+	@NotBlank(message = "Vui lòng nhập email!")	
 	private String Email;
-	@NotBlank(message = "Please enter contact number!")
+	@NotBlank(message = "Vui lòng nhập số điện thoại!")
 	private String Phone;
 	private String Role;
 	private boolean Active = true;
@@ -66,7 +66,7 @@ public class User implements Serializable{
 
 	// default constructor
 	public User() {
-		this.Image = "IMG" + UUID.randomUUID().toString().substring(26).toUpperCase();
+		this.Image = "USR" + UUID.randomUUID().toString().substring(26).toUpperCase();
 	}
 	public int getId() {
 		return Id;

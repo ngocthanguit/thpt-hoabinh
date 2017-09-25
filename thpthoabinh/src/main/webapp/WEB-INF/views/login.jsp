@@ -95,7 +95,7 @@
          id="loginForm"
         >
          <div class="form-group">
-          <label for="username" class="col-md-4 control-label">Email: </label>
+          <label for="username" class="col-md-4 control-label">Username: </label>
           <div class="col-md-8">
            <input type="text" name="username" id="username" class="form-control"/>
           </div>

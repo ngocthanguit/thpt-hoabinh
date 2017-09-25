@@ -295,3 +295,6 @@ However, delay the fade out process for 2.5 seconds */
 	padding: 5px;
 	overflow: auto;
 }
+li.dropdown > .logout-drop{
+	min-width: 150px;
+}

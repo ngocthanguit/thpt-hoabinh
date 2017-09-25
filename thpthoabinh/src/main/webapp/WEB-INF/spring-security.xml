@@ -30,8 +30,8 @@
 		<authentication-provider>
  			<password-encoder ref="passwordEncoder" />
  			<jdbc-user-service data-source-ref="dataSource"
- 				authorities-by-username-query="select Email, Role from UserDetail where Email = ?"
- 				users-by-username-query="select Email, Password, Active from UserDetail where Email = ?"
+ 				authorities-by-username-query="select Username, Role from UserDetail where Username = ?"
+ 				users-by-username-query="select Username, Password, Active from UserDetail where Username = ?"
  			/>
  		</authentication-provider>
 	</authentication-manager>

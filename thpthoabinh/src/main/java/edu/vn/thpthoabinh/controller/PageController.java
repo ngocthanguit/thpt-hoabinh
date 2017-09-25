@@ -1,24 +1,34 @@
 package edu.vn.thpthoabinh.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import edu.vn.thpthoabinh.util.FileUtil;
 import edu.vn.thpthoabinhbackend.dao.CategoryDAO;
 import edu.vn.thpthoabinhbackend.dao.PostDAO;
+import edu.vn.thpthoabinhbackend.dao.UserDAO;
 import edu.vn.thpthoabinhbackend.dto.Category;
 import edu.vn.thpthoabinhbackend.dto.Post;
+import edu.vn.thpthoabinhbackend.dto.User;
 
 @Controller
 public class PageController {
@@ -36,10 +46,14 @@ public class PageController {
 	private CategoryDAO categoryDAO;
 	@Autowired
 	private PostDAO postDAO;
+	@Autowired
+	private UserDAO userDAO;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@RequestMapping(value = {"/"})
 	public ModelAndView index(){
-		ModelAndView mv = new ModelAndView("test");
+		ModelAndView mv = new ModelAndView("page");
 		//passing the list of category
 		mv.addObject("categories",categoryDAO.list());
 		List<Post> listTinTuc = postDAO.getLatestActivePosts(TIN_TUC, 0, 10);
@@ -112,7 +126,7 @@ public class PageController {
 	//Methods to load all the posts and based on category
 		@RequestMapping(value = "/show/post/{id}")
 		public ModelAndView showPost(@PathVariable("id")int id){
-			ModelAndView mv = new ModelAndView("test");
+			ModelAndView mv = new ModelAndView("page");
 			Post post = postDAO.get(id);
 			mv.addObject("title", post.getTitle());
 			//passing the list of category
@@ -149,6 +163,67 @@ public class PageController {
 		return mv;
 	}
 	
+	
+	@RequestMapping(value = "/signup", method=RequestMethod.POST)
+	public String signupUser(@Valid @ModelAttribute("user") User user, 
+			BindingResult results, Model model, HttpServletRequest request) {
+		
+		// mandatory file upload check
+//		if(user.getId() == 0) {
+//			new PostValidator().validate(post, results);
+//		}
+//		else {
+//			// edit check only when the file has been selected
+//			if(!post.getFile().getOriginalFilename().equals("")) {
+//				new PostValidator().validate(post, results);
+//			}			
+//		}
+		
+		if(results.hasErrors()) {
+			model.addAttribute("message", "Validation fails for signup!");
+			model.addAttribute("userClickSignup",true);
+			return "page";
+		}
+		if(userDAO.getByUsername(user.getUsername()) != null) {
+			model.addAttribute("message", "Tên đăng nhập đã tồn tại!!!");
+			model.addAttribute("userClickSignup",true);
+			return "page";
+		}
+		user.setRole("USER");
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		if(user.getId() == 0 ) {
+			userDAO.add(user);
+		}
+		else {
+			userDAO.update(user);
+		}
+	
+		 //upload the file
+		 if(!user.getFile().getOriginalFilename().equals("") ){
+			FileUtil.uploadFile(request, user.getFile(), user.getImage()); 
+		 }
+		
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value="/signup")
+	public ModelAndView signup(@RequestParam(name="error", required = false)	String error,
+			@RequestParam(name="logout", required = false) String logout) {
+		ModelAndView mv= new ModelAndView("page");
+		mv.addObject("title", "Signup");
+		mv.addObject("userClickSignup", true);
+		User user = new User();
+		user.setActive(true);
+		user.setRole("USER");
+		mv.addObject("user", user);
+		if(error!=null) {
+			mv.addObject("message", "Lỗi đăng kí, vui lòng kiểm tra lại thông tin!");
+		}
+		if(logout!=null) {
+			mv.addObject("logout", "Bạn đã đăng xuất thành công!");
+		}
+		return mv;
+	}
 	@RequestMapping(value="/login")
 	public ModelAndView login(@RequestParam(name="error", required = false)	String error,
 			@RequestParam(name="logout", required = false) String logout) {
@@ -184,7 +259,7 @@ public class PageController {
 		mv.addObject("title", "403 Access Denied");		
 		return mv;
 	}	
-//	@RequestMapping(value="/test")
+//	@RequestMapping(value="/page")
 //	public ModelAndView test(@RequestParam(value="greeting", required=false)String greeting){
 //		if(greeting == null){
 //			greeting = "Hello this is default greeting!!!";
