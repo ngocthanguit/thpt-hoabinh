@@ -23,9 +23,6 @@
 <!-- Bootstrap Core CSS -->
 <link href="${css}/bootstrap.min.css" rel="stylesheet">
 
-<!-- Bootstrap Readable Theme -->
-<link href="${css}/bootstrap-readable-theme.css" rel="stylesheet">
-
 
 <!-- Custom CSS -->
 <link href="${css}/myapp.css" rel="stylesheet">
@@ -117,7 +114,7 @@
        </div>
        <div class="panel-footer">
        	<div class="text-right">
-       		New User - <a href="${contextRoot}/register">Register Here</a>
+       		Chưa có tài khoản? - <a href="${contextRoot}/signup">Đăng ký ở đây</a>
        	</div>
        </div>
       

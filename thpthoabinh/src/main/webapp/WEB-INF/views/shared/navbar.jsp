@@ -99,7 +99,8 @@
 					</a>
 						<ul class="dropdown-menu logout-drop"
 							aria-labelledby="dropdownMenu1">
-							<li id="logout"><a href="${contextRoot}/logout">Logout</a></li>
+							<li id="logout"><a href="${contextRoot}/editaccount">Chỉnh Sửa Thông Tin</a></li>
+							<li id="logout"><a href="${contextRoot}/logout">Đăng Xuất</a></li>
 						</ul></li>
 				</security:authorize>
 			</ul>

@@ -1,6 +1,5 @@
 package edu.vn.thpthoabinh.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -50,6 +49,7 @@ public class PageController {
 	private UserDAO userDAO;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
 	
 	@RequestMapping(value = {"/"})
 	public ModelAndView index(){
@@ -128,6 +128,11 @@ public class PageController {
 		public ModelAndView showPost(@PathVariable("id")int id){
 			ModelAndView mv = new ModelAndView("page");
 			Post post = postDAO.get(id);
+			mv.addObject("categories",categoryDAO.list());
+			List<Post> listTinTuc = postDAO.getLatestActivePosts(TIN_TUC, 0, 10);
+			if(listTinTuc != null && listTinTuc.size() > 0) {
+				mv.addObject("listTinTuc", listTinTuc);
+			}
 			mv.addObject("title", post.getTitle());
 			//passing the list of category
 			mv.addObject("categories",categoryDAO.list());
@@ -180,22 +185,52 @@ public class PageController {
 //		}
 		
 		if(results.hasErrors()) {
-			model.addAttribute("message", "Validation fails for signup!");
-			model.addAttribute("userClickSignup",true);
-			return "page";
+			if(user.getId() == 0 ) {
+				model.addAttribute("message", "Lỗi, vui lòng nhập lại thông tin!");
+				model.addAttribute("userClickSignup",true);
+				return "page";
+			}
+			else {
+				model.addAttribute("message", "Lỗi, vui lòng nhập lại thông tin!");
+				return "redirect:/editaccount";
+			}
+			
 		}
-		if(userDAO.getByUsername(user.getUsername()) != null) {
-			model.addAttribute("message", "Tên đăng nhập đã tồn tại!!!");
-			model.addAttribute("userClickSignup",true);
-			return "page";
-		}
-		user.setRole("USER");
+		
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		if(user.getId() == 0 ) {
+			if(userDAO.getByUsername(user.getUsername()) != null) {
+				if(user.getId() == 0 ) {
+					model.addAttribute("message", "Tên đăng nhập đã tồn tại!!!");
+					model.addAttribute("userClickSignup",true);
+					return "page";
+				}
+				else {
+					model.addAttribute("message", "Tên đăng nhập đã tồn tại!!!");
+					return "redirect:/editaccount";
+				}
+				
+			}
+			user.setRole("USER");
 			userDAO.add(user);
+			model.addAttribute("message", "Đăng ký thành công!");
 		}
 		else {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			if(user.getUsername() != authentication.getName() && userDAO.getByUsername(user.getUsername()) != null) {
+				if(user.getId() == 0 ) {
+					model.addAttribute("message", "Tên đăng nhập đã tồn tại!!!");
+					model.addAttribute("userClickSignup",true);
+					return "page";
+				}
+				else {
+					model.addAttribute("message", "Tên đăng nhập đã tồn tại!!!");
+					return "redirect:/editaccount";
+				}
+				
+			}
 			userDAO.update(user);
+			model.addAttribute("message", "Cập nhật thông tin thành công!");
 		}
 	
 		 //upload the file
@@ -211,6 +246,11 @@ public class PageController {
 			@RequestParam(name="logout", required = false) String logout) {
 		ModelAndView mv= new ModelAndView("page");
 		mv.addObject("title", "Signup");
+		mv.addObject("categories",categoryDAO.list());
+		List<Post> listTinTuc = postDAO.getLatestActivePosts(TIN_TUC, 0, 10);
+		if(listTinTuc != null && listTinTuc.size() > 0) {
+			mv.addObject("listTinTuc", listTinTuc);
+		}
 		mv.addObject("userClickSignup", true);
 		User user = new User();
 		user.setActive(true);
@@ -219,9 +259,27 @@ public class PageController {
 		if(error!=null) {
 			mv.addObject("message", "Lỗi đăng kí, vui lòng kiểm tra lại thông tin!");
 		}
-		if(logout!=null) {
-			mv.addObject("logout", "Bạn đã đăng xuất thành công!");
+		
+		return mv;
+	}
+	@RequestMapping(value="/editaccount")
+	public ModelAndView editaccount(@RequestParam(name="error", required = false)	String error,
+			@RequestParam(name="logout", required = false) String logout) {
+		ModelAndView mv= new ModelAndView("page");
+		mv.addObject("title", "Sửa thông tin tài khoản");
+		mv.addObject("categories",categoryDAO.list());
+		List<Post> listTinTuc = postDAO.getLatestActivePosts(TIN_TUC, 0, 10);
+		if(listTinTuc != null && listTinTuc.size() > 0) {
+			mv.addObject("listTinTuc", listTinTuc);
 		}
+		mv.addObject("userClickSignup", true);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = userDAO.getByUsername(authentication.getName());
+		mv.addObject("user", user);
+		if(error!=null) {
+			mv.addObject("message", "Lỗi cập nhật, vui lòng kiểm tra lại thông tin!");
+		}
+		
 		return mv;
 	}
 	@RequestMapping(value="/login")
@@ -229,6 +287,11 @@ public class PageController {
 			@RequestParam(name="logout", required = false) String logout) {
 		ModelAndView mv= new ModelAndView("login");
 		mv.addObject("title", "Login");
+		mv.addObject("categories",categoryDAO.list());
+		List<Post> listTinTuc = postDAO.getLatestActivePosts(TIN_TUC, 0, 10);
+		if(listTinTuc != null && listTinTuc.size() > 0) {
+			mv.addObject("listTinTuc", listTinTuc);
+		}
 		if(error!=null) {
 			mv.addObject("message", "Sai username hoặc password!");
 		}

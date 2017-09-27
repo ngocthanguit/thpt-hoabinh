@@ -93,7 +93,8 @@ public class UserDAOImpl implements UserDAO {
 	public List<User> list() {
 		return sessionFactory
 				.getCurrentSession()
-					.createQuery("FROM User" , User.class)
+					.createQuery("FROM User WHERE Id !=:id" , User.class)
+					.setParameter("id", 1)
 						.getResultList();
 	}
 

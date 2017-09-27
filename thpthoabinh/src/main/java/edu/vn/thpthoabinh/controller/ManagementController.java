@@ -190,6 +190,7 @@ public class ManagementController {
 		mv.addObject("userClickManageUser",true);
 		
 		User user = userDAO.get(id);
+		mv.addObject("username", user.getUsername());
 		mv.addObject("fullName", user.getFullName());
 		mv.addObject("email", user.getEmail());
 		mv.addObject("phone", user.getPhone());

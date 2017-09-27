@@ -77,8 +77,9 @@
 					</select>
 				</div>
 			</div>
-			<input type="hidden" id= "csrf-token" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-
+			<input type="hidden" id="username" name="username" value="${username}"/>
+			<input type="hidden" id= "csrf-token" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			
 			<div class="form-group">
 
 				<div class="col-md-offset-4 col-md-4">

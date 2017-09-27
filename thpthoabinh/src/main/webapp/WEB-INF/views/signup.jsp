@@ -10,6 +10,9 @@
 			</div>
 		</div>
 	</c:if>
+	<h3>Đăng Ký Tài Khoản</h3>
+	<hr/>
+	<br/>
 	<sf:form class="form-horizontal" id="signupForm" modelAttribute="user"
 		action="${contextRoot}/signup" method="POST"
 		enctype="multipart/form-data">

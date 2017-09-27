@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
-<security:authorize access="hasAuthority('ADMIN')">
+<security:authorize access="hasAnyAuthority('ADMIN','TEACHER')">
 	<c:if test="${listThongBaoGiaoVien != null}">
 
 	<div class="panel panel-primary">

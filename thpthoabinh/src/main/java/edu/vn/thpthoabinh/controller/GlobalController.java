@@ -50,8 +50,7 @@ public class GlobalController {
 				}			
 			}
 		}
-		
 		return (UserModel) session.getAttribute("userModel");		
 	}
-		
+	
 }
