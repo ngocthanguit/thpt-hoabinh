@@ -16,10 +16,10 @@ public class PostValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		
 		Post post = (Post) target;
-		if(post.getFile() == null || post.getFile().getOriginalFilename().equals("")) {
-			errors.rejectValue("file", null, "Vui lòng chọn một file ảnh để upload!");
-			return;
-		}
+//		if(post.getFile() == null || post.getFile().getOriginalFilename().equals("")) {
+//			errors.rejectValue("file", null, "Vui lòng chọn một file ảnh để upload!");
+//			return;
+//		}
 		if(! (post.getFile().getContentType().equals("image/jpeg") || 
 				post.getFile().getContentType().equals("image/png")) ||
 				post.getFile().getContentType().equals("image/gif")

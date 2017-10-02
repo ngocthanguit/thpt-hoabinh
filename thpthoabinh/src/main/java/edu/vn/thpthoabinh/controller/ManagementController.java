@@ -1,7 +1,9 @@
 package edu.vn.thpthoabinh.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -16,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import edu.vn.thpthoabinh.model.FileUploadForm;
 import edu.vn.thpthoabinh.util.FileUtil;
 import edu.vn.thpthoabinh.util.SlugUtil;
 import edu.vn.thpthoabinh.validator.PostValidator;
@@ -95,16 +99,21 @@ public class ManagementController {
 		
 		// mandatory file upload check
 		if(post.getId() == 0) {
-			new PostValidator().validate(post, results);
-//			if(post.getFile() == null || post.getFile().getOriginalFilename().equals("")) {
-//				post.setImage("default.jpg");
-//			}
+			
+			if(post.getFile() == null || post.getFile().getOriginalFilename().equals("")) {
+				post.setImage("default");
+			}else{
+				new PostValidator().validate(post, results);
+			}
 		}
 		else {
 			// edit check only when the file has been selected
 			if(!post.getFile().getOriginalFilename().equals("")) {
 				new PostValidator().validate(post, results);
-			}			
+				if("default".equals(post.getImage())){
+					post.setImage("IMG" + UUID.randomUUID().toString());
+				}
+			}
 		}
 		
 		if(results.hasErrors()) {
@@ -124,7 +133,7 @@ public class ManagementController {
 		}
 	
 		 //upload the file
-		 if(!post.getFile().getOriginalFilename().equals("") ){
+		 if(!(post.getFile().getOriginalFilename().equals("") || "default".equals(post.getImage()))){
 			FileUtil.uploadFile(request, post.getFile(), post.getImage()); 
 		 }
 		
@@ -220,6 +229,38 @@ public class ManagementController {
 		user.setRole(role);
 		userDAO.update(user);
 		return "redirect:/manage/user?success=user";
+	}
+	
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public String displayForm() {
+		return "file_upload_form";
+	}
+	
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public String save(@ModelAttribute FileUploadForm uploadForm,
+					Model map, HttpServletRequest request) {
+		
+		List<MultipartFile> files = uploadForm.getFiles();
+
+		List<String> fileNames = new ArrayList<String>();
+		
+		if(null != files && files.size() > 0) {
+			for (MultipartFile file : files) {
+				
+				String fileName = file.getOriginalFilename();
+				fileNames.add(fileName);
+				//Handle file content - multipartFile.getInputStream()
+				//upload the file
+				 if(!file.getOriginalFilename().equals("") ){
+					FileUtil.uploadImages(request, file, fileName); 
+				 }
+				System.out.print(fileName);
+			}
+			
+		}
+		
+		map.addAttribute("files", fileNames);
+		return "file_upload_success";
 	}
 }
 

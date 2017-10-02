@@ -66,7 +66,7 @@ public class User implements Serializable{
 
 	// default constructor
 	public User() {
-		this.Image = "USR" + UUID.randomUUID().toString().substring(26).toUpperCase();
+		this.Image = "USR" + UUID.randomUUID().toString();
 	}
 	public int getId() {
 		return Id;

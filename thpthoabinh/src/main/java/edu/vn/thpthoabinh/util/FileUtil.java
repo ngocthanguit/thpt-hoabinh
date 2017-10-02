@@ -20,22 +20,37 @@ public class FileUtil {
 	{				
 		// get the real server path
 		REAL_PATH = request.getSession().getServletContext().getRealPath("/assets/images/");
-		System.out.print(REAL_PATH);
-//		logger.info(REAL_PATH);					
+		System.out.print(REAL_PATH);					
 		// create the directories if it does not exist
 		
 		if(!new File(REAL_PATH).exists()) {
 			new File(REAL_PATH).mkdirs();
 		}
 		
-//		if(!new File(ABS_PATH).exists()) {
-//			new File(ABS_PATH).mkdirs();
-//		}
+		try {
+			//transfer the file to both the location
+			file.transferTo(new File(REAL_PATH + code + ".jpg"));
+		}
+		catch(IOException ex) {
+			ex.printStackTrace();
+		}
+		return true;
+	}
+	
+	public static boolean uploadImages(HttpServletRequest request, MultipartFile file, String code) 
+	{				
+		// get the real server path
+		REAL_PATH = request.getSession().getServletContext().getRealPath("/upload/images/");
+		System.out.print(REAL_PATH);					
+		// create the directories if it does not exist
+		
+		if(!new File(REAL_PATH).exists()) {
+			new File(REAL_PATH).mkdirs();
+		}
 		
 		try {
 			//transfer the file to both the location
 			file.transferTo(new File(REAL_PATH + code + ".jpg"));
-//			file.transferTo(new File(ABS_PATH + code + ".jpg"));
 		}
 		catch(IOException ex) {
 			ex.printStackTrace();

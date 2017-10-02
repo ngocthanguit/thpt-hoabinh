@@ -82,6 +82,7 @@
 							style="bottom: 100%; top: auto;">
 							<li><a href="${contextRoot }/manage/post">Quản Lý Bài Đăng</a></li>
 							<li><a href="${contextRoot }/manage/user">Quản Lý User</a></li>
+							<li><a href="${contextRoot }/manage/show">Upload Images</a></li>
 						</ul></li>
 				</security:authorize>
 			</ul>

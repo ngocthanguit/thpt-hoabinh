@@ -56,7 +56,7 @@ public class Post implements Serializable {
 
 	// default constructor
 	public Post() {
-		this.Image = "IMG" + UUID.randomUUID().toString().substring(26).toUpperCase();
+		this.Image = "IMG" + UUID.randomUUID().toString();
 		this.Active = true;
 		this.ViewCount = 0;
 		this.DateCreated = new Date();
