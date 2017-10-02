@@ -93,8 +93,8 @@
 		<div class="form-group">
 
 			<div class="col-md-offset-4 col-md-4">
-
-				<input type="submit" name="submit" value="Signup"
+				
+				<input type="submit" name="submit" value="Đăng Ký"
 					class="btn btn-primary" />
 
 			</div>

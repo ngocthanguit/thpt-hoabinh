@@ -448,6 +448,10 @@ $(function(){
 									
 								},
 								{
+									data : 'role',
+									
+								},
+								{
 									data : 'active',
 									bSortable : false,
 									mRender : function(data, type, row) {

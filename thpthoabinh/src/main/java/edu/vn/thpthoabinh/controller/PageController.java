@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import edu.vn.thpthoabinh.exception.PostNotFoundException;
 import edu.vn.thpthoabinh.util.FileUtil;
 import edu.vn.thpthoabinhbackend.dao.CategoryDAO;
 import edu.vn.thpthoabinhbackend.dao.PostDAO;
@@ -125,9 +126,14 @@ public class PageController {
 	}
 	//Methods to load all the posts and based on category
 		@RequestMapping(value = "/show/post/{id}")
-		public ModelAndView showPost(@PathVariable("id")int id){
+		public ModelAndView showPost(@PathVariable("id")int id)throws PostNotFoundException{
 			ModelAndView mv = new ModelAndView("page");
 			Post post = postDAO.get(id);
+			if(post == null) {
+				throw new PostNotFoundException();
+			}
+			post.setViewCount(post.getViewCount() + 1);
+			postDAO.update(post);
 			mv.addObject("categories",categoryDAO.list());
 			List<Post> listTinTuc = postDAO.getLatestActivePosts(TIN_TUC, 0, 10);
 			if(listTinTuc != null && listTinTuc.size() > 0) {

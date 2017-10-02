@@ -98,13 +98,14 @@
 				<tr>
 					<th>Id</th>
 					<th>&#160;</th>
-					<th>Username</th>
+					<th>Tên Đăng Nhập</th>
 					<th>Họ Tên</th>
 					<th>Email</th>
 					<th>Phone</th>
 					<th>Thông Tin</th>
-					<th>Activate</th>
-					<th>Edit</th>
+					<th>Chức Vụ</th>
+					<th>Kích Hoạt</th>
+					<th>Chỉnh Sửa</th>
 				</tr>
 			</thead>
 
@@ -112,13 +113,14 @@
 				<tr>
 					<th>Id</th>
 					<th>&#160;</th>
-					<th>Username</th>
+					<th>Tên Đăng Nhập</th>
 					<th>Họ Tên</th>
 					<th>Email</th>
 					<th>Phone</th>
 					<th>Thông Tin</th>
-					<th>Activate</th>
-					<th>Edit</th>
+					<th>Chức Vụ</th>
+					<th>Kích Hoạt</th>
+					<th>Chỉnh Sửa</th>
 				</tr>
 			</tfoot>
 

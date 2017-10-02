@@ -11,7 +11,7 @@ public class PostNotFoundException extends Exception implements Serializable {
 	private String message;
 	
 	public PostNotFoundException() {
-		this("Product is not available!");
+		this("Post is not available!");
 	}
 	
 	public PostNotFoundException(String message) {

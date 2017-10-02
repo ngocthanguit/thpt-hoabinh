@@ -21,7 +21,7 @@
 				</c:forEach>
 			</ul>
 			<p class="panel-foot">
-				<a href="#">Xem thêm >></a>
+				<a href="#">Xem thêm »</a>
 			</p>
 		</div>
 	</div>
@@ -48,7 +48,7 @@
 				</c:forEach>
 			</ul>
 			<p class="panel-foot">
-				<a href="#">Xem thêm >></a>
+				<a href="#">Xem thêm »</a>
 			</p>
 		</div>
 	</div>
@@ -74,7 +74,7 @@
 				</c:forEach>
 			</ul>
 			<p class="panel-foot">
-				<a href="#">Xem thêm >></a>
+				<a href="#">Xem thêm »</a>
 			</p>
 		</div>
 	</div>
@@ -99,7 +99,7 @@
 				</c:forEach>
 			</ul>
 			<p class="panel-foot">
-				<a href="#">Xem thêm >></a>
+				<a href="#">Xem thêm »</a>
 			</p>
 		</div>
 	</div>
@@ -124,7 +124,7 @@
 				</c:forEach>
 			</ul>
 			<p class="panel-foot">
-				<a href="#">Xem thêm >></a>
+				<a href="#">Xem thêm »</a>
 			</p>
 		</div>
 	</div>
@@ -149,7 +149,7 @@
 				</c:forEach>
 			</ul>
 			<p class="panel-foot">
-				<a href="#">Xem thêm >></a>
+				<a href="#">Xem thêm »</a>
 			</p>
 		</div>
 	</div>
@@ -174,7 +174,7 @@
 				</c:forEach>
 			</ul>
 			<p class="panel-foot">
-				<a href="#">Xem thêm >></a>
+				<a href="#">Xem thêm »</a>
 			</p>
 		</div>
 	</div>
@@ -199,7 +199,7 @@
 				</c:forEach>
 			</ul>
 			<p class="panel-foot">
-				<a href="#">Xem thêm >></a>
+				<a href="#">Xem thêm »</a>
 			</p>
 		</div>
 	</div>

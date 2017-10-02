@@ -92,13 +92,13 @@
          id="loginForm"
         >
          <div class="form-group">
-          <label for="username" class="col-md-4 control-label">Username: </label>
+          <label for="username" class="col-md-4 control-label">Tên Đăng Nhập: </label>
           <div class="col-md-8">
            <input type="text" name="username" id="username" class="form-control"/>
           </div>
          </div>
          <div class="form-group">
-          <label for="password" class="col-md-4 control-label">Password: </label>
+          <label for="password" class="col-md-4 control-label">Mật Khẩu: </label>
           <div class="col-md-8">
            <input type="password" name="password" id="password" class="form-control"/>
           </div>
