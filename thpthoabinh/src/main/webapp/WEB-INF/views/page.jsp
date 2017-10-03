@@ -115,6 +115,9 @@
 									<c:if test="${userClickManageUser == true}">
 										<%@include file="manageUser.jsp"%>
 									</c:if>
+									<c:if test="${userClickManageAlbum == true}">
+										<%@include file="file_upload_form.jsp"%>
+									</c:if>
 
 								</div>
 							</c:if>

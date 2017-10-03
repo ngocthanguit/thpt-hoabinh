@@ -1,39 +1,62 @@
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<html>
-<head>
-	<title>Spring MVC Multiple File Upload</title>
-<script 
-src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-<script>
-$(document).ready(function() {
-	//add more file components if Add is clicked
-	$('#addFile').click(function() {
-		var fileIndex = $('#fileTable tr').children().length - 1;
-		$('#fileTable').append(
-				'<tr><td>'+
-				'	<input type="file" name="files['+ fileIndex +']" />'+
-				'</td></tr>');
-	});
-	
-});
-</script>
-</head>
-<body>
-<h1>Spring Multiple File Upload example</h1>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 
-<form:form method="post" action="save.html" ModelAttribute="uploadForm"
+<div class="content">
+	<br />
+	<c:if test="${not empty message}">
+		<div class="row">
+			<div class="col-xs-12 col-md-offset-2 col-md-8">
+				<div class="alert alert-danger fade in">${message}</div>
+			</div>
+		</div>
+	</c:if>
+	<h3>Tạo Album</h3>
+	<hr />
+	<br />
+	<sf:form class="form-horizontal" id="" modelAttribute="album"
+		action="${contextRoot}/manage/save" method="POST"
 		enctype="multipart/form-data">
+		<div class="form-group">
+			<label class="control-label col-md-3">Tên Album</label>
+			<div class="col-md-8">
+				<sf:input type="text" path="name" class="form-control"
+					placeholder="Nhập tên album" />
+				<sf:errors path="Name" cssClass="help-block" element="em" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Mô Tả</label>
+			<div class="col-md-8">
+				<sf:textarea path="description" class="form-control"
+					placeholder="Nhập mô tả album!" />
+				<sf:errors path="Description" cssClass="help-block" element="em" />
+			</div>
+		</div>
 
-	<p>Select files to upload. Press Add button to add more file inputs.</p>
+		<div class="form-group">
+			<label class="control-label col-md-3">Ảnh Đại Diện</label>
+			<div class="col-md-8">
+				<input name="files" type="file" class="form-control" multiple/>
+				<sf:errors path="files" cssClass="help-block" element="em" />
+			</div>
+		</div>
 
-	<input id="addFile" type="button" value="Add File" />
-	<table id="fileTable">
-		<tr>
-			<td><input name="files" type="file" multiple/></td>
-		</tr>
-		
-	</table>
-	<br/><input type="submit" value="Upload" />
-</form:form>
-</body>
-</html>
+
+		<sf:hidden path="id" />
+		<sf:hidden path="active" />
+		<sf:hidden path="authorId" />
+		<sf:hidden path="dateCreated" />
+		<sf:hidden path="dateModified" />
+		<div class="form-group">
+
+			<div class="col-md-offset-4 col-md-4">
+
+				<input type="submit" name="submit" value="Lưu Album"
+					class="btn btn-primary" />
+
+			</div>
+		</div>
+
+	</sf:form>
+
+</div>

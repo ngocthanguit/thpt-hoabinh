@@ -5,11 +5,15 @@ import java.util.List;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.vn.thpthoabinhbackend.dao.AlbumDAO;
 import edu.vn.thpthoabinhbackend.dto.Album;
 import edu.vn.thpthoabinhbackend.dto.Category;
 
+@Repository("albumDAO")
+@Transactional
 public class AlbumDAOImpl implements AlbumDAO {
 
 	@Autowired

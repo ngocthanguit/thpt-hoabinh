@@ -1,15 +1,26 @@
 package edu.vn.thpthoabinhbackend.dto;
 
 import java.io.Serializable;
+import java.util.UUID;
 
-public class Image implements Serializable{
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+import org.springframework.stereotype.Component;
+
+@Component
+@Entity
+public class FileUpload implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
+	@Id
 	private String Name;
 	private int AlbumId;
-	public Image(String name, int albumId) {
-		super();
-		Name = name;
+	
+	public FileUpload() {
+		this.Name = "FLE" + UUID.randomUUID().toString();
+	}
+	public FileUpload(int albumId) {
+		this.Name = "FLE" + UUID.randomUUID().toString();
 		AlbumId = albumId;
 	}
 	public String getName() {

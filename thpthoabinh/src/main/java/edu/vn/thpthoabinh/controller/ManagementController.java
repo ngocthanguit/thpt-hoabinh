@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,14 +23,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import edu.vn.thpthoabinh.model.FileUploadForm;
 import edu.vn.thpthoabinh.util.FileUtil;
 import edu.vn.thpthoabinh.util.SlugUtil;
 import edu.vn.thpthoabinh.validator.PostValidator;
+import edu.vn.thpthoabinhbackend.dao.AlbumDAO;
 import edu.vn.thpthoabinhbackend.dao.CategoryDAO;
+import edu.vn.thpthoabinhbackend.dao.FileUploadDAO;
 import edu.vn.thpthoabinhbackend.dao.PostDAO;
 import edu.vn.thpthoabinhbackend.dao.UserDAO;
+import edu.vn.thpthoabinhbackend.dto.Album;
 import edu.vn.thpthoabinhbackend.dto.Category;
+import edu.vn.thpthoabinhbackend.dto.FileUpload;
 import edu.vn.thpthoabinhbackend.dto.Post;
 import edu.vn.thpthoabinhbackend.dto.User;
 
@@ -45,6 +50,10 @@ public class ManagementController {
 	private CategoryDAO categoryDAO;	
 	@Autowired
 	private UserDAO userDAO;	
+	@Autowired
+	private FileUploadDAO fileUploadDAO;	
+	@Autowired
+	private AlbumDAO albumDAO;	
 
 	@RequestMapping("/post")
 	public ModelAndView managePost(@RequestParam(name="success",required=false)String success) {		
@@ -55,10 +64,6 @@ public class ManagementController {
 		mv.addObject("userClickManagePost",true);
 		
 		Post post = new Post();
-		
-		// assuming that the user is ADMIN
-		// later we will fixed it based on user is SUPPLIER or ADMIN
-		post.setAuthorId(1);
 		
 		mv.addObject("post", post);
 
@@ -122,7 +127,9 @@ public class ManagementController {
 			model.addAttribute("userClickManagePost",true);
 			return "page";
 		}			
-		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = userDAO.getByUsername(authentication.getName());
+		post.setAuthorId(user.getId());
 		post.setSlug(SlugUtil.makeSlug(post.getTitle()));
 		if(post.getId() == 0 ) {
 			postDAO.add(post);
@@ -232,28 +239,37 @@ public class ManagementController {
 	}
 	
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public String displayForm() {
-		return "file_upload_form";
+	public ModelAndView displayForm() {
+		ModelAndView mv = new ModelAndView("page");
+		mv.addObject("title","Album Management");		
+		mv.addObject("manage",true);	
+		mv.addObject("userClickManageAlbum",true);
+		Album album = new Album();
+		mv.addObject("album", album);
+		return mv;
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String save(@ModelAttribute FileUploadForm uploadForm,
-					Model map, HttpServletRequest request) {
+	public String save(@ModelAttribute("album") Album album, BindingResult results, Model map, HttpServletRequest request) {
 		
-		List<MultipartFile> files = uploadForm.getFiles();
-
+		List<MultipartFile> files = album.getFiles();
+		
 		List<String> fileNames = new ArrayList<String>();
-		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		album.setId(userDAO.getByUsername(authentication.getName()).getId());
+		albumDAO.add(album);
 		if(null != files && files.size() > 0) {
 			for (MultipartFile file : files) {
-				
+				FileUpload fileUp = new FileUpload(album.getId());
 				String fileName = file.getOriginalFilename();
 				fileNames.add(fileName);
 				//Handle file content - multipartFile.getInputStream()
 				//upload the file
-				 if(!file.getOriginalFilename().equals("") ){
-					FileUtil.uploadImages(request, file, fileName); 
-				 }
+//				fileUploadDAO.add(fileUp);
+//				 if(!file.getOriginalFilename().equals("") ){
+//					FileUtil.uploadImages(request, file, fileUp.getName()); 
+//				 }
+				System.out.print(album.getName());
 				System.out.print(fileName);
 			}
 			
