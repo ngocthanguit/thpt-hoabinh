@@ -64,13 +64,13 @@
 						<li><a href="#">Cộng đồng hs-sv Hòa Bình</a></li>
 					</ul></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-expanded="false">Sổ
-						Vàng<span class="caret"></span>
+					data-toggle="dropdown" role="button" aria-expanded="false">Lưu Trữ<span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu dropdownhover-top" role="menu"
 						style="bottom: 100%; top: auto;">
-						<li><a href="#">Học Sinh Đậu ĐH & CĐ</a></li>
-						<li><a href="#">Thành Tích Của HS & GV</a></li>
+						<li><a href="${contextRoot }/show/albums">Hình Ảnh</a></li>
+						<li><a href="#">Video</a></li>
+						<li><a href="#">Tài Liệu Học Tập</a></li>
 					</ul></li>
 				<li><a href="#">Liên Hệ</a></li>
 				<security:authorize access="hasAuthority('ADMIN')">

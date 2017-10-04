@@ -231,7 +231,7 @@ public class ManagementController {
 //		mv.addObject("title","User Management");		
 //		mv.addObject("manage",true);	
 //		mv.addObject("userClickManageUser",true);
-//		mv.addObject("message","Cập nhật user thành công!");
+//		mv.addObject("message","Cáº­p nháº­t user thÃ nh cÃ´ng!");
 		User user = userDAO.getByUsername(username);
 		user.setRole(role);
 		userDAO.update(user);
@@ -256,7 +256,8 @@ public class ManagementController {
 		
 		List<String> fileNames = new ArrayList<String>();
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		album.setId(userDAO.getByUsername(authentication.getName()).getId());
+		User authen_user = userDAO.getByUsername(authentication.getName());
+		album.setAuthorId(authen_user.getId());
 		albumDAO.add(album);
 		if(null != files && files.size() > 0) {
 			for (MultipartFile file : files) {
@@ -265,10 +266,10 @@ public class ManagementController {
 				fileNames.add(fileName);
 				//Handle file content - multipartFile.getInputStream()
 				//upload the file
-//				fileUploadDAO.add(fileUp);
-//				 if(!file.getOriginalFilename().equals("") ){
-//					FileUtil.uploadImages(request, file, fileUp.getName()); 
-//				 }
+				fileUploadDAO.add(fileUp);
+				 if(!file.getOriginalFilename().equals("") ){
+					FileUtil.uploadImages(request, file, fileUp.getName()); 
+				 }
 				System.out.print(album.getName());
 				System.out.print(fileName);
 			}

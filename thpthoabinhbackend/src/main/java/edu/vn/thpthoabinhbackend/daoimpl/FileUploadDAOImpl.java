@@ -56,6 +56,16 @@ public class FileUploadDAOImpl implements FileUploadDAO{
 		}
 	}
 
+	@Override
+	public List<FileUpload> getByAlbumId(int albumId) {
+		String selectFile = "FROM FileUpload WHERE AlbumId = :id";
+		return sessionFactory
+				.getCurrentSession()
+					.createQuery(selectFile, FileUpload.class)
+						.setParameter("id", albumId)
+							.getResultList();
+	}
+
 //	@Override
 //	public boolean delete(File file) {
 //		file.setActive(false);

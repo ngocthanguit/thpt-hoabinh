@@ -40,7 +40,7 @@ public class FileUtil {
 	public static boolean uploadImages(HttpServletRequest request, MultipartFile file, String code) 
 	{				
 		// get the real server path
-		REAL_PATH = request.getSession().getServletContext().getRealPath("/upload/images/");
+		REAL_PATH = request.getSession().getServletContext().getRealPath("/assets/upload/images/");
 		System.out.print(REAL_PATH);					
 		// create the directories if it does not exist
 		

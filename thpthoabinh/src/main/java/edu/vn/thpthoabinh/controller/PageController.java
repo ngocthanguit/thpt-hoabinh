@@ -23,10 +23,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.vn.thpthoabinh.exception.PostNotFoundException;
 import edu.vn.thpthoabinh.util.FileUtil;
+import edu.vn.thpthoabinhbackend.dao.AlbumDAO;
 import edu.vn.thpthoabinhbackend.dao.CategoryDAO;
+import edu.vn.thpthoabinhbackend.dao.FileUploadDAO;
 import edu.vn.thpthoabinhbackend.dao.PostDAO;
 import edu.vn.thpthoabinhbackend.dao.UserDAO;
+import edu.vn.thpthoabinhbackend.dto.Album;
 import edu.vn.thpthoabinhbackend.dto.Category;
+import edu.vn.thpthoabinhbackend.dto.FileUpload;
 import edu.vn.thpthoabinhbackend.dto.Post;
 import edu.vn.thpthoabinhbackend.dto.User;
 
@@ -50,7 +54,10 @@ public class PageController {
 	private UserDAO userDAO;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+	@Autowired
+	private AlbumDAO albumDAO;
+	@Autowired
+	private FileUploadDAO fileUploadDAO;
 	
 	@RequestMapping(value = {"/"})
 	public ModelAndView index(){
@@ -192,7 +199,7 @@ public class PageController {
 		
 		if(results.hasErrors()) {
 			if(user.getId() == 0 ) {
-				model.addAttribute("message", "Lỗi, vui lòng nhập lại thông tin!");
+				model.addAttribute("message", "Lỗi vui lòng nhập lại thông tin!");
 				model.addAttribute("userClickSignup",true);
 				return "page";
 			}
@@ -263,7 +270,7 @@ public class PageController {
 		user.setRole("USER");
 		mv.addObject("user", user);
 		if(error!=null) {
-			mv.addObject("message", "Lỗi đăng kí, vui lòng kiểm tra lại thông tin!");
+			mv.addObject("message", "Lỗi đăng ký, vui lòng kiểm tra lại thông tin!");
 		}
 		
 		return mv;
@@ -328,6 +335,37 @@ public class PageController {
 		mv.addObject("title", "403 Access Denied");		
 		return mv;
 	}	
+	
+	@RequestMapping(value="/show/albums")
+	public ModelAndView albums() {
+		ModelAndView mv= new ModelAndView("page");
+		mv.addObject("title", "Show Albums");
+		mv.addObject("categories",categoryDAO.list());
+		mv.addObject("userClickAlbums",true);
+		List<Post> listTinTuc = postDAO.getLatestActivePosts(TIN_TUC, 0, 10);
+		if(listTinTuc != null && listTinTuc.size() > 0) {
+			mv.addObject("listTinTuc", listTinTuc);
+		}
+		List<Album> listAlbums = albumDAO.list();
+		mv.addObject("listAlbums", listAlbums);
+		return mv;
+	}
+	@RequestMapping(value="/show/album/{id}")
+	public ModelAndView album(@PathVariable("id")int id) {
+		ModelAndView mv= new ModelAndView("page");
+		mv.addObject("title", "Show Album");
+		mv.addObject("userClickAlbum",true);
+		mv.addObject("categories",categoryDAO.list());
+		List<Post> listTinTuc = postDAO.getLatestActivePosts(TIN_TUC, 0, 10);
+		if(listTinTuc != null && listTinTuc.size() > 0) {
+			mv.addObject("listTinTuc", listTinTuc);
+		}
+		Album album = albumDAO.get(id);
+		List<FileUpload> listImages = fileUploadDAO.getByAlbumId(id);
+		mv.addObject("album", album);
+		mv.addObject("listImages", listImages);
+		return mv;
+	}
 //	@RequestMapping(value="/page")
 //	public ModelAndView test(@RequestParam(value="greeting", required=false)String greeting){
 //		if(greeting == null){

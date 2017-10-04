@@ -533,12 +533,21 @@ $(function(){
 	}
 	
 	CKEDITOR.replace( 'editor1',{
+		filebrowserBrowseUrl: 'http://localhost:8081/thpthoabinh/show/album/2',
+		filebrowserUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+		filebrowserWindowWidth: '1000',
+		filebrowserWindowHeight: '700',
 		width: 885,
 		height: 400
 	} );
 	
-	
-	
+
+	$('.pop').on('click', function() {
+		$('.imagepreview').attr('src', $(this).find('img').attr('src'));
+		$('#imagemodal').modal('show');   
+	});		
+
+
 	
 })
 
