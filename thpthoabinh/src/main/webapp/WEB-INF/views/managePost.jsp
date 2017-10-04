@@ -78,7 +78,7 @@
 							
 							<div class="col-md-offset-4 col-md-4">
 							
-								<input type="submit" name="submit" value="Save" class="btn btn-primary"/>
+								<input type="submit" name="submit" value="Lưu Bài Viết" class="btn btn-primary"/>
 								
 							</div>
 						</div>						

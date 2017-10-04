@@ -1,104 +1,31 @@
-<div class="container">
-
-	<div class="row">
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 
-		<!-- Would be to display sidebar -->
-		<div class="col-md-3">
+<div class="list-post">
+	<ul class="side-news list-post">
+		<c:forEach items="${listPosts}" var="post">
+			<fmt:parseDate pattern="yyyy-MM-dd HH:mm:ss.SSSSSS"
+				value="${post.dateCreated}" var="parsedDate" />
 
-			<%@include file="./shared/sidebar.jsp"%>
-
-		</div>
-
-		<!-- to display the actual products -->
-		<div class="col-md-9">
-
-			<!-- Added breadcrumb component -->
-			<div class="row">
-
-				<div class="col-lg-12">
-
-					<c:if test="${userClickAllProducts == true}">
-					
-						<script>
-							window.categoryId = '';
-						</script>
-					
-						<ol class="breadcrumb">
-
-
-							<li><a href="${contextRoot}/home">Home</a></li>
-							<li class="active">All Products</li>
-
-
-						</ol>
-					</c:if>
-					
-					
-					<c:if test="${userClickCategoryProducts == true}">
-						<script>
-							window.categoryId = '${category.id}';
-						</script>
-					
-						<ol class="breadcrumb">
-
-
-							<li><a href="${contextRoot}/home">Home</a></li>
-							<li class="active">Category</li>
-							<li class="active">${category.name}</li>
-
-
-						</ol>
-					</c:if>
-					
-
-				</div>
-
-
-			</div>
-
+			<li><a class="post-item" href="${contextRoot}/show/post/${post.id}">${post.title}</a>
+				- <fmt:formatDate value="${parsedDate}" pattern="dd/MM/yyyy - HH:mm" />
 			
-			<div class="row">
-			
-				<div class="col-xs-12">
-				
-					
-					<table id="productListTable" class="table table-striped table-borderd">
-					
-					
-						<thead>
-						
-							<tr>
-								<th></th>
-								<th>Name</th>
-								<th>Brand</th>
-								<th>Price</th>
-								<th>Qty. Available</th>
-								<th></th>
-							
-							</tr>
-						
-						</thead>
-					
+			</li>
+		</c:forEach>
+	</ul>
+</div>
+<div class="text-left">
+	<c:if test="${offset > 0}">
+		<a
+			href="${contextRoot}/show/category/${categoryId}/posts?offset=${offset - 10}">Trang
+			trước</a>
+	</c:if>
+</div>
 
-						<tfoot>
-						
-							<tr>
-								<th></th>
-								<th>Name</th>
-								<th>Brand</th>
-								<th>Price</th>
-								<th>Qty. Available</th>
-								<th></th>
-							
-							</tr>
-						
-						</tfoot>
-					</table>
-				
-				</div>
-			
-			</div>
-		</div>
-	</div>
+<div class="text-right">
+	<c:if test="${offset + 10 < max}">
+		<a
+			href="${contextRoot}/show/category/${categoryId}/posts?offset=${offset + 10}">Trang
+			sau</a>
+	</c:if>
 </div>

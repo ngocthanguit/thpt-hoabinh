@@ -9,7 +9,7 @@
 			<ul class="side-news main-list-annount">
 				<c:forEach items="${listAlbums}" var="album">
 					<fmt:parseDate pattern="yyyy-MM-dd HH:mm:ss.SSSSSS"
-						value="${post.dateCreated}" var="parsedDate" />
+						value="${album.dateCreated}" var="parsedDate" />
 
 					<li><a href="${contextRoot}/show/album/${album.id}">${album.name}</a>
 						- <fmt:formatDate value="${parsedDate}"

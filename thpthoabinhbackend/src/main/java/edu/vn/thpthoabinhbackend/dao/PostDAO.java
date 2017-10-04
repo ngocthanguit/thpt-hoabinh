@@ -19,5 +19,6 @@ public interface PostDAO {
 	List<Post> listActivePosts();	
 	List<Post> listActivePostsByCategory(int categoryId);
 	List<Post> getLatestActivePosts(int categoryId, int pos, int count);
+	Long getCount(int categoryId);
 	
 }

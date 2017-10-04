@@ -166,7 +166,7 @@ public class PageController {
 		return mv;
 	}
 	@RequestMapping(value = "/show/category/{id}/posts")
-	public ModelAndView showCategoryPosts(@PathVariable("id")int id){
+	public ModelAndView showCategoryPosts(@PathVariable("id")int id,@RequestParam(value="offset", required=false)String offset){
 		ModelAndView mv = new ModelAndView("page");
 		
 		//categoryDAO to fetch a single category
@@ -175,9 +175,24 @@ public class PageController {
 		mv.addObject("title", category.getName());
 		//passing the list of categories
 		mv.addObject("categories",categoryDAO.list());
+		List<Post> listTinTuc = postDAO.getLatestActivePosts(TIN_TUC, 0, 10);
+		if(listTinTuc != null && listTinTuc.size() > 0) {
+			mv.addObject("listTinTuc", listTinTuc);
+		}
+		int pos = 0;
+		if(offset!=null) {
+			try {
+				pos = Integer.parseInt(offset);
+			}catch(Exception e) {
+				
+			}
+		}
 		//passing a single category
-		mv.addObject("category",category);
+		mv.addObject("listPosts",postDAO.getLatestActivePosts(id, pos, 10));
 		mv.addObject("userClickCategoryPosts", true);
+		mv.addObject("offset", pos);
+		mv.addObject("categoryId", id);
+		mv.addObject("max", postDAO.getCount(id));
 		return mv;
 	}
 	
@@ -363,6 +378,15 @@ public class PageController {
 		Album album = albumDAO.get(id);
 		List<FileUpload> listImages = fileUploadDAO.getByAlbumId(id);
 		mv.addObject("album", album);
+		mv.addObject("listImages", listImages);
+		return mv;
+	}
+	
+	@RequestMapping(value="/show/imagesfinder")
+	public ModelAndView imagefinder() {
+		ModelAndView mv= new ModelAndView("imagesFinder");
+		mv.addObject("title", "Show Albums");
+		List<FileUpload> listImages = fileUploadDAO.getByAlbumId(2);
 		mv.addObject("listImages", listImages);
 		return mv;
 	}

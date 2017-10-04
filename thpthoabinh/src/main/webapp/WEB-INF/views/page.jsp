@@ -110,6 +110,10 @@
 									<c:if test="${userClickAlbum == true}">
 										<%@include file="showAlbumImage.jsp"%>
 									</c:if>
+									<c:if test="${userClickCategoryPosts == true}">
+										<%@include file="listPosts.jsp"%>
+									</c:if>
+									
 								</div>
 							</c:if>
 							

@@ -1,5 +1,17 @@
 $(function(){
 	
+	$('.pop').on('click', function() {
+		$('.imagepreview').attr('src', $(this).find('img').attr('src'));
+		$('#imagemodal').modal('show');  
+	});	
+	
+	$('.images-finder').on('dblclick',function(){
+		//window.close();
+		//alert($(this).attr('src'));
+		CKEDITOR.config.baseUrl = ($(this).attr('src'));
+		window.close();
+	});
+	
 	// for adding a loader
 	$(window).load(function(){
 		setTimeout(function() {
@@ -533,7 +545,7 @@ $(function(){
 	}
 	
 	CKEDITOR.replace( 'editor1',{
-		filebrowserBrowseUrl: 'http://localhost:8081/thpthoabinh/show/album/2',
+		filebrowserBrowseUrl: window.contextRoot + '/show/imagesfinder',
 		filebrowserUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
 		filebrowserWindowWidth: '1000',
 		filebrowserWindowHeight: '700',
@@ -542,12 +554,7 @@ $(function(){
 	} );
 	
 
-	$('.pop').on('click', function() {
-		$('.imagepreview').attr('src', $(this).find('img').attr('src'));
-		$('#imagemodal').modal('show');   
-	});		
-
-
+		
 	
 })
 

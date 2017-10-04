@@ -147,4 +147,14 @@ public class PostDAOImpl implements PostDAO {
 		
 	}
 
+	@Override
+	public Long getCount(int categoryId) {
+		String query = "SELECT COUNT(*) from Post WHERE Active = true and CategoryId = :id";
+		return (Long)sessionFactory
+				.getCurrentSession()
+				.createQuery(query)
+				.setParameter("id",categoryId)
+				.uniqueResult();
+	}
+
 }

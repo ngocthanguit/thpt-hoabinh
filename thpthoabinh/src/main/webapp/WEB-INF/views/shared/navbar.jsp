@@ -20,49 +20,19 @@
 			id="bs-example-navbar-collapse-animations" data-hover="dropdown"
 			data-animations="fadeInDown fadeInRight fadeInUp fadeInLeft">
 			<ul class="nav navbar-nav">
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-expanded="false">Giới
-						Thiệu <span class="caret"></span>
-				</a>
-					<ul class="dropdown-menu dropdownhover-bottom" role="menu" style="">
-						<li><a href="#">Giới Thiệu Chung</a></li>
-						<li><a href="#">Thành Tích Nhà Trường</a></li>
-
-					</ul></li>
-				<li><a href="#">Học Tập</a></li>
-				<li><a href="#">Quản Lý</a></li>
+				<li><a href="#">Giới Thiệu</a></li>
+				<li><a href="${contextRoot}/show/category/4/posts">TKB</a></li>
+				<li><a href="${contextRoot}/show/category/5/posts">Hoạt Động</a></li>
 
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-expanded="false">Tuyển
-						Sinh<span class="caret"></span>
+					data-toggle="dropdown" role="button" aria-expanded="false">Tham Khảo<span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu dropdownhover-bottom" role="menu" style="">
-						<li><a href="#">Thông Tin Từ BGD</a></li>
-						<li><a href="#">Thông Tin Liên Thông ĐH, CĐ</a></li>
-						<li><a href="#">Thông tin Tuyển Sinh</a></li>
-						<li><a href="#">Tư Vấn Tuyển Sinh</a></li>
-						<li><a href="#">Điểm Thi ĐH & CĐ</a></li>
-						<li><a href="#">Dữ liệu Tuyển Sinh</a></li>
-						<li><a href="#">Bản đồ TP HCM</a></li>
-						<li><a href="#">Đề Thi & Tra điểm Từ Bộ</a></li>
-						<li><a href="#">Điểm chuẩn các trường</a></li>
-						<li><a href="#">Hướng nghiệp Việt</a></li>
-						<li><a href="#">Chỉ Tiêu TS ĐH,CĐ</a></li>
+						<li><a href="#">Đề Kiểm Tra</a></li>
+						<li><a href="#">Tài Liệu Học Tập</a></li>
 					</ul></li>
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-expanded="false">HS-SV
-						HB<span class="caret"></span>
-				</a>
-					<ul class="dropdown-menu dropdownhover-top" role="menu"
-						style="bottom: 100%; top: auto;">
-						<li><a href="#">Ban liên lạc học sinh cũ</a></li>
-						<li><a href="#">Học sinh đậu ĐH&CĐ các năm</a></li>
-						<li><a href="#">Diễn đàn Hòa Bình</a></li>
-						<li><a href="#">Đáp án & Đề các năm</a></li>
-						<li><a href="#">Ứng Dụng CNTT</a></li>
-						<li><a href="#">Tư Liệu ƯD CNTT</a></li>
-						<li><a href="#">Cộng đồng hs-sv Hòa Bình</a></li>
-					</ul></li>
+				<li><a href="${contextRoot}/show/category/6/posts">Giáo Dục</a></li>
+				<li><a href="${contextRoot}/show/category/8/posts">Tuyển Sinh</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-expanded="false">Lưu Trữ<span class="caret"></span>
 				</a>
@@ -70,9 +40,7 @@
 						style="bottom: 100%; top: auto;">
 						<li><a href="${contextRoot }/show/albums">Hình Ảnh</a></li>
 						<li><a href="#">Video</a></li>
-						<li><a href="#">Tài Liệu Học Tập</a></li>
 					</ul></li>
-				<li><a href="#">Liên Hệ</a></li>
 				<security:authorize access="hasAuthority('ADMIN')">
 					
 					<li class="dropdown"><a href="#" class="dropdown-toggle"

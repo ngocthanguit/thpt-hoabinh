@@ -239,13 +239,18 @@ public class ManagementController {
 	}
 	
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public ModelAndView displayForm() {
+	public ModelAndView displayForm(@RequestParam(name="message",required=false)String message) {
 		ModelAndView mv = new ModelAndView("page");
 		mv.addObject("title","Album Management");		
 		mv.addObject("manage",true);	
 		mv.addObject("userClickManageAlbum",true);
 		Album album = new Album();
 		mv.addObject("album", album);
+		if(message != null) {
+			if(message.equals("saved")){
+				mv.addObject("message", "Lưu Album thành công!");
+			}	
+		}
 		return mv;
 	}
 	
@@ -276,9 +281,12 @@ public class ManagementController {
 			
 		}
 		
-		map.addAttribute("files", fileNames);
-		return "file_upload_success";
+		map.addAttribute("message", "saved");
+		return "redirect:/manage/show";
 	}
+	
+	
+	
 }
 
 	
