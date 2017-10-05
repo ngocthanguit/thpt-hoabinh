@@ -263,7 +263,7 @@ public class PageController {
 	
 		 //upload the file
 		 if(!user.getFile().getOriginalFilename().equals("") ){
-			FileUtil.uploadFile(request, user.getFile(), user.getImage()); 
+			FileUtil.uploadAvata(request, user.getFile(), user.getImage()); 
 		 }
 		
 		return "redirect:/";
@@ -351,17 +351,31 @@ public class PageController {
 		return mv;
 	}	
 	
-	@RequestMapping(value="/show/albums")
-	public ModelAndView albums() {
+	@RequestMapping(value="/show/image/albums")
+	public ModelAndView imageAlbums() {
 		ModelAndView mv= new ModelAndView("page");
 		mv.addObject("title", "Show Albums");
 		mv.addObject("categories",categoryDAO.list());
-		mv.addObject("userClickAlbums",true);
+		mv.addObject("userClickImageAlbums",true);
 		List<Post> listTinTuc = postDAO.getLatestActivePosts(TIN_TUC, 0, 10);
 		if(listTinTuc != null && listTinTuc.size() > 0) {
 			mv.addObject("listTinTuc", listTinTuc);
 		}
-		List<Album> listAlbums = albumDAO.list();
+		List<Album> listAlbums = albumDAO.list("image");
+		mv.addObject("listAlbums", listAlbums);
+		return mv;
+	}
+	@RequestMapping(value="/show/file/albums")
+	public ModelAndView fileAlbums() {
+		ModelAndView mv= new ModelAndView("page");
+		mv.addObject("title", "Show Albums");
+		mv.addObject("categories",categoryDAO.list());
+		mv.addObject("userClickFileAlbums",true);
+		List<Post> listTinTuc = postDAO.getLatestActivePosts(TIN_TUC, 0, 10);
+		if(listTinTuc != null && listTinTuc.size() > 0) {
+			mv.addObject("listTinTuc", listTinTuc);
+		}
+		List<Album> listAlbums = albumDAO.list("file");
 		mv.addObject("listAlbums", listAlbums);
 		return mv;
 	}
@@ -369,16 +383,22 @@ public class PageController {
 	public ModelAndView album(@PathVariable("id")int id) {
 		ModelAndView mv= new ModelAndView("page");
 		mv.addObject("title", "Show Album");
-		mv.addObject("userClickAlbum",true);
+		
 		mv.addObject("categories",categoryDAO.list());
 		List<Post> listTinTuc = postDAO.getLatestActivePosts(TIN_TUC, 0, 10);
 		if(listTinTuc != null && listTinTuc.size() > 0) {
 			mv.addObject("listTinTuc", listTinTuc);
 		}
 		Album album = albumDAO.get(id);
-		List<FileUpload> listImages = fileUploadDAO.getByAlbumId(id);
+		List<FileUpload> listFiles = fileUploadDAO.getByAlbumId(id);
 		mv.addObject("album", album);
-		mv.addObject("listImages", listImages);
+		if("image".equals(album.getType())){
+			mv.addObject("userClickAlbumImages",true);
+			mv.addObject("listImages", listFiles);
+		 }else{
+			 mv.addObject("userClickAlbumFiles",true);
+			 mv.addObject("listFiles", listFiles);
+		 }
 		return mv;
 	}
 	

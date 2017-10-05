@@ -3,7 +3,7 @@
 <div class="content">
 	<div class="panel panel-primary">
 		<div class="panel-heading heading-main">
-			<h3 class="panel-title">Hình Ảnh</h3>
+			<h3 class="panel-title">Tài Liệu Học Tập</h3>
 		</div>
 		<div class="panel-body">
 			<ul class="side-news main-list-annount">

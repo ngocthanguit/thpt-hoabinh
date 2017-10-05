@@ -29,7 +29,7 @@
 				</a>
 					<ul class="dropdown-menu dropdownhover-bottom" role="menu" style="">
 						<li><a href="#">Đề Kiểm Tra</a></li>
-						<li><a href="#">Tài Liệu Học Tập</a></li>
+						<li><a href="${contextRoot }/show/file/albums">Tài Liệu Học Tập</a></li>
 					</ul></li>
 				<li><a href="${contextRoot}/show/category/6/posts">Giáo Dục</a></li>
 				<li><a href="${contextRoot}/show/category/8/posts">Tuyển Sinh</a></li>
@@ -38,7 +38,7 @@
 				</a>
 					<ul class="dropdown-menu dropdownhover-top" role="menu"
 						style="bottom: 100%; top: auto;">
-						<li><a href="${contextRoot }/show/albums">Hình Ảnh</a></li>
+						<li><a href="${contextRoot }/show/image/albums">Hình Ảnh</a></li>
 						<li><a href="#">Video</a></li>
 					</ul></li>
 				<security:authorize access="hasAuthority('ADMIN')">
@@ -50,7 +50,9 @@
 							style="bottom: 100%; top: auto;">
 							<li><a href="${contextRoot }/manage/post">Quản Lý Bài Đăng</a></li>
 							<li><a href="${contextRoot }/manage/user">Quản Lý User</a></li>
-							<li><a href="${contextRoot }/manage/show">Upload Images</a></li>
+							<li><a href="${contextRoot }/manage/image/album">Upload Images</a></li>
+							<li><a href="${contextRoot}/manage/files/upload">Upload Tài Liệu Học Tập</a></li>
+							
 						</ul></li>
 				</security:authorize>
 			</ul>

@@ -27,6 +27,7 @@ public class Album implements Serializable{
 	private String Name;
 	private String Description;
 	private int AuthorId;
+	private String Type;
 	private Date DateCreated;
 	private Date DateModified;
 	private Boolean Active;
@@ -98,6 +99,14 @@ public class Album implements Serializable{
 	}
 	public void setActive(Boolean active) {
 		Active = active;
+	}
+
+	public String getType() {
+		return Type;
+	}
+
+	public void setType(String type) {
+		Type = type;
 	}
 	
 	

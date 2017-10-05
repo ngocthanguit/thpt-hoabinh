@@ -25,10 +25,11 @@ public class AlbumDAOImpl implements AlbumDAO {
 	}
 
 	@Override
-	public List<Album> list() {
-		String selectActiveCategory = "FROM Album WHERE Active = :active";
+	public List<Album> list(String type) {
+		String selectActiveCategory = "FROM Album WHERE Active = :active AND Type = :type";
 		Query query = sessionFactory.getCurrentSession().createQuery(selectActiveCategory);
 		query.setParameter("active", true);
+		query.setParameter("type", type);
 		return query.getResultList();
 	}
 

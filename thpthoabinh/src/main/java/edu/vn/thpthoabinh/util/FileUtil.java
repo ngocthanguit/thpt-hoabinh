@@ -9,6 +9,7 @@ import java.net.URL;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileUtil {
@@ -16,7 +17,7 @@ public class FileUtil {
 	private static final String ABS_PATH = "E:/JAVAApp/online-shopping/onlineshopping/src/main/webapp/assets/images/";
 	private static String REAL_PATH = null;
 //	private static final Logger logger = LoggerFactory.getLogger(FileUtil.class);
-	public static boolean uploadFile(HttpServletRequest request, MultipartFile file, String code) 
+	public static boolean uploadAvata(HttpServletRequest request, MultipartFile file, String code) 
 	{				
 		// get the real server path
 		REAL_PATH = request.getSession().getServletContext().getRealPath("/assets/images/");
@@ -57,7 +58,27 @@ public class FileUtil {
 		}
 		return true;
 	}
-	
+	public static boolean uploadFiles(HttpServletRequest request, MultipartFile file, String code) 
+	{				
+		// get the real server path
+		REAL_PATH = request.getSession().getServletContext().getRealPath("/assets/upload/files/");
+		System.out.print(REAL_PATH);					
+		// create the directories if it does not exist
+		
+		if(!new File(REAL_PATH).exists()) {
+			new File(REAL_PATH).mkdirs();
+		}
+		
+		try {
+			String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+			//transfer the file to both the location
+			file.transferTo(new File(REAL_PATH + code));
+		}
+		catch(IOException ex) {
+			ex.printStackTrace();
+		}
+		return true;
+	}
 	public static void uploadNoImage(HttpServletRequest request, String code) {
 		// get the real server path
 		REAL_PATH = request.getSession().getServletContext().getRealPath("/assets/images/");

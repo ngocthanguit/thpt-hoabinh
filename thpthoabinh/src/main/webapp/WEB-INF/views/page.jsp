@@ -104,11 +104,17 @@
 									<c:if test="${userClickSignup == true}">
 										<%@include file="signup.jsp"%>
 									</c:if>
-									<c:if test="${userClickAlbums == true}">
+									<c:if test="${userClickImageAlbums == true}">
 										<%@include file="showImageAlbum.jsp"%>
 									</c:if>
-									<c:if test="${userClickAlbum == true}">
+									<c:if test="${userClickFileAlbums == true}">
+										<%@include file="showFilesAlbum.jsp"%>
+									</c:if>
+									<c:if test="${userClickAlbumImages == true}">
 										<%@include file="showAlbumImage.jsp"%>
+									</c:if>
+									<c:if test="${userClickAlbumFiles == true}">
+										<%@include file="showAlbumFiles.jsp"%>
 									</c:if>
 									<c:if test="${userClickCategoryPosts == true}">
 										<%@include file="listPosts.jsp"%>

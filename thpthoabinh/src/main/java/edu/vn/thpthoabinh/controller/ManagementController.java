@@ -141,7 +141,7 @@ public class ManagementController {
 	
 		 //upload the file
 		 if(!(post.getFile().getOriginalFilename().equals("") || "default".equals(post.getImage()))){
-			FileUtil.uploadFile(request, post.getFile(), post.getImage()); 
+			FileUtil.uploadAvata(request, post.getFile(), post.getImage()); 
 		 }
 		
 		return "redirect:/manage/post?success=post";
@@ -238,13 +238,30 @@ public class ManagementController {
 		return "redirect:/manage/user?success=user";
 	}
 	
-	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public ModelAndView displayForm(@RequestParam(name="message",required=false)String message) {
+	@RequestMapping(value = "/image/album", method = RequestMethod.GET)
+	public ModelAndView manageImageAlbum(@RequestParam(name="message",required=false)String message) {
 		ModelAndView mv = new ModelAndView("page");
 		mv.addObject("title","Album Management");		
 		mv.addObject("manage",true);	
 		mv.addObject("userClickManageAlbum",true);
 		Album album = new Album();
+		album.setType("image");
+		mv.addObject("album", album);
+		if(message != null) {
+			if(message.equals("saved")){
+				mv.addObject("message", "Lưu Album thành công!");
+			}	
+		}
+		return mv;
+	}
+	@RequestMapping(value = "/files/upload", method = RequestMethod.GET)
+	public ModelAndView manageFileAlbum(@RequestParam(name="message",required=false)String message) {
+		ModelAndView mv = new ModelAndView("page");
+		mv.addObject("title","Album Management");		
+		mv.addObject("manage",true);	
+		mv.addObject("userClickManageAlbum",true);
+		Album album = new Album();
+		album.setType("file");
 		mv.addObject("album", album);
 		if(message != null) {
 			if(message.equals("saved")){
@@ -271,18 +288,28 @@ public class ManagementController {
 				fileNames.add(fileName);
 				//Handle file content - multipartFile.getInputStream()
 				//upload the file
+				fileUp.setName(fileName);
 				fileUploadDAO.add(fileUp);
 				 if(!file.getOriginalFilename().equals("") ){
-					FileUtil.uploadImages(request, file, fileUp.getName()); 
+					 if("image".equals(album.getType())){
+						 FileUtil.uploadImages(request, file, fileUp.getName()); 
+					 }else{
+						 FileUtil.uploadFiles(request, file, fileName); 
+					 }
 				 }
 				System.out.print(album.getName());
 				System.out.print(fileName);
 			}
 			
 		}
-		
 		map.addAttribute("message", "saved");
-		return "redirect:/manage/show";
+		if("image".equals(album.getType())){
+			return "redirect:/manage/image/album";
+		 }else{
+			 return "redirect:/manage/files/upload";
+		 }
+		
+		
 	}
 	
 	

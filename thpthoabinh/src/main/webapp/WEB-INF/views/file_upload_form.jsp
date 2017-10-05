@@ -10,7 +10,13 @@
 			</div>
 		</div>
 	</c:if>
-	<h3>Tạo Album</h3>
+	<c:if test="${album.type == 'image'}">
+		<h3>Tạo Album</h3>
+	</c:if>
+	<c:if test="${album.type == 'file'}">
+		<h3>Upload Tài Liệu</h3>
+	</c:if>
+	
 	<hr />
 	<br />
 	<sf:form class="form-horizontal" id="" modelAttribute="album"
@@ -36,7 +42,7 @@
 		<div class="form-group">
 			<label class="control-label col-md-3">Ảnh Đại Diện</label>
 			<div class="col-md-8">
-				<input name="files" type="file" class="form-control" multiple/>
+				<input name="files" type="file" class="form-control" multiple />
 				<sf:errors path="files" cssClass="help-block" element="em" />
 			</div>
 		</div>
@@ -45,6 +51,7 @@
 		<sf:hidden path="id" />
 		<sf:hidden path="active" />
 		<sf:hidden path="authorId" />
+		<sf:hidden path="type" />
 		<sf:hidden path="dateCreated" />
 		<sf:hidden path="dateModified" />
 		<div class="form-group">
