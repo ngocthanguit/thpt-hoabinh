@@ -12,10 +12,14 @@
 					<fmt:parseDate pattern="yyyy-MM-dd HH:mm:ss.SSSSSS"
 						value="${post.dateCreated}" var="parsedDate" />
 
-					<li><a class="post-item"
-						href="${contextRoot}/show/post/${post.id}">${post.title}</a> - <fmt:formatDate
-							value="${parsedDate}" pattern="dd/MM/yyyy - HH:mm" /></li>
+					<li>
+						<a class="post-item" href="${contextRoot}/show/post/${post.id}">
+						<img class="post-poster" src="${contextRoot}/resources/images/${post.image}.jpg/"/>
+						${post.title}</a> - <fmt:formatDate value="${parsedDate}" pattern="dd/MM/yyyy - HH:mm" /></li>
 				</c:forEach>
+				<c:if test="${listPosts == null || listPosts.size() <= 0}">
+					Không có bài viết.
+				</c:if>
 			</ul>
 			<p class="panel-foot">
 			<div class="text-left">

@@ -79,7 +79,11 @@ hr{
 .post-item{
 	font-size: 1.2em;
 	font-family: "Arial";
-	font-weight: bold;
+}
+.post-poster{
+	max-width: 100px;
+	max-heigh: 100px;
+	margin-right: 10px;
 }
 .post-date{
 	text-align: left;
@@ -331,4 +335,8 @@ ul.navbar-right>li.dropdown>a{
 .list-post{
 	text-align: left;
 	margin-top: 10px;
+}
+span.file-name{
+	max-width: 100%;
+	word-wrap: break-word;
 }

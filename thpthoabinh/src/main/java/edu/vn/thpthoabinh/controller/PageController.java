@@ -362,7 +362,9 @@ public class PageController {
 			mv.addObject("listTinTuc", listTinTuc);
 		}
 		List<Album> listAlbums = albumDAO.list("image");
-		mv.addObject("listAlbums", listAlbums);
+		if (listAlbums != null && listAlbums.size() > 0){
+			mv.addObject("listAlbums", listAlbums);
+		}
 		return mv;
 	}
 	@RequestMapping(value="/show/file/albums")
@@ -376,7 +378,10 @@ public class PageController {
 			mv.addObject("listTinTuc", listTinTuc);
 		}
 		List<Album> listAlbums = albumDAO.list("file");
-		mv.addObject("listAlbums", listAlbums);
+		if (listAlbums != null && listAlbums.size() > 0){
+			mv.addObject("listAlbums", listAlbums);
+		}
+		
 		return mv;
 	}
 	@RequestMapping(value="/show/album/{id}")

@@ -66,8 +66,19 @@
 
 
 		<c:forEach items="${categories}" var="category">
-			<a href="${contextRoot}/show/category/${category.id}/products"
-				class="list-group-item" id="a_${category.name}">${category.name}</a>
+			<c:choose>
+				<c:when test="${category.id == 3}">
+					<security:authorize access="hasAnyAuthority('ADMIN','TEACHER')">
+	           			<a href="${contextRoot}/show/category/${category.id}/posts"
+							class="list-group-item" id="a_${category.name}">${category.name}</a>
+					</security:authorize>
+         		</c:when>
+				<c:otherwise>
+					<a href="${contextRoot}/show/category/${category.id}/posts"
+					class="list-group-item" id="a_${category.name}">${category.name}</a>
+         		</c:otherwise>
+			</c:choose>
+			
 		</c:forEach>
 
 
@@ -80,14 +91,14 @@
 	</div>
 	<div class="panel-body">
 		<form role="search">
-			
-				<select class="form-control">
-					<option>Website bộ giáo dục</option>
-					<option>Giáo viên bộ môn</option>
-					<option>Diễn Đàn THPT Hòa Bình</option>
-					<option>Website tuyển sinh</option>
-				</select>
-			
+
+			<select class="form-control">
+				<option>Website bộ giáo dục</option>
+				<option>Giáo viên bộ môn</option>
+				<option>Diễn Đàn THPT Hòa Bình</option>
+				<option>Website tuyển sinh</option>
+			</select>
+
 		</form>
 	</div>
 </div>

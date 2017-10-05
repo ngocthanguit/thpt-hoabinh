@@ -1,12 +1,16 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <div class="content">
+
 	<div class="panel panel-primary">
 		<div class="panel-heading heading-main">
 			<h3 class="panel-title">Tài Liệu Học Tập</h3>
 		</div>
 		<div class="panel-body">
 			<ul class="side-news main-list-annount">
+				<c:if test="${listAlbums == null}">
+					Chưa có tài liệu.
+				</c:if>
 				<c:forEach items="${listAlbums}" var="album">
 					<fmt:parseDate pattern="yyyy-MM-dd HH:mm:ss.SSSSSS"
 						value="${album.dateCreated}" var="parsedDate" />

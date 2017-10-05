@@ -1,7 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 
-
 <div class="content">
 	<br />
 	<c:if test="${not empty message}">
@@ -17,7 +16,7 @@
 	<c:if test="${album.type == 'file'}">
 		<h3>Upload Tài Liệu</h3>
 	</c:if>
-
+	
 	<hr />
 	<br />
 	<sf:form class="form-horizontal" id="file-upload-form" modelAttribute="album"
@@ -39,11 +38,11 @@
 				<sf:errors path="Description" cssClass="help-block" element="em" />
 			</div>
 		</div>
-		
+
 		<div class="form-group">
 			<label class="control-label col-md-3">Ảnh Đại Diện</label>
 			<div class="col-md-8">
-				<input name="files" type="file" multiple/>
+				<input name="files" type="file" class="form-control" multiple />
 				<sf:errors path="files" cssClass="help-block" element="em" />
 			</div>
 		</div>
@@ -59,12 +58,12 @@
 
 			<div class="col-md-offset-4 col-md-4">
 
-				<input type="submit" name="submit" value="Lưu Album" class="btn btn-primary" />
+				<input type="submit" name="submit" value="Lưu Album"
+					class="btn btn-primary" />
 
 			</div>
 		</div>
 
 	</sf:form>
 
-	
 </div>

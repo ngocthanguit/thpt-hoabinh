@@ -259,7 +259,7 @@ public class ManagementController {
 		ModelAndView mv = new ModelAndView("page");
 		mv.addObject("title","Album Management");		
 		mv.addObject("manage",true);	
-		mv.addObject("userClickManageAlbum",true);
+		mv.addObject("userClickManageFileAlbum",true);
 		Album album = new Album();
 		album.setType("file");
 		mv.addObject("album", album);

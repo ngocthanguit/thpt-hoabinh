@@ -1,5 +1,14 @@
 $(function(){
-	
+
+//	$('#addFile')
+//	.click(
+//		function() {
+//			var fileIndex = $('#fileTable tr').children().length - 1;
+//			$('#fileTable').append('<tr><td>'
+//							+ '	<input type="file" name="files['+ fileIndex +']" />'
+//							+ '</td></tr>');
+//	});
+
 	$('.pop').on('click', function() {
 		$('.imagepreview').attr('src', $(this).find('img').attr('src'));
 		$('#imagemodal').modal('show');  
@@ -86,7 +95,34 @@ $(function(){
 
 	}	
 	
+	// validating file upload form	
+	$fileForm = $('#file-upload-form');
 	
+	if($fileForm.length) {
+		
+		$fileForm.validate({			
+				rules: {
+					name: {
+						required: true,
+						minlength: 3
+					},
+					
+				},
+				messages: {					
+					name: {
+						required: 'Vui lòng nhập tên bài đăng!',
+						minlength: 'Nhập tối thiểu 3 kí tự'
+					}			
+				},
+				errorElement : "em",
+				errorPlacement : function(error, element) {
+					errorPlacement(error, element);
+				}				
+			}
+		
+		);
+		
+	}
 	
 	// validating the post form element	
 	$categoryForm = $('#categoryForm');
