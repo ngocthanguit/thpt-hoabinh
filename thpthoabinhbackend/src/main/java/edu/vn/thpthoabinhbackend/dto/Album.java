@@ -31,6 +31,8 @@ public class Album implements Serializable{
 	private Date DateCreated;
 	private Date DateModified;
 	private Boolean Active;
+	private int SubjectId;
+	private int Grade;
 	@Transient
 	private List<MultipartFile> files;
 
@@ -48,7 +50,7 @@ public class Album implements Serializable{
 		this.DateModified = new Date();
 	}
 	public Album(int id, String name, String description, int authorId, Date dateCreated, Date dateModified,
-			Boolean activate) {
+			Boolean activate, int subjectId) {
 		super();
 		Id = id;
 		Name = name;
@@ -57,6 +59,7 @@ public class Album implements Serializable{
 		DateCreated = dateCreated;
 		DateModified = dateModified;
 		Active = activate;
+		SubjectId = subjectId;
 	}
 	public int getId() {
 		return Id;
@@ -107,6 +110,22 @@ public class Album implements Serializable{
 
 	public void setType(String type) {
 		Type = type;
+	}
+
+	public int getSubjectId() {
+		return SubjectId;
+	}
+
+	public void setSubjectId(int subjectId) {
+		SubjectId = subjectId;
+	}
+
+	public int getGrade() {
+		return Grade;
+	}
+
+	public void setGrade(int grade) {
+		Grade = grade;
 	}
 	
 	

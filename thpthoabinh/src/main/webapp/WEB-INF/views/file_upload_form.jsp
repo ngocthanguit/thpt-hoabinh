@@ -21,7 +21,7 @@
 	<hr />
 	<br />
 	<sf:form class="form-horizontal" id="file-upload-form" modelAttribute="album"
-		action="${contextRoot}/manage/save" method="POST"
+		action="${contextRoot}/manage/files/save" method="POST"
 		enctype="multipart/form-data">
 		<div class="form-group">
 			<label class="control-label col-md-3">Tên Album</label>
@@ -40,6 +40,25 @@
 			</div>
 		</div>
 		
+		<div class="form-group">
+			<label class="control-label col-md-3">Môn Học</label>
+			<div class="col-md-8">
+				<sf:select path="subjectId" items="${subjects}" itemLabel="name" itemValue="id" class="form-control"/>
+				<sf:errors path="SubjectId" cssClass="help-block" element="em" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Khối Lớp</label>
+			<div class="col-md-8">
+				<sf:select path="grade" class="form-control">
+				<sf:errors path="Grade" cssClass="help-block" element="em"/>
+					<sf:option value="0">ALL</sf:option>
+					<sf:option value="10">10</sf:option>
+					<sf:option value="11">11</sf:option>
+					<sf:option value="12">12</sf:option>
+				</sf:select>
+			</div>
+		</div>
 		<div class="form-group">
 			<label class="control-label col-md-3">Ảnh Đại Diện</label>
 			<div class="col-md-8">

@@ -58,7 +58,7 @@ public class FileUtil {
 		}
 		return true;
 	}
-	public static boolean uploadFiles(HttpServletRequest request, MultipartFile file, String code) 
+	public static boolean uploadFiles(HttpServletRequest request, MultipartFile file, String name) 
 	{				
 		// get the real server path
 		REAL_PATH = request.getSession().getServletContext().getRealPath("/assets/upload/files/");
@@ -70,42 +70,41 @@ public class FileUtil {
 		}
 		
 		try {
-			String extension = FilenameUtils.getExtension(file.getOriginalFilename());
 			//transfer the file to both the location
-			file.transferTo(new File(REAL_PATH + code));
+			file.transferTo(new File(REAL_PATH + name));
 		}
 		catch(IOException ex) {
 			ex.printStackTrace();
 		}
 		return true;
 	}
-	public static void uploadNoImage(HttpServletRequest request, String code) {
-		// get the real server path
-		REAL_PATH = request.getSession().getServletContext().getRealPath("/assets/images/");
-	
-		String imageURL = "http://placehold.it/640X480?text=No Image";
-		String destinationServerFile = REAL_PATH + code + ".jpg";
-//		String destinationProjectFile = REAL_PATH + code + ".jpg";
-				
-		try {
-			URL url = new URL(imageURL);				
-			try (	
-					InputStream is = url.openStream();
-					OutputStream osREAL_PATH = new FileOutputStream(destinationServerFile);
-//					OutputStream osABS_PATH = new FileOutputStream(destinationProjectFile);
-				){
-			
-				byte[] b = new byte[2048];
-				int length;
-				while((length = is.read(b))!= -1) {
-					osREAL_PATH.write(b, 0, length);
-//					osABS_PATH.write(b, 0, length);
-				}
-			}			
-		}
-		catch(IOException ex) {
-			ex.printStackTrace();
-		}
-	}
+//	public static void uploadNoImage(HttpServletRequest request, String code) {
+//		// get the real server path
+//		REAL_PATH = request.getSession().getServletContext().getRealPath("/assets/images/");
+//	
+//		String imageURL = "http://placehold.it/640X480?text=No Image";
+//		String destinationServerFile = REAL_PATH + code + ".jpg";
+////		String destinationProjectFile = REAL_PATH + code + ".jpg";
+//				
+//		try {
+//			URL url = new URL(imageURL);				
+//			try (	
+//					InputStream is = url.openStream();
+//					OutputStream osREAL_PATH = new FileOutputStream(destinationServerFile);
+////					OutputStream osABS_PATH = new FileOutputStream(destinationProjectFile);
+//				){
+//			
+//				byte[] b = new byte[2048];
+//				int length;
+//				while((length = is.read(b))!= -1) {
+//					osREAL_PATH.write(b, 0, length);
+////					osABS_PATH.write(b, 0, length);
+//				}
+//			}			
+//		}
+//		catch(IOException ex) {
+//			ex.printStackTrace();
+//		}
+//	}
 	
 }

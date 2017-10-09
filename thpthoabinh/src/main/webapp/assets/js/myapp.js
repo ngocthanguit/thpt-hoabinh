@@ -582,7 +582,7 @@ $(function(){
 	
 	CKEDITOR.replace( 'editor1',{
 		filebrowserBrowseUrl: window.contextRoot + '/show/imagesfinder',
-		filebrowserUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+		filebrowserUploadUrl: window.contextRoot + '/manage/file/upload',
 		filebrowserWindowWidth: '1000',
 		filebrowserWindowHeight: '700',
 		width: 885,

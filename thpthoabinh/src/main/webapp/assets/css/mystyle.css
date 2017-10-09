@@ -340,3 +340,8 @@ span.file-name{
 	max-width: 100%;
 	word-wrap: break-word;
 }
+.file-item{
+	max-width: 200px;
+	max-height: 200px;
+	float: left;
+}

@@ -37,11 +37,17 @@ public class HibernateConfig {
 //	private final static String DATABASE_USERNAME  = "sa";
 //	private final static String DATABASE_PASSWORD  = "123456";
 	
-	private final static String DATABASE_URL  = "jdbc:mysql://localhost:3306/HoaBinh";
+	private final static String DATABASE_URL  = "jdbc:mysql://localhost/cthptho98nv_test";
 	private final static String DATABASE_DRIVER  = "com.mysql.jdbc.Driver";
 	private final static String DATABASE_DIALECT  = "org.hibernate.dialect.MySQLDialect";
-	private final static String DATABASE_USERNAME  = "root";
-	private final static String DATABASE_PASSWORD  = "root";
+	private final static String DATABASE_USERNAME  = "cthptho98nv_thang";
+	private final static String DATABASE_PASSWORD  = "Hoabinh@012345678";
+	
+//	private final static String DATABASE_URL  = "jdbc:mysql://localhost:3306/hoabinh";
+//	private final static String DATABASE_DRIVER  = "com.mysql.jdbc.Driver";
+//	private final static String DATABASE_DIALECT  = "org.hibernate.dialect.MySQLDialect";
+//	private final static String DATABASE_USERNAME  = "root";
+//	private final static String DATABASE_PASSWORD  = "root";
 	
 	// dataSource bean will be available
 	@Bean("dataSource")

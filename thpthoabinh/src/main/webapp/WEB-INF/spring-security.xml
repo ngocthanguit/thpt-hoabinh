@@ -9,7 +9,7 @@
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<context:component-scan base-package="edu.vn.thpthoabinhbackend"/>
+	
 
 	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
@@ -17,6 +17,7 @@
 
 	<http>
 		<!-- only admin access -->
+		<intercept-url pattern="/" access="hasAuthority('ADMIN')" />
 		<intercept-url pattern="/manage/**" access="hasAuthority('ADMIN')" />
 		<!-- only user access (who is registered) -->
 		<intercept-url pattern="/cart/**" access="hasAuthority('USER')" />
@@ -26,7 +27,7 @@
 		<access-denied-handler error-page="/access-denied"/>
 	</http>
 	
-	<authentication-manager>
+	<!-- authentication-manager>
 		<authentication-provider>
  			<password-encoder ref="passwordEncoder" />
  			<jdbc-user-service data-source-ref="dataSource"
@@ -34,6 +35,14 @@
  				users-by-username-query="select Username, Password, Active from UserDetail where Username = ?"
  			/>
  		</authentication-provider>
+	</authentication-manager> -->
+<authentication-manager>
+		<authentication-provider>
+			<user-service>
+				<user name="jimi" password="jimispassword" authorities="ROLE_USER, ROLE_ADMIN" />
+				<user name="bob" password="bobspassword" authorities="ROLE_USER" />
+			</user-service>
+		</authentication-provider>
 	</authentication-manager>
 
 

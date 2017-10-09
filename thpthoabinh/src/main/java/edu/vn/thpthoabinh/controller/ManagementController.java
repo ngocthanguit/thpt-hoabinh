@@ -8,6 +8,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,11 +31,13 @@ import edu.vn.thpthoabinhbackend.dao.AlbumDAO;
 import edu.vn.thpthoabinhbackend.dao.CategoryDAO;
 import edu.vn.thpthoabinhbackend.dao.FileUploadDAO;
 import edu.vn.thpthoabinhbackend.dao.PostDAO;
+import edu.vn.thpthoabinhbackend.dao.SubjectDAO;
 import edu.vn.thpthoabinhbackend.dao.UserDAO;
 import edu.vn.thpthoabinhbackend.dto.Album;
 import edu.vn.thpthoabinhbackend.dto.Category;
 import edu.vn.thpthoabinhbackend.dto.FileUpload;
 import edu.vn.thpthoabinhbackend.dto.Post;
+import edu.vn.thpthoabinhbackend.dto.Subject;
 import edu.vn.thpthoabinhbackend.dto.User;
 
 @Controller
@@ -54,6 +57,8 @@ public class ManagementController {
 	private FileUploadDAO fileUploadDAO;	
 	@Autowired
 	private AlbumDAO albumDAO;	
+	@Autowired
+	private SubjectDAO subjectDAO;	
 
 	@RequestMapping("/post")
 	public ModelAndView managePost(@RequestParam(name="success",required=false)String success) {		
@@ -271,7 +276,7 @@ public class ManagementController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	@RequestMapping(value = "/files/save", method = RequestMethod.POST)
 	public String save(@ModelAttribute("album") Album album, BindingResult results, Model map, HttpServletRequest request) {
 		
 		List<MultipartFile> files = album.getFiles();
@@ -283,20 +288,22 @@ public class ManagementController {
 		albumDAO.add(album);
 		if(null != files && files.size() > 0) {
 			for (MultipartFile file : files) {
-				FileUpload fileUp = new FileUpload(album.getId());
 				String fileName = file.getOriginalFilename();
+				FileUpload fileUp = new FileUpload(album.getId(), fileName);
 				fileNames.add(fileName);
 				//Handle file content - multipartFile.getInputStream()
 				//upload the file
-				fileUp.setName(fileName);
-				fileUploadDAO.add(fileUp);
+				String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+				
 				 if(!file.getOriginalFilename().equals("") ){
 					 if("image".equals(album.getType())){
 						 FileUtil.uploadImages(request, file, fileUp.getName()); 
 					 }else{
-						 FileUtil.uploadFiles(request, file, fileName); 
+						 fileUp.setName(fileUp.getName() + '.' + extension);
+						 FileUtil.uploadFiles(request, file, fileUp.getName()); 
 					 }
 				 }
+				 fileUploadDAO.add(fileUp);
 				System.out.print(album.getName());
 				System.out.print(fileName);
 			}
@@ -308,11 +315,29 @@ public class ManagementController {
 		 }else{
 			 return "redirect:/manage/files/upload";
 		 }
-		
-		
 	}
 	
+	@RequestMapping(value = "/file/upload", method = RequestMethod.POST)
+	public String save(MultipartFile postfile, HttpServletRequest request) {
+		
+		String fileName = postfile.getOriginalFilename();
+		FileUpload fileUp = new FileUpload(0, fileName);
+		//Handle file content - multipartFile.getInputStream()
+		//upload the file
+		String extension = FilenameUtils.getExtension(postfile.getOriginalFilename());
+		
+		 if(!postfile.getOriginalFilename().equals("") ){
+			 FileUtil.uploadImages(request, postfile, fileUp.getName()); 
+			 fileUploadDAO.add(fileUp);
+		 }
+		 
+		 return "redirect:/manage/post";
+	}
 	
+	@ModelAttribute("subjects") 
+	public List<Subject> modelSubjects() {
+		return subjectDAO.list();
+	}
 	
 }
 

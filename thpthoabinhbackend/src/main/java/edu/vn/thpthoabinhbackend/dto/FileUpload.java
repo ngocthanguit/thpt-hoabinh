@@ -15,13 +15,15 @@ public class FileUpload implements Serializable{
 	@Id
 	private String Name;
 	private int AlbumId;
+	private String DisplayName;
 	
 	public FileUpload() {
 		this.Name = "FLE" + UUID.randomUUID().toString();
 	}
-	public FileUpload(int albumId) {
+	public FileUpload(int albumId, String displayname) {
 		this.Name = "FLE" + UUID.randomUUID().toString();
 		AlbumId = albumId;
+		DisplayName = displayname;
 	}
 	public String getName() {
 		return Name;
@@ -34,6 +36,12 @@ public class FileUpload implements Serializable{
 	}
 	public void setAlbumId(int albumId) {
 		AlbumId = albumId;
+	}
+	public String getDisplayName() {
+		return DisplayName;
+	}
+	public void setDisplayName(String displayName) {
+		DisplayName = displayName;
 	}
 	
 	

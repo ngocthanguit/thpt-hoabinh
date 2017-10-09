@@ -411,7 +411,7 @@ public class PageController {
 	public ModelAndView imagefinder() {
 		ModelAndView mv= new ModelAndView("imagesFinder");
 		mv.addObject("title", "Show Albums");
-		List<FileUpload> listImages = fileUploadDAO.getByAlbumId(2);
+		List<FileUpload> listImages = fileUploadDAO.getByAlbumId(0);
 		mv.addObject("listImages", listImages);
 		return mv;
 	}
