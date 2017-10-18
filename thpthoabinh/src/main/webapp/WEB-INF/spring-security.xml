@@ -18,9 +18,9 @@
 	<http>
 		<!-- only admin access -->
 		<intercept-url pattern="/" access="hasAuthority('ADMIN')" />
+		<intercept-url pattern="/signup" access="hasAuthority('ADMIN')" />
 		<intercept-url pattern="/manage/**" access="hasAuthority('ADMIN')" />
-		<!-- only user access (who is registered) -->
-		<intercept-url pattern="/cart/**" access="hasAuthority('USER')" />
+		
 		<!-- rest of the world -->			
 		<intercept-url pattern="/**" access="permitAll" />
 		<form-login login-page="/login" />
@@ -31,19 +31,19 @@
 		<authentication-provider>
  			<password-encoder ref="passwordEncoder" />
  			<jdbc-user-service data-source-ref="dataSource"
- 				authorities-by-username-query="select Username, Role from UserDetail where Username = ?"
- 				users-by-username-query="select Username, Password, Active from UserDetail where Username = ?"
+ 				authorities-by-username-query="select Username, Role from userdetail where Username = ?"
+ 				users-by-username-query="select Username, Password, Active from userdetail where Username = ?"
  			/>
  		</authentication-provider>
-	</authentication-manager> 
+	</authentication-manager>  
 	<!--<authentication-manager>
 		<authentication-provider>
 			<user-service>
-				<user name="jimi" password="jimispassword" authorities="ROLE_USER, ROLE_ADMIN" />
-				<user name="bob" password="bobspassword" authorities="ROLE_USER" />
+				<user name="ngocthang" password="12345" authorities="ROLE_USER, ROLE_ADMIN" />
+				<user name="ngocthangh" password="12345" authorities="ROLE_USER" />
 			</user-service>
 		</authentication-provider>
-	</authentication-manager> -->
+	</authentication-manager>-->
 
 
 </beans:beans>

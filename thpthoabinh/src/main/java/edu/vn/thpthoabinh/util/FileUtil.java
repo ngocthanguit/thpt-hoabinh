@@ -1,20 +1,18 @@
 package edu.vn.thpthoabinh.util;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.io.FilenameUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileUtil {
-
-	private static final String ABS_PATH = "E:/JAVAApp/online-shopping/onlineshopping/src/main/webapp/assets/images/";
 	private static String REAL_PATH = null;
 //	private static final Logger logger = LoggerFactory.getLogger(FileUtil.class);
 	public static boolean uploadAvata(HttpServletRequest request, MultipartFile file, String code) 
@@ -38,7 +36,7 @@ public class FileUtil {
 		return true;
 	}
 	
-	public static boolean uploadImages(HttpServletRequest request, MultipartFile file, String code) 
+	public static boolean uploadImages(HttpServletRequest request, MultipartFile file, String code)
 	{				
 		// get the real server path
 		REAL_PATH = request.getSession().getServletContext().getRealPath("/assets/upload/images/");
@@ -51,14 +49,17 @@ public class FileUtil {
 		
 		try {
 			//transfer the file to both the location
-			file.transferTo(new File(REAL_PATH + code + ".jpg"));
+//			file.transferTo(new File(REAL_PATH + code + ".jpg"));
+			byte[] bytes = file.getBytes();
+            Path path = Paths.get(REAL_PATH + code + ".jpg");
+            Files.write(path, bytes);
 		}
 		catch(IOException ex) {
 			ex.printStackTrace();
 		}
 		return true;
 	}
-	public static boolean uploadFiles(HttpServletRequest request, MultipartFile file, String name) 
+	public static boolean uploadFiles(HttpServletRequest request, MultipartFile file, String name)
 	{				
 		// get the real server path
 		REAL_PATH = request.getSession().getServletContext().getRealPath("/assets/upload/files/");
@@ -69,15 +70,40 @@ public class FileUtil {
 			new File(REAL_PATH).mkdirs();
 		}
 		
+		//transfer the file to both the location
 		try {
-			//transfer the file to both the location
 			file.transferTo(new File(REAL_PATH + name));
-		}
-		catch(IOException ex) {
-			ex.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return true;
 	}
+	
+	public static void store(HttpServletRequest request, MultipartFile file, String name) {
+        String filename = StringUtils.cleanPath(file.getOriginalFilename());
+        try {
+        	// get the real server path
+    		REAL_PATH = request.getSession().getServletContext().getRealPath("/assets/upload/files");
+    		System.out.print(REAL_PATH);					
+    		// create the directories if it does not exist
+    		
+    		if(!new File(REAL_PATH).exists()) {
+    			new File(REAL_PATH).mkdirs();
+    		}
+    		byte[] bytes = file.getBytes();
+            Path path = Paths.get(REAL_PATH +"/"+ name);
+            Files.write(path, bytes);
+            path = Paths.get(REAL_PATH +"/"+ "1_" +name );
+            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+        }
+        catch (Exception e) {
+        	e.printStackTrace();
+        }
+    }
 //	public static void uploadNoImage(HttpServletRequest request, String code) {
 //		// get the real server path
 //		REAL_PATH = request.getSession().getServletContext().getRealPath("/assets/images/");

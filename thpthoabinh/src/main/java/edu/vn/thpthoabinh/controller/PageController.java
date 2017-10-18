@@ -315,11 +315,7 @@ public class PageController {
 			@RequestParam(name="logout", required = false) String logout) {
 		ModelAndView mv= new ModelAndView("login");
 		mv.addObject("title", "Login");
-		mv.addObject("categories",categoryDAO.list());
-		List<Post> listTinTuc = postDAO.getLatestActivePosts(TIN_TUC, 0, 10);
-		if(listTinTuc != null && listTinTuc.size() > 0) {
-			mv.addObject("listTinTuc", listTinTuc);
-		}
+		
 		if(error!=null) {
 			mv.addObject("message", "Sai username hoặc password!");
 		}
@@ -361,7 +357,7 @@ public class PageController {
 		if(listTinTuc != null && listTinTuc.size() > 0) {
 			mv.addObject("listTinTuc", listTinTuc);
 		}
-		List<Album> listAlbums = albumDAO.list("image");
+		List<Album> listAlbums = albumDAO.getAllAlbum("image");
 		if (listAlbums != null && listAlbums.size() > 0){
 			mv.addObject("listAlbums", listAlbums);
 		}
@@ -377,7 +373,7 @@ public class PageController {
 		if(listTinTuc != null && listTinTuc.size() > 0) {
 			mv.addObject("listTinTuc", listTinTuc);
 		}
-		List<Album> listAlbums = albumDAO.list("file");
+		List<Album> listAlbums = albumDAO.getAllAlbum("file");
 		if (listAlbums != null && listAlbums.size() > 0){
 			mv.addObject("listAlbums", listAlbums);
 		}

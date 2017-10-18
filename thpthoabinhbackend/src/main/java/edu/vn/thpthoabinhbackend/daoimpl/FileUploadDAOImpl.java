@@ -2,8 +2,8 @@ package edu.vn.thpthoabinhbackend.daoimpl;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,8 +26,8 @@ public class FileUploadDAOImpl implements FileUploadDAO{
 	@Override
 	public List<FileUpload> list() {
 		String selectActiveCategory = "FROM File";
-		Query query = sessionFactory.getCurrentSession().createQuery(selectActiveCategory);
-		return query.getResultList();
+		return sessionFactory.getCurrentSession().createQuery(selectActiveCategory)
+		 .list();
 	}
 
 	@Override
@@ -61,9 +61,9 @@ public class FileUploadDAOImpl implements FileUploadDAO{
 		String selectFile = "FROM FileUpload WHERE AlbumId = :id";
 		return sessionFactory
 				.getCurrentSession()
-					.createQuery(selectFile, FileUpload.class)
+					.createQuery(selectFile)
 						.setParameter("id", albumId)
-							.getResultList();
+							.list();
 	}
 
 //	@Override

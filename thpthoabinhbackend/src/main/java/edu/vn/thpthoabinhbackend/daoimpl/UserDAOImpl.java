@@ -23,16 +23,19 @@ public class UserDAOImpl implements UserDAO {
 	public User getByEmail(String email) {
 		String selectQuery = "FROM User WHERE Email = :email";
 		try {
-		return sessionFactory
-				.getCurrentSession()
-					.createQuery(selectQuery,User.class)
-						.setParameter("email",email)
-							.getSingleResult();
+			List<User> listUsers = sessionFactory
+					.getCurrentSession()
+						.createQuery(selectQuery)
+							.setParameter("email",email)
+								.list();
+			if(listUsers != null && listUsers.size() > 0) {
+				return listUsers.get(0);
+			}
 		}
 		catch(Exception ex) {
 			return null;
 		}
-							
+		return null;			
 	}
 
 	@Override
@@ -78,24 +81,28 @@ public class UserDAOImpl implements UserDAO {
 	public User getByUsername(String username) {
 		String selectQuery = "FROM User WHERE Username = :username";
 		try {
-		return sessionFactory
-				.getCurrentSession()
-					.createQuery(selectQuery,User.class)
-						.setParameter("username",username)
-							.getSingleResult();
+			List<User> listUsers = sessionFactory
+					.getCurrentSession()
+						.createQuery(selectQuery)
+							.setParameter("username",username)
+								.list();
+			if(listUsers != null && listUsers.size() > 0) {
+				return listUsers.get(0);
+			}
 		}
 		catch(Exception ex) {
 			return null;
 		}
+		return null;
 	}
 
 	@Override
 	public List<User> list() {
 		return sessionFactory
 				.getCurrentSession()
-					.createQuery("FROM User WHERE Id !=:id" , User.class)
+					.createQuery("FROM User WHERE Id !=:id")
 					.setParameter("id", 1)
-						.getResultList();
+						.list();
 	}
 
 }

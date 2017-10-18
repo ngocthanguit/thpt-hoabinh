@@ -3,14 +3,12 @@ package edu.vn.thpthoabinhbackend.daoimpl;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.vn.thpthoabinhbackend.dao.AlbumDAO;
 import edu.vn.thpthoabinhbackend.dto.Album;
-import edu.vn.thpthoabinhbackend.dto.Category;
 
 @Repository("albumDAO")
 @Transactional
@@ -26,13 +24,19 @@ public class AlbumDAOImpl implements AlbumDAO {
 
 	@Override
 	public List<Album> list(String type) {
+		String selectActiveCategory = "FROM Album WHERE Type = :type";
+		return sessionFactory.getCurrentSession().createQuery(selectActiveCategory)
+		.setParameter("type", type)
+		 .list();
+	}
+	@Override
+	public List<Album> getAllAlbum(String type) {
 		String selectActiveCategory = "FROM Album WHERE Active = :active AND Type = :type";
 		return sessionFactory.getCurrentSession().createQuery(selectActiveCategory)
 		.setParameter("active", true)
 		.setParameter("type", type)
-		 .getResultList();
+		 .list();
 	}
-
 	@Override
 	public boolean add(Album album) {
 		try{

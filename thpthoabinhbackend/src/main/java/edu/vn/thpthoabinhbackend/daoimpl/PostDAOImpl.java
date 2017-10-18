@@ -43,8 +43,8 @@ public class PostDAOImpl implements PostDAO {
 	public List<Post> list() {
 		return sessionFactory
 				.getCurrentSession()
-					.createQuery("FROM Post" , Post.class)
-						.getResultList();
+					.createQuery("FROM Post")
+						.list();
 	}
 
 	/*
@@ -104,9 +104,9 @@ public class PostDAOImpl implements PostDAO {
 		String selectActivePosts = "FROM Post WHERE Active = :active";
 		return sessionFactory
 				.getCurrentSession()
-					.createQuery(selectActivePosts, Post.class)
+					.createQuery(selectActivePosts)
 						.setParameter("active", true)
-							.getResultList();
+							.list();
 	}
 
 	@Override
@@ -114,22 +114,22 @@ public class PostDAOImpl implements PostDAO {
 		String selectActiveProductsByCategory = "FROM Post WHERE Active = :active AND CategoryId = :categoryId";
 		return sessionFactory
 				.getCurrentSession()
-					.createQuery(selectActiveProductsByCategory, Post.class)
+					.createQuery(selectActiveProductsByCategory)
 						.setParameter("active", true)
 						.setParameter("categoryId",categoryId)
-							.getResultList();
+							.list();
 	}
 
 	@Override
 	public List<Post> getLatestActivePosts(int categoryId, int pos, int count) {
 		return sessionFactory
 				.getCurrentSession()
-					.createQuery("FROM Post WHERE Active = :active AND CategoryId = :categoryId ORDER BY Id", Post.class)
+					.createQuery("FROM Post WHERE Active = :active AND CategoryId = :categoryId ORDER BY Id")
 						.setParameter("active", true)
 						.setParameter("categoryId",categoryId)
 							.setFirstResult(pos)
 							.setMaxResults(count)
-								.getResultList();
+								.list();
 	}
 
 	@Override
@@ -139,10 +139,10 @@ public class PostDAOImpl implements PostDAO {
 		
 		return sessionFactory
 					.getCurrentSession()
-					.createQuery(query,Post.class)
+					.createQuery(query)
 					.setFirstResult(0)
 					.setMaxResults(count)
-					.getResultList();
+					.list();
 					
 		
 	}

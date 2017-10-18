@@ -1,5 +1,6 @@
 body{
   background-color: #E5ECF4;
+  font-family: "Arial";
 }
 .container{
   background-color: white;
@@ -72,9 +73,13 @@ hr{
 	padding: 0px;
 	margin-left: 20px;
 }
+.side-panel ul li a, .list-group a{
+	font-family: "Arial";
+}
 .post-title{
 	color: red;
 	text-align: left;
+	font-family: "Arial";
 }
 .post-item{
 	font-size: 1.2em;
@@ -325,11 +330,12 @@ ul.navbar-right>li.dropdown>a{
 .album-image-wrapper{
 	margin: 0px 0px 5px;
 	padding: 0px 5px;
-	over-flow: hidden;
+	height: 200px;
+	overflow: hidden;
 }
 .album-image-main{
 	width: 100%;
-	max-height: 300px;
+	height: 140px;
 	margin: 0px 0px;
 }
 .list-post{

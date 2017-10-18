@@ -18,7 +18,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.web.multipart.MultipartFile;
 
 @Entity
-@Table(name = "UserDetail")
+@Table(name = "userdetail")
 public class User implements Serializable{
 
 	/**

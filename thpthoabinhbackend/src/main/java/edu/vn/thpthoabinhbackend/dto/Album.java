@@ -3,21 +3,20 @@ package edu.vn.thpthoabinhbackend.dto;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import net.sourceforge.jtds.jdbc.DateTime;
-
 @Component
 @Entity
+@Table(name="album")
 public class Album implements Serializable{
 	private static final long serialVersionUID = 1L;
 	

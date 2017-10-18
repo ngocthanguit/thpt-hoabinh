@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import edu.vn.thpthoabinhbackend.dao.AlbumDAO;
 import edu.vn.thpthoabinhbackend.dao.PostDAO;
 import edu.vn.thpthoabinhbackend.dao.UserDAO;
+import edu.vn.thpthoabinhbackend.dto.Album;
 import edu.vn.thpthoabinhbackend.dto.Post;
 import edu.vn.thpthoabinhbackend.dto.User;
 
@@ -21,6 +23,8 @@ public class JsonDataController {
 	private PostDAO postDAO;
 	@Autowired
 	private UserDAO userDAO;
+	@Autowired
+	private AlbumDAO albumDAO;
 	
 
 	@RequestMapping("/admin/all/posts")
@@ -64,6 +68,20 @@ public class JsonDataController {
 	@ResponseBody
 	public List<User> getAllUsersList() {		
 		return userDAO.list();
+				
+	}	
+	
+	@RequestMapping("/admin/all/file/albums")
+	@ResponseBody
+	public List<Album> getAllFileAlbumList() {		
+		return albumDAO.list("file");
+				
+	}	
+	
+	@RequestMapping("/admin/all/image/albums")
+	@ResponseBody
+	public List<Album> getAllImageAlbumList() {		
+		return albumDAO.list("image");
 				
 	}	
 	

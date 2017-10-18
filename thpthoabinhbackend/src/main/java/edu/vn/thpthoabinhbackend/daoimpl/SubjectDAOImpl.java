@@ -2,8 +2,8 @@ package edu.vn.thpthoabinhbackend.daoimpl;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,8 +31,8 @@ public class SubjectDAOImpl implements SubjectDAO {
 	@Override
 	public List<Subject> list() {
 		String selectActiveSubject = "FROM Subject";
-		Query query = sessionFactory.getCurrentSession().createQuery(selectActiveSubject);
-		return query.getResultList();
+		return sessionFactory.getCurrentSession().createQuery(selectActiveSubject)
+		 .list();
 	}
 	@Override
 	public Subject get(int id) {

@@ -33,14 +33,7 @@
 					</ul></li>
 				<li><a href="${contextRoot}/show/category/6/posts">Giáo Dục</a></li>
 				<li><a href="${contextRoot}/show/category/8/posts">Tuyển Sinh</a></li>
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-expanded="false">Lưu Trữ<span class="caret"></span>
-				</a>
-					<ul class="dropdown-menu dropdownhover-top" role="menu"
-						style="bottom: 100%; top: auto;">
-						<li><a href="${contextRoot }/show/image/albums">Hình Ảnh</a></li>
-						<li><a href="#">Video</a></li>
-					</ul></li>
+				<li><a href="${contextRoot }/show/image/albums">Hình Ảnh</a></li>
 				<security:authorize access="hasAuthority('ADMIN')">
 					
 					<li class="dropdown"><a href="#" class="dropdown-toggle"

@@ -222,12 +222,22 @@ public class ManagementController {
 	
 	@RequestMapping(value = "/user/{id}/activation", method=RequestMethod.GET)
 	@ResponseBody
-	public String manageUserPostActivation(@PathVariable int id) {		
+	public String manageUserActivation(@PathVariable int id) {		
 		User user = userDAO.get(id);
 		boolean isActive = user.isActive();
 		user.setActive(!isActive);
 		userDAO.update(user);		
 		return (isActive)? "User Dectivated Successfully!": "User Activated Successfully";
+	}
+	
+	@RequestMapping(value = "/album/{id}/activation", method=RequestMethod.GET)
+	@ResponseBody
+	public String manageAlbumActivation(@PathVariable int id) {		
+		Album album = albumDAO.get(id);
+		boolean isActive = album.getActive();
+		album.setActive(!isActive);
+		albumDAO.update(album);		
+		return (isActive)? "Album Dectivated Successfully!": "Album Activated Successfully";
 	}
 	
 	@RequestMapping(value = "/updateuser", method = RequestMethod.POST)
@@ -297,10 +307,10 @@ public class ManagementController {
 				
 				 if(!file.getOriginalFilename().equals("") ){
 					 if("image".equals(album.getType())){
-						 FileUtil.uploadImages(request, file, fileUp.getName()); 
+						 FileUtil.uploadImages(request, file, fileUp.getName());
 					 }else{
 						 fileUp.setName(fileUp.getName() + '.' + extension);
-						 FileUtil.uploadFiles(request, file, fileUp.getName()); 
+						 FileUtil.store(request, file, fileUp.getName()); 
 					 }
 				 }
 				 fileUploadDAO.add(fileUp);
@@ -327,7 +337,12 @@ public class ManagementController {
 		String extension = FilenameUtils.getExtension(postfile.getOriginalFilename());
 		
 		 if(!postfile.getOriginalFilename().equals("") ){
-			 FileUtil.uploadImages(request, postfile, fileUp.getName()); 
+			 try {
+				FileUtil.uploadImages(request, postfile, fileUp.getName());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
 			 fileUploadDAO.add(fileUp);
 		 }
 		 

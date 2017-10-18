@@ -5,11 +5,13 @@ import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
 @Component
 @Entity
+@Table(name="fileupload")
 public class FileUpload implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id

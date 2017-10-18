@@ -60,7 +60,7 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="control-label col-md-3">Ảnh Đại Diện</label>
+			<label class="control-label col-md-3">Chọn Tài Liệu</label>
 			<div class="col-md-8">
 				<input name="files" type="file" multiple/>
 				<sf:errors path="files" cssClass="help-block" element="em" />
@@ -85,5 +85,53 @@
 
 	</sf:form>
 
-	
+	<hr />
+<h1>Danh Sách Tài Liệu</h1>
+
+<hr />
+<br />
+<div class="row">
+
+
+	<div class='col-xs-12'>
+
+
+		<table id="filesTable" class="table table-condensed table-bordered">
+
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Tên Tài Liệu</th>
+					<th>Tác Giả</th>
+					<th>Mô Tả</th>
+					<th>Ngày Đăng</th>
+					<th>Môn Học</th>
+					<th>Khối</th>
+					<th>Kích Hoạt</th>
+					<th>Sửa</th>
+				</tr>
+			</thead>
+
+			<tfoot>
+				<tr>
+					<th>Id</th>
+					<th>Tên Tài Liệu</th>
+					<th>Tác Giả</th>
+					<th>Mô Tả</th>
+					<th>Ngày Đăng</th>
+					<th>Môn Học</th>
+					<th>Khối</th>
+					<th>Kích Hoạt</th>
+					<th>Sửa</th>
+				</tr>
+			</tfoot>
+
+
+		</table>
+
+
+	</div>
+
+
+</div>
 </div>

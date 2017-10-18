@@ -445,15 +445,15 @@ $(function(){
 	
 	
 	// list of all user for admin
-	var $postsTable = $('#usersTable');
+	var $usersTable = $('#usersTable');
 	
 	
-	if($postsTable.length) {
+	if($usersTable.length) {
 		
 		var jsonUrl = window.contextRoot + '/json/data/admin/all/users';
 		console.log(jsonUrl);
 		
-		$postsTable.DataTable({
+		$usersTable.DataTable({
 					lengthMenu : [ [ 10, 20, 30, -1 ], [ '10 Records', '30 Records', '50 Records', 'ALL' ] ],
 					pageLength : 10,
 					ajax : {
@@ -548,6 +548,223 @@ $(function(){
 							            $.ajax({							            	
 							            	type: 'GET',
 							            	url: window.contextRoot + '/manage/user/'+checkbox.prop('value')+'/activation',
+							        		timeout : 100000,
+							        		success : function(data) {
+							        			displaySnackbar(data);							        										        			
+							        		},
+							        		error : function(e) {
+							        			displaySnackbar('ERROR: '+ e);
+							        			//display(e);
+							        		}						            	
+							            });
+							        }
+							        else {							        	
+							        	checkbox.prop('checked', !checked);
+							        }
+						    	}
+						    });																											
+						});
+							
+					}
+				});
+	}
+	
+	
+	// list of all album for admin
+	var $filesTable = $('#filesTable');
+	
+	
+	if($filesTable.length) {
+		
+		var jsonUrl = window.contextRoot + '/json/data/admin/all/file/albums';
+		console.log(jsonUrl);
+		
+		$filesTable.DataTable({
+					lengthMenu : [ [ 10, 20, 30, -1 ], [ '10 Records', '30 Records', '50 Records', 'ALL' ] ],
+					pageLength : 10,
+					ajax : {
+						url : jsonUrl,
+						dataSrc : ''
+					},
+					columns : [		
+					           	{data: 'id'},
+					           	{
+									data : 'name'
+								},
+								{
+									data : 'authorId',
+								},
+								{
+									data : 'description'
+								},
+								{
+									data : 'dateCreated',
+									mRender: function(data,type,row) {
+					           			return getFormattedDate(data)			           			
+					           		}
+								},
+								{
+									data : 'subjectId',
+									
+								},
+								{
+									data : 'grade',
+									
+								},
+								{
+									data : 'active',
+									bSortable : false,
+									mRender : function(data, type, row) {
+										var str = '';
+										if(data) {											
+											str += '<label class="switch"> <input type="checkbox" value="'+row.id+'" checked="checked">  <div class="slider round"> </div></label>';
+											
+										}else {
+											str += '<label class="switch"> <input type="checkbox" value="'+row.id+'">  <div class="slider round"> </div></label>';
+										}
+										
+										return str;
+									}
+								},
+								{
+									data : 'id',
+									bSortable : false,
+									mRender : function(data, type, row) {
+
+										var str = '';
+										str += '<a href="'
+												+ window.contextRoot
+												+ '/manage/'
+												+ data
+												+ '/album" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></a> &#160;';
+
+										return str;
+									}
+								}						           	
+					],
+					
+					
+					initComplete: function () {
+						var api = this.api();
+						api.$('.switch input[type="checkbox"]').on('change' , function() {							
+							var dText = (this.checked)? 'You want to activate the User?': 'You want to de-activate the User?';
+							var checked = this.checked;
+							var checkbox = $(this);
+							debugger;
+						    bootbox.confirm({
+						    	size: 'medium',
+						    	title: 'User Activation/Deactivation',
+						    	message: dText,
+						    	callback: function (confirmed) {
+							        if (confirmed) {
+							            $.ajax({							            	
+							            	type: 'GET',
+							            	url: window.contextRoot + '/manage/album/'+checkbox.prop('value')+'/activation',
+							        		timeout : 100000,
+							        		success : function(data) {
+							        			displaySnackbar(data);							        										        			
+							        		},
+							        		error : function(e) {
+							        			displaySnackbar('ERROR: '+ e);
+							        			//display(e);
+							        		}						            	
+							            });
+							        }
+							        else {							        	
+							        	checkbox.prop('checked', !checked);
+							        }
+						    	}
+						    });																											
+						});
+							
+					}
+				});
+	}
+	
+	
+	// list of all album for admin
+	var $imagesTable = $('#imagesTable');
+	
+	
+	if($imagesTable.length) {
+		
+		var jsonUrl = window.contextRoot + '/json/data/admin/all/image/albums';
+		console.log(jsonUrl);
+		
+		$imagesTable.DataTable({
+					lengthMenu : [ [ 10, 20, 30, -1 ], [ '10 Records', '30 Records', '50 Records', 'ALL' ] ],
+					pageLength : 10,
+					ajax : {
+						url : jsonUrl,
+						dataSrc : ''
+					},
+					columns : [		
+					           	{data: 'id'},
+					           	{
+									data : 'name'
+								},
+								{
+									data : 'authorId',
+								},
+								{
+									data : 'description'
+								},
+								{
+									data : 'dateCreated',
+									mRender: function(data,type,row) {
+					           			return getFormattedDate(data)			           			
+					           		}
+								},
+								
+								{
+									data : 'active',
+									bSortable : false,
+									mRender : function(data, type, row) {
+										var str = '';
+										if(data) {											
+											str += '<label class="switch"> <input type="checkbox" value="'+row.id+'" checked="checked">  <div class="slider round"> </div></label>';
+											
+										}else {
+											str += '<label class="switch"> <input type="checkbox" value="'+row.id+'">  <div class="slider round"> </div></label>';
+										}
+										
+										return str;
+									}
+								},
+								{
+									data : 'id',
+									bSortable : false,
+									mRender : function(data, type, row) {
+
+										var str = '';
+										str += '<a href="'
+												+ window.contextRoot
+												+ '/manage/'
+												+ data
+												+ '/album" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></a> &#160;';
+
+										return str;
+									}
+								}						           	
+					],
+					
+					
+					initComplete: function () {
+						var api = this.api();
+						api.$('.switch input[type="checkbox"]').on('change' , function() {							
+							var dText = (this.checked)? 'You want to activate the User?': 'You want to de-activate the User?';
+							var checked = this.checked;
+							var checkbox = $(this);
+							debugger;
+						    bootbox.confirm({
+						    	size: 'medium',
+						    	title: 'User Activation/Deactivation',
+						    	message: dText,
+						    	callback: function (confirmed) {
+							        if (confirmed) {
+							            $.ajax({							            	
+							            	type: 'GET',
+							            	url: window.contextRoot + '/manage/album/'+checkbox.prop('value')+'/activation',
 							        		timeout : 100000,
 							        		success : function(data) {
 							        			displaySnackbar(data);							        										        			

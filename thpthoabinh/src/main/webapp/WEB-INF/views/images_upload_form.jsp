@@ -20,7 +20,7 @@
 	<hr />
 	<br />
 	<sf:form class="form-horizontal" id="file-upload-form" modelAttribute="album"
-		action="${contextRoot}/manage/save" method="POST"
+		action="${contextRoot}/manage/files/save" method="POST"
 		enctype="multipart/form-data">
 		<div class="form-group">
 			<label class="control-label col-md-3">Tên Album</label>
@@ -65,5 +65,49 @@
 		</div>
 
 	</sf:form>
+<hr />
+<h1>Danh Sách Tài Liệu</h1>
 
+<hr />
+<br />
+<div class="row">
+
+
+	<div class='col-xs-12'>
+
+
+		<table id="imagesTable" class="table table-condensed table-bordered">
+
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Tên Album</th>
+					<th>Tác Giả</th>
+					<th>Mô Tả</th>
+					<th>Ngày Đăng</th>
+					<th>Kích Hoạt</th>
+					<th>Sửa</th>
+				</tr>
+			</thead>
+
+			<tfoot>
+				<tr>
+					<th>Id</th>
+					<th>Tên Album</th>
+					<th>Tác Giả</th>
+					<th>Mô Tả</th>
+					<th>Ngày Đăng</th>
+					<th>Kích Hoạt</th>
+					<th>Sửa</th>
+				</tr>
+			</tfoot>
+
+
+		</table>
+
+
+	</div>
+
+
+</div>
 </div>
