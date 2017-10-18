@@ -28,7 +28,7 @@ public class FileUtil {
 		
 		try {
 			//transfer the file to both the location
-			file.transferTo(new File(REAL_PATH + code + ".jpg"));
+			file.transferTo(new File(REAL_PATH +"/"+ code + ".jpg"));
 		}
 		catch(IOException ex) {
 			ex.printStackTrace();
@@ -51,7 +51,7 @@ public class FileUtil {
 			//transfer the file to both the location
 //			file.transferTo(new File(REAL_PATH + code + ".jpg"));
 			byte[] bytes = file.getBytes();
-            Path path = Paths.get(REAL_PATH + code + ".jpg");
+            Path path = Paths.get(REAL_PATH +"/"+ code + ".jpg");
             Files.write(path, bytes);
 		}
 		catch(IOException ex) {
@@ -94,11 +94,10 @@ public class FileUtil {
     		if(!new File(REAL_PATH).exists()) {
     			new File(REAL_PATH).mkdirs();
     		}
-    		byte[] bytes = file.getBytes();
             Path path = Paths.get(REAL_PATH +"/"+ name);
-            Files.write(path, bytes);
-            path = Paths.get(REAL_PATH +"/"+ "1_" +name );
-            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            Files.write(path, file.getBytes());
+//            path = Paths.get(REAL_PATH +"/"+ "1_" +name );
+//            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
         }
         catch (Exception e) {
         	e.printStackTrace();
