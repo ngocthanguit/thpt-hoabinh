@@ -11,11 +11,24 @@
 				<c:forEach items="${listPosts}" var="post">
 					<fmt:parseDate pattern="yyyy-MM-dd HH:mm:ss.SSSSSS"
 						value="${post.dateCreated}" var="parsedDate" />
-
-					<li>
-						<a class="post-item" href="${contextRoot}/show/post/${post.id}">
-						<img class="post-poster" src="${contextRoot}/resources/images/${post.image}.jpg/"/>
-						${post.title}</a> - <fmt:formatDate value="${parsedDate}" pattern="dd/MM/yyyy - HH:mm" /></li>
+					<div class="row">
+						<li>
+							<div class="col-xs-2">
+								<a class="post-item" href="${contextRoot}/show/post/${post.id}">
+								<img class="post-poster" src="${contextRoot}/resources/images/${post.image}.jpg/"/></a>
+							</div>
+							<div class="col-xs-10">
+								<div class="post-detail">
+									<ul class="list-post-detail">
+										<li><a href="${contextRoot}/show/post/${post.id}"><span
+												class="post-item">${post.title}</span></a></li>
+										<li><span> Ngày đăng: <fmt:formatDate value="${parsedDate}" pattern="dd/MM/yyyy - HH:mm" /></span></li>
+										<li><span>${album.description}</span></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+					</div>
 				</c:forEach>
 				<c:if test="${listPosts == null || listPosts.size() <= 0}">
 					Không có bài viết.

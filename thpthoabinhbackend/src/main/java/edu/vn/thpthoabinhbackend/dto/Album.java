@@ -32,6 +32,7 @@ public class Album implements Serializable{
 	private Boolean Active;
 	private int SubjectId;
 	private int Grade;
+	private String Image;
 	@Transient
 	private List<MultipartFile> files;
 
@@ -125,6 +126,14 @@ public class Album implements Serializable{
 
 	public void setGrade(int grade) {
 		Grade = grade;
+	}
+
+	public String getImage() {
+		return Image;
+	}
+
+	public void setImage(String image) {
+		Image = image;
 	}
 	
 	

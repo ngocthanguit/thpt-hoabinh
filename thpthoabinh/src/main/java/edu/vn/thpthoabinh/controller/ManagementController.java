@@ -291,16 +291,15 @@ public class ManagementController {
 		
 		List<MultipartFile> files = album.getFiles();
 		
-		List<String> fileNames = new ArrayList<String>();
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User authen_user = userDAO.getByUsername(authentication.getName());
 		album.setAuthorId(authen_user.getId());
 		albumDAO.add(album);
 		if(null != files && files.size() > 0) {
+			int getAlbumImage = 0;
 			for (MultipartFile file : files) {
 				String fileName = file.getOriginalFilename();
 				FileUpload fileUp = new FileUpload(album.getId(), fileName);
-				fileNames.add(fileName);
 				//Handle file content - multipartFile.getInputStream()
 				//upload the file
 				String extension = FilenameUtils.getExtension(file.getOriginalFilename());
@@ -308,16 +307,18 @@ public class ManagementController {
 				 if(!file.getOriginalFilename().equals("") ){
 					 if("image".equals(album.getType())){
 						 FileUtil.uploadImages(request, file, fileUp.getName());
+						 if(getAlbumImage == 0) {
+								album.setImage(fileUp.getName());
+							}
 					 }else{
 						 fileUp.setName(fileUp.getName() + '.' + extension);
 						 FileUtil.store(request, file, fileUp.getName()); 
 					 }
 				 }
 				 fileUploadDAO.add(fileUp);
-				System.out.print(album.getName());
-				System.out.print(fileName);
+				getAlbumImage ++;
 			}
-			
+			albumDAO.update(album);
 		}
 		map.addAttribute("message", "saved");
 		if("image".equals(album.getType())){

@@ -86,9 +86,17 @@ hr{
 	font-family: "Arial";
 }
 .post-poster{
-	max-width: 100px;
-	max-heigh: 100px;
+	width: 150px;
+	height: 100px;
 	margin-right: 10px;
+	margin-bottom: 10px;
+}
+.post-detail{
+	margin-left: 20px;
+}
+.list-post-detail{
+	list-style-type: none;
+	padding: 0px;
 }
 .post-date{
 	text-align: left;
@@ -274,7 +282,7 @@ However, delay the fade out process for 2.5 seconds */
 	text-align: left;
 }
 .main-list-annount{
-	list-style-image: url("../images/list-style.png");
+	list-style-type: none;
 	padding: 0px;
 	margin-left: 20px;
 }
@@ -335,7 +343,6 @@ ul.navbar-right>li.dropdown>a{
 }
 .album-image-main{
 	width: 100%;
-	height: 140px;
 	margin: 0px 0px;
 }
 .list-post{

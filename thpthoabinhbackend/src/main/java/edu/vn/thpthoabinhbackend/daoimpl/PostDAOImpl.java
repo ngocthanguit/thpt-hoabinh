@@ -14,7 +14,7 @@ import edu.vn.thpthoabinhbackend.dto.Post;
 @Repository("postDAO")
 @Transactional
 public class PostDAOImpl implements PostDAO {
-
+	private static int START_ID = 11;
 	@Autowired
 	private SessionFactory sessionFactory;
 	
@@ -43,7 +43,8 @@ public class PostDAOImpl implements PostDAO {
 	public List<Post> list() {
 		return sessionFactory
 				.getCurrentSession()
-					.createQuery("FROM Post")
+					.createQuery("FROM Post WHERE Id >= :id")
+					.setParameter("id", START_ID)
 						.list();
 	}
 
@@ -101,22 +102,24 @@ public class PostDAOImpl implements PostDAO {
 
 	@Override
 	public List<Post> listActivePosts() {
-		String selectActivePosts = "FROM Post WHERE Active = :active";
+		String selectActivePosts = "FROM Post WHERE Active = :active AND Id >= :id";
 		return sessionFactory
 				.getCurrentSession()
 					.createQuery(selectActivePosts)
 						.setParameter("active", true)
+						.setParameter("id", START_ID)
 							.list();
 	}
 
 	@Override
 	public List<Post> listActivePostsByCategory(int categoryId) {
-		String selectActiveProductsByCategory = "FROM Post WHERE Active = :active AND CategoryId = :categoryId";
+		String selectActiveProductsByCategory = "FROM Post WHERE Active = :active AND CategoryId = :categoryId AND Id >= :id";
 		return sessionFactory
 				.getCurrentSession()
 					.createQuery(selectActiveProductsByCategory)
 						.setParameter("active", true)
 						.setParameter("categoryId",categoryId)
+						.setParameter("id", START_ID)
 							.list();
 	}
 
@@ -124,22 +127,24 @@ public class PostDAOImpl implements PostDAO {
 	public List<Post> getLatestActivePosts(int categoryId, int pos, int count) {
 		return sessionFactory
 				.getCurrentSession()
-					.createQuery("FROM Post WHERE Active = :active AND CategoryId = :categoryId ORDER BY Id")
+					.createQuery("FROM Post WHERE Active = :active AND CategoryId = :categoryId AND Id >= :id ORDER BY Id")
 						.setParameter("active", true)
 						.setParameter("categoryId",categoryId)
 							.setFirstResult(pos)
 							.setMaxResults(count)
+							.setParameter("id", START_ID)
 								.list();
 	}
 
 	@Override
 	public List<Post> getPostsByParam(String param, int count) {
 		
-		String query = "FROM Post WHERE Active = true ORDER BY " + param + " DESC";
+		String query = "FROM Post WHERE Active = true AND Id >= :id ORDER BY " + param + " DESC";
 		
 		return sessionFactory
 					.getCurrentSession()
 					.createQuery(query)
+					.setParameter("id", START_ID)
 					.setFirstResult(0)
 					.setMaxResults(count)
 					.list();

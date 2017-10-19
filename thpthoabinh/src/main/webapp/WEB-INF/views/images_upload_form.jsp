@@ -40,7 +40,7 @@
 		</div>
 
 		<div class="form-group">
-			<label class="control-label col-md-3">Ảnh Đại Diện</label>
+			<label class="control-label col-md-3">Chọn Ảnh</label>
 			<div class="col-md-8">
 				<input name="files" type="file" class="form-control" multiple />
 				<sf:errors path="files" cssClass="help-block" element="em" />
@@ -54,6 +54,7 @@
 		<sf:hidden path="type" />
 		<sf:hidden path="dateCreated" />
 		<sf:hidden path="dateModified" />
+		<sf:hidden path="image" />
 		<div class="form-group">
 
 			<div class="col-md-offset-4 col-md-4">
