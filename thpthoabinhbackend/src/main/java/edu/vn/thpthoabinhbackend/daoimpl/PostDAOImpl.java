@@ -24,14 +24,17 @@ public class PostDAOImpl implements PostDAO {
 	
 	@Override
 	public Post get(int postId) {
-		try {			
-			return sessionFactory
-					.getCurrentSession()
-						.get(Post.class,Integer.valueOf(postId));			
+		if(postId >= START_ID) {
+			try {			
+				return sessionFactory
+						.getCurrentSession()
+							.get(Post.class,Integer.valueOf(postId));			
+			}
+			catch(Exception ex) {		
+				ex.printStackTrace();			
+			}
 		}
-		catch(Exception ex) {		
-			ex.printStackTrace();			
-		}
+		
 		return null;
 	}
 
@@ -160,6 +163,21 @@ public class PostDAOImpl implements PostDAO {
 				.createQuery(query)
 				.setParameter("id",categoryId)
 				.uniqueResult();
+	}
+
+	@Override
+	public Post getPage(String page) {
+		String selectActiveProductsByCategory = "FROM Post WHERE Slug = :page AND Id < :id";
+		List<Post> listPosts = sessionFactory
+				.getCurrentSession()
+					.createQuery(selectActiveProductsByCategory)
+						.setParameter("page", page)
+						.setParameter("id", START_ID)
+							.list();
+		if(listPosts != null && listPosts.size() > 0) {
+			return listPosts.get(0);
+		}
+		return null;
 	}
 
 }

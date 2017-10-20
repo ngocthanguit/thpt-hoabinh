@@ -137,6 +137,9 @@
 									<c:if test="${userClickManageFileAlbum == true}">
 										<%@include file="file_upload_form.jsp"%>
 									</c:if>
+									<c:if test="${userClickEditPage == true}">
+										<%@include file="editPage.jsp"%>
+									</c:if>
 
 								</div>
 							</c:if>

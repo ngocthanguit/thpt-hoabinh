@@ -798,7 +798,7 @@ $(function(){
 	}
 	
 	CKEDITOR.replace( 'editor1',{
-		filebrowserBrowseUrl: window.contextRoot + '/show/imagesfinder',
+		filebrowserBrowseUrl: 'http://localhost:8080/CKFinderJava-2.6.2.1/ckfinder/_samples/skin_bootstrap.html',
 		filebrowserUploadUrl: window.contextRoot + '/manage/file/upload',
 		filebrowserWindowWidth: '1000',
 		filebrowserWindowHeight: '700',

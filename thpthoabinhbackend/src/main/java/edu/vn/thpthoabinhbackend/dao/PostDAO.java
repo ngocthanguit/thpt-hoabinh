@@ -8,6 +8,7 @@ public interface PostDAO {
 
 	Post get(int postId);
 	List<Post> list();	
+	Post getPage(String page);
 	boolean add(Post post);
 	boolean update(Post post);
 	boolean delete(Post post);

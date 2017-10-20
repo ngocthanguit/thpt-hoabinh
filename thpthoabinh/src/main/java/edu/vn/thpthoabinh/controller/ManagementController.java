@@ -85,7 +85,29 @@ public class ManagementController {
 		return mv;
 		
 	}
+	@RequestMapping("/page/{page}")
+	public ModelAndView editPage(@RequestParam(name="success",required=false)String success,@PathVariable("page")String page) {		
 
+		ModelAndView mv = new ModelAndView("page");	
+		mv.addObject("title","Edit Page");		
+		mv.addObject("manage",true);	
+		mv.addObject("userClickEditPage",true);
+		
+		Post post = postDAO.getPage(page);
+		
+		mv.addObject("post", post);
+
+		
+		if(success != null) {
+			if(success.equals("post")){
+				mv.addObject("message", "Lưu trang thành công!");
+			}	
+			
+		}
+			
+		return mv;
+		
+	}
 	
 	@RequestMapping("/{id}/post")
 	public ModelAndView managePostEdit(@PathVariable int id) {		
@@ -118,7 +140,7 @@ public class ManagementController {
 		}
 		else {
 			// edit check only when the file has been selected
-			if(!post.getFile().getOriginalFilename().equals("")) {
+			if(!(post.getFile() == null || post.getFile().getOriginalFilename().equals(""))) {
 				new PostValidator().validate(post, results);
 				if("default".equals(post.getImage())){
 					post.setImage("IMG" + UUID.randomUUID().toString());
@@ -135,7 +157,10 @@ public class ManagementController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = userDAO.getByUsername(authentication.getName());
 		post.setAuthorId(user.getId());
-		post.setSlug(SlugUtil.makeSlug(post.getTitle()));
+		if(post.getId() == 0 || post.getId() > 10) {
+			post.setSlug(SlugUtil.makeSlug(post.getTitle()));
+		}
+		
 		if(post.getId() == 0 ) {
 			postDAO.add(post);
 		}
@@ -145,11 +170,15 @@ public class ManagementController {
 		}
 	
 		 //upload the file
-		 if(!(post.getFile().getOriginalFilename().equals("") || "default".equals(post.getImage()))){
+		 if(!(post.getFile() == null || post.getFile().getOriginalFilename().equals("") || "default".equals(post.getImage()))){
 			FileUtil.uploadAvata(request, post.getFile(), post.getImage()); 
 		 }
+		if(post.getId() <= 10) {
+			return "redirect:/";
+		}else {
+			return "redirect:/manage/post?success=post";
+		}
 		
-		return "redirect:/manage/post?success=post";
 	}
 
 	

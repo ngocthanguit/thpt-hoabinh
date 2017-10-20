@@ -20,7 +20,7 @@
 			id="bs-example-navbar-collapse-animations" data-hover="dropdown"
 			data-animations="fadeInDown fadeInRight fadeInUp fadeInLeft">
 			<ul class="nav navbar-nav">
-				<li><a href="#">Giới Thiệu</a></li>
+				<li><a href="${contextRoot}/about">Giới Thiệu</a></li>
 				<li><a href="${contextRoot}/show/category/4/posts">TKB</a></li>
 				<li><a href="${contextRoot}/show/category/5/posts">Hoạt Động</a></li>
 
@@ -45,7 +45,12 @@
 							<li><a href="${contextRoot }/manage/user">Quản Lý User</a></li>
 							<li><a href="${contextRoot }/manage/image/album">Upload Images</a></li>
 							<li><a href="${contextRoot}/manage/files/upload">Upload Tài Liệu Học Tập</a></li>
-							
+							<li class="dropdown"><a href="#">Chỉnh Sửa Trang<span
+											class="caret"></span></a>
+										<ul class="dropdown-menu dropdownhover-right">
+											<li><a href="${contextRoot}/manage/page/gioi-thieu">Trang Giới Thiệu</a></li>
+											
+										</ul></li>
 						</ul></li>
 				</security:authorize>
 			</ul>

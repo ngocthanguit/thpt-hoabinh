@@ -116,14 +116,6 @@ public class PageController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "about")
-	public ModelAndView about(){
-		ModelAndView mv = new ModelAndView("page");
-		mv.addObject("title", "About Us");
-		mv.addObject("userClickAbout", true);
-		return mv;
-	}
-	
 	@RequestMapping(value = "contact")
 	public ModelAndView contact(){
 		ModelAndView mv = new ModelAndView("page");
@@ -409,6 +401,21 @@ public class PageController {
 		mv.addObject("title", "Show Albums");
 		List<FileUpload> listImages = fileUploadDAO.getByAlbumId(0);
 		mv.addObject("listImages", listImages);
+		return mv;
+	}
+	
+	@RequestMapping(value="/about")
+	public ModelAndView about() {
+		ModelAndView mv= new ModelAndView("page");
+		mv.addObject("title", "Giới Thiệu Trường");
+		mv.addObject("categories",categoryDAO.list());
+		mv.addObject("userClickPost", true);
+		List<Post> listTinTuc = postDAO.getLatestActivePosts(TIN_TUC, 0, 10);
+		if(listTinTuc != null && listTinTuc.size() > 0) {
+			mv.addObject("listTinTuc", listTinTuc);
+		}
+		Post about = postDAO.getPage("gioi-thieu");
+		mv.addObject("post", about);
 		return mv;
 	}
 //	@RequestMapping(value="/page")
