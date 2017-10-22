@@ -15,7 +15,7 @@
 						<li>
 							<div class="col-xs-2">
 								<a class="post-item" href="${contextRoot}/show/post/${post.id}">
-								<img class="post-poster" src="${contextRoot}/resources/images/${post.image}.jpg/"/></a>
+								<div class="post-poster-wrapper"><img class="post-poster" src="${contextRoot}/resources/images/${post.image}.jpg/"/></div></a>
 							</div>
 							<div class="col-xs-10">
 								<div class="post-detail">

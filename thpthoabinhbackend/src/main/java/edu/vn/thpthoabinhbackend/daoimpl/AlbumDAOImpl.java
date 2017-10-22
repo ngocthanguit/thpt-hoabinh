@@ -65,6 +65,19 @@ public class AlbumDAOImpl implements AlbumDAO {
 
 	@Override
 	public boolean delete(Album album) {
+		try{
+			// update the category to the database table
+			sessionFactory.getCurrentSession().delete(album);
+			return true;
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean deActive(Album album) {
 		album.setActive(false);
 		try{
 			// update the category to the database table

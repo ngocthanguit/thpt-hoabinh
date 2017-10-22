@@ -21,19 +21,12 @@
 
 <div class="panel panel-primary">
 	<div class="panel-heading heading-side">
-		<h3 class="panel-title">Tin Tức Nổi Bật</h3>
+		<h3 class="panel-title">Thông Báo Chung</h3>
 	</div>
 	<div class="panel-body side-panel">
 
 		<ul class="side-news">
-			<!-- 
-			<li><a href="">Lễ Khai giảng năm học mới 2010 - 2011</a></li>
-			<li><a href="">Hình ảnh lễ khai giảng năm học mới 2010 -
-					2011 (tiếp)</a></li>
-			<li><a href="">Chùm ảnh ngày lễ tốt nghiệp khối 12 khóa 2007
-					2010</a></li>
-			<li><a href="">Chùm ảnh ngày bế giảng năm học 2009 - 2010</a></li> -->
-			<c:forEach items="${listTinTuc}" var="post">
+			<c:forEach items="${listThongBaoChung}" var="post">
 				<fmt:parseDate pattern="yyyy-MM-dd HH:mm:ss.SSSSSS"
 					value="${post.dateCreated}" var="parsedDate" />
 

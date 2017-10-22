@@ -361,6 +361,21 @@ $(function(){
 								},
 								{
 									data : 'categoryId',
+									mRender: function(data,type,row) {
+										switch(data) {
+									    case 1: return "TIN TỨC";
+									    case 2: return "THÔNG BÁO CHUNG";
+									    case 3: return "THÔNG BÁO GIÁO VIÊN";
+									    case 4: return "THỜI KHÓA BIỂU";
+									    case 5: return "THÔNG TIN HOẠT ĐỘNG";
+									    case 6: return "GIÁO DỤC-KHUYẾN HỌC";
+									    case 7: return "CÔNG ĐOÀN";
+									    case 8: return "TUYỂN SINH";
+									    case 9: return "ĐOÀN THANH NIÊN";
+									    default:
+									        return data;
+									}		           			
+					           		}
 								},
 								{
 									data : 'dateCreated',

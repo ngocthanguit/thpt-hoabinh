@@ -101,7 +101,6 @@ public class PageController {
 			mv.addObject("listDoanThanhNien", listDoanThanhNien);
 		}
 		
-		
 		mv.addObject("title", "Home");
 		mv.addObject("userClickHome", true);
 		return mv;
@@ -123,7 +122,7 @@ public class PageController {
 		mv.addObject("userClickContact", true);
 		return mv;
 	}
-	//Methods to load all the posts and based on category
+
 		@RequestMapping(value = "/show/post/{id}")
 		public ModelAndView showPost(@PathVariable("id")int id)throws PostNotFoundException{
 			ModelAndView mv = new ModelAndView("page");
@@ -133,14 +132,7 @@ public class PageController {
 			}
 			post.setViewCount(post.getViewCount() + 1);
 			postDAO.update(post);
-			mv.addObject("categories",categoryDAO.list());
-			List<Post> listTinTuc = postDAO.getLatestActivePosts(TIN_TUC, 0, 10);
-			if(listTinTuc != null && listTinTuc.size() > 0) {
-				mv.addObject("listTinTuc", listTinTuc);
-			}
-			mv.addObject("title", post.getTitle());
-			//passing the list of category
-			mv.addObject("categories",categoryDAO.list());
+			addGeneralPage(mv,post.getTitle());
 			mv.addObject("latestPosts", postDAO.getLatestActivePosts(TIN_TUC, 0, 10));
 			mv.addObject("post", post);
 			mv.addObject("userClickPost", true);
@@ -164,13 +156,7 @@ public class PageController {
 		//categoryDAO to fetch a single category
 		Category category = null;
 		category = categoryDAO.get(id);
-		mv.addObject("title", category.getName());
-		//passing the list of categories
-		mv.addObject("categories",categoryDAO.list());
-		List<Post> listTinTuc = postDAO.getLatestActivePosts(TIN_TUC, 0, 10);
-		if(listTinTuc != null && listTinTuc.size() > 0) {
-			mv.addObject("listTinTuc", listTinTuc);
-		}
+		addGeneralPage(mv,category.getName());
 		int pos = 0;
 		if(offset!=null) {
 			try {
@@ -265,12 +251,7 @@ public class PageController {
 	public ModelAndView signup(@RequestParam(name="error", required = false)	String error,
 			@RequestParam(name="logout", required = false) String logout) {
 		ModelAndView mv= new ModelAndView("page");
-		mv.addObject("title", "Signup");
-		mv.addObject("categories",categoryDAO.list());
-		List<Post> listTinTuc = postDAO.getLatestActivePosts(TIN_TUC, 0, 10);
-		if(listTinTuc != null && listTinTuc.size() > 0) {
-			mv.addObject("listTinTuc", listTinTuc);
-		}
+		addGeneralPage(mv,"Đăng ký tài khoản");
 		mv.addObject("userClickSignup", true);
 		User user = new User();
 		user.setActive(true);
@@ -286,12 +267,7 @@ public class PageController {
 	public ModelAndView editaccount(@RequestParam(name="error", required = false)	String error,
 			@RequestParam(name="logout", required = false) String logout) {
 		ModelAndView mv= new ModelAndView("page");
-		mv.addObject("title", "Sửa thông tin tài khoản");
-		mv.addObject("categories",categoryDAO.list());
-		List<Post> listTinTuc = postDAO.getLatestActivePosts(TIN_TUC, 0, 10);
-		if(listTinTuc != null && listTinTuc.size() > 0) {
-			mv.addObject("listTinTuc", listTinTuc);
-		}
+		addGeneralPage(mv,"Sửa thông tin tài khoản");
 		mv.addObject("userClickSignup", true);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = userDAO.getByUsername(authentication.getName());
@@ -342,13 +318,8 @@ public class PageController {
 	@RequestMapping(value="/show/image/albums")
 	public ModelAndView imageAlbums() {
 		ModelAndView mv= new ModelAndView("page");
-		mv.addObject("title", "Show Albums");
-		mv.addObject("categories",categoryDAO.list());
+		addGeneralPage(mv,"Show Album");
 		mv.addObject("userClickImageAlbums",true);
-		List<Post> listTinTuc = postDAO.getLatestActivePosts(TIN_TUC, 0, 10);
-		if(listTinTuc != null && listTinTuc.size() > 0) {
-			mv.addObject("listTinTuc", listTinTuc);
-		}
 		List<Album> listAlbums = albumDAO.getAllAlbum("image");
 		if (listAlbums != null && listAlbums.size() > 0){
 			mv.addObject("listAlbums", listAlbums);
@@ -358,13 +329,8 @@ public class PageController {
 	@RequestMapping(value="/show/file/albums")
 	public ModelAndView fileAlbums() {
 		ModelAndView mv= new ModelAndView("page");
-		mv.addObject("title", "Show Albums");
-		mv.addObject("categories",categoryDAO.list());
+		addGeneralPage(mv,"Show Album");
 		mv.addObject("userClickFileAlbums",true);
-		List<Post> listTinTuc = postDAO.getLatestActivePosts(TIN_TUC, 0, 10);
-		if(listTinTuc != null && listTinTuc.size() > 0) {
-			mv.addObject("listTinTuc", listTinTuc);
-		}
 		List<Album> listAlbums = albumDAO.getAllAlbum("file");
 		if (listAlbums != null && listAlbums.size() > 0){
 			mv.addObject("listAlbums", listAlbums);
@@ -375,13 +341,7 @@ public class PageController {
 	@RequestMapping(value="/show/album/{id}")
 	public ModelAndView album(@PathVariable("id")int id) {
 		ModelAndView mv= new ModelAndView("page");
-		mv.addObject("title", "Show Album");
-		
-		mv.addObject("categories",categoryDAO.list());
-		List<Post> listTinTuc = postDAO.getLatestActivePosts(TIN_TUC, 0, 10);
-		if(listTinTuc != null && listTinTuc.size() > 0) {
-			mv.addObject("listTinTuc", listTinTuc);
-		}
+		addGeneralPage(mv,"Show Album");
 		Album album = albumDAO.get(id);
 		List<FileUpload> listFiles = fileUploadDAO.getByAlbumId(id);
 		mv.addObject("album", album);
@@ -407,16 +367,19 @@ public class PageController {
 	@RequestMapping(value="/about")
 	public ModelAndView about() {
 		ModelAndView mv= new ModelAndView("page");
-		mv.addObject("title", "Giới Thiệu Trường");
-		mv.addObject("categories",categoryDAO.list());
+		addGeneralPage(mv,"Giới Thiệu Trường");
 		mv.addObject("userClickPost", true);
-		List<Post> listTinTuc = postDAO.getLatestActivePosts(TIN_TUC, 0, 10);
-		if(listTinTuc != null && listTinTuc.size() > 0) {
-			mv.addObject("listTinTuc", listTinTuc);
-		}
 		Post about = postDAO.getPage("gioi-thieu");
 		mv.addObject("post", about);
 		return mv;
+	}
+	private void addGeneralPage(ModelAndView mv, String title) {
+		mv.addObject("title", "Giới Thiệu Trường");
+		mv.addObject("categories",categoryDAO.list());
+		List<Post> listThongBaoChung = postDAO.getLatestActivePosts(THONG_BAO_CHUNG, 0, 10);
+		if(listThongBaoChung != null && listThongBaoChung.size() > 0) {
+			mv.addObject("listThongBaoChung", listThongBaoChung);
+		}
 	}
 //	@RequestMapping(value="/page")
 //	public ModelAndView test(@RequestParam(value="greeting", required=false)String greeting){

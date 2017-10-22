@@ -11,4 +11,5 @@ public interface AlbumDAO {
 	boolean add(Album album);
 	boolean update(Album album);
 	boolean delete(Album album);
+	boolean deActive(Album album);
 }
