@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -45,6 +47,7 @@ public class PageController {
 	private static final int  CONG_DOAN = 7;
 	private static final int  TUYEN_SINH = 8;
 	private static final int  DOAN_THANH_NIEN = 9;
+	private static final int  NUM_POST = 6;
 	
 	@Autowired
 	private CategoryDAO categoryDAO;
@@ -64,41 +67,45 @@ public class PageController {
 		ModelAndView mv = new ModelAndView("page");
 		//passing the list of category
 		mv.addObject("categories",categoryDAO.list());
-		List<Post> listTinTuc = postDAO.getLatestActivePosts(TIN_TUC, 0, 10);
+		List<Post> listTinTuc = postDAO.getLatestActivePosts(TIN_TUC, 0, NUM_POST);
 		if(listTinTuc != null && listTinTuc.size() > 0) {
 			mv.addObject("listTinTuc", listTinTuc);
+			mv.addObject("TinTucFirstContent", parseContent(listTinTuc.get(0).getPContent()));
 		}
 		List<Post> listThongBaoChung = postDAO.getLatestActivePosts(THONG_BAO_CHUNG, 0, 10);
 		if(listThongBaoChung != null && listThongBaoChung.size() > 0) {
 			mv.addObject("listThongBaoChung", listThongBaoChung);
 		}
-		List<Post> listThongBaoGiaoVien = postDAO.getLatestActivePosts(THONG_BAO_GIAO_VIEN, 0, 10);
+		List<Post> listThongBaoGiaoVien = postDAO.getLatestActivePosts(THONG_BAO_GIAO_VIEN, 0, NUM_POST);
 		if(listThongBaoGiaoVien != null && listThongBaoGiaoVien.size() > 0) {
 			mv.addObject("listThongBaoGiaoVien", listThongBaoGiaoVien);
 		}
-		List<Post> listTKB = postDAO.getLatestActivePosts(TKB, 0, 10);
+		List<Post> listTKB = postDAO.getLatestActivePosts(TKB, 0, NUM_POST);
 		if(listTKB != null && listTKB.size() > 0) {
 			mv.addObject("listTKB", listTKB);
 		}
-		List<Post> listThongTinHoatDong = postDAO.getLatestActivePosts(THONG_TIN_HOAT_DONG, 0, 10);
+		List<Post> listThongTinHoatDong = postDAO.getLatestActivePosts(THONG_TIN_HOAT_DONG, 0, NUM_POST);
 		if(listThongTinHoatDong != null && listThongTinHoatDong.size() > 0) {
 			mv.addObject("listThongTinHoatDong", listThongTinHoatDong);
+			mv.addObject("ThongTinHoatDongFirstContent", parseContent(listThongTinHoatDong.get(0).getPContent()));
 		}
-		List<Post> listGDKH = postDAO.getLatestActivePosts(GIAO_DUC_KHUYEN_HOC, 0, 10);
+		List<Post> listGDKH = postDAO.getLatestActivePosts(GIAO_DUC_KHUYEN_HOC, 0, NUM_POST);
 		if(listGDKH != null && listGDKH.size() > 0) {
 			mv.addObject("listGDKH", listGDKH);
 		}
-		List<Post> listCongDoan = postDAO.getLatestActivePosts(CONG_DOAN, 0, 10);
+		List<Post> listCongDoan = postDAO.getLatestActivePosts(CONG_DOAN, 0, NUM_POST);
 		if(listCongDoan != null && listCongDoan.size() > 0) {
 			mv.addObject("listCongDoan", listCongDoan);
 		}
-		List<Post> listTuyenSinh = postDAO.getLatestActivePosts(TUYEN_SINH, 0, 10);
+		List<Post> listTuyenSinh = postDAO.getLatestActivePosts(TUYEN_SINH, 0, NUM_POST);
 		if(listTuyenSinh != null && listTuyenSinh.size() > 0) {
 			mv.addObject("listTuyenSinh", listTuyenSinh);
+			mv.addObject("TuyenSinhFirstContent", parseContent(listTuyenSinh.get(0).getPContent()));
 		}
-		List<Post> listDoanThanhNien = postDAO.getLatestActivePosts(DOAN_THANH_NIEN, 0, 10);
+		List<Post> listDoanThanhNien = postDAO.getLatestActivePosts(DOAN_THANH_NIEN, 0, NUM_POST);
 		if(listDoanThanhNien != null && listDoanThanhNien.size() > 0) {
 			mv.addObject("listDoanThanhNien", listDoanThanhNien);
+			mv.addObject("DoanThanhNienFirstContent", parseContent(listDoanThanhNien.get(0).getPContent()));
 		}
 		
 		mv.addObject("title", "Home");
@@ -374,12 +381,20 @@ public class PageController {
 		return mv;
 	}
 	private void addGeneralPage(ModelAndView mv, String title) {
-		mv.addObject("title", "Giới Thiệu Trường");
+		mv.addObject("title", title);
 		mv.addObject("categories",categoryDAO.list());
 		List<Post> listThongBaoChung = postDAO.getLatestActivePosts(THONG_BAO_CHUNG, 0, 10);
 		if(listThongBaoChung != null && listThongBaoChung.size() > 0) {
 			mv.addObject("listThongBaoChung", listThongBaoChung);
 		}
+	}
+	private String parseContent(String content) {
+		Document doc = Jsoup.parse(content);
+		String text = doc.body().text(); // "An example link"
+		if(text.length() > 400) {
+			return text.substring(0, 400);
+		}
+		return text.substring(0, text.length()-1);
 	}
 //	@RequestMapping(value="/page")
 //	public ModelAndView test(@RequestParam(value="greeting", required=false)String greeting){

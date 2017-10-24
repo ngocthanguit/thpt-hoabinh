@@ -116,7 +116,7 @@ public class PostDAOImpl implements PostDAO {
 
 	@Override
 	public List<Post> listActivePostsByCategory(int categoryId) {
-		String selectActiveProductsByCategory = "FROM Post WHERE Active = :active AND CategoryId = :categoryId AND Id >= :id";
+		String selectActiveProductsByCategory = "FROM Post WHERE Active = :active AND CategoryId = :categoryId AND Id >= :id ORDER BY Id DESC";
 		return sessionFactory
 				.getCurrentSession()
 					.createQuery(selectActiveProductsByCategory)
@@ -130,7 +130,7 @@ public class PostDAOImpl implements PostDAO {
 	public List<Post> getLatestActivePosts(int categoryId, int pos, int count) {
 		return sessionFactory
 				.getCurrentSession()
-					.createQuery("FROM Post WHERE Active = :active AND CategoryId = :categoryId AND Id >= :id ORDER BY Id")
+					.createQuery("FROM Post WHERE Active = :active AND CategoryId = :categoryId AND Id >= :id ORDER BY Id DESC")
 						.setParameter("active", true)
 						.setParameter("categoryId",categoryId)
 							.setFirstResult(pos)
