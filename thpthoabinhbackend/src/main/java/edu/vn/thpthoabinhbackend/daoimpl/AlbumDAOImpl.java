@@ -38,6 +38,16 @@ public class AlbumDAOImpl implements AlbumDAO {
 		 .list();
 	}
 	@Override
+	public List<Album> getAlbums(String type, int pos, int count) {
+		String selectActiveCategory = "FROM Album WHERE Active = :active AND Type = :type";
+		return sessionFactory.getCurrentSession().createQuery(selectActiveCategory)
+		.setParameter("active", true)
+		.setParameter("type", type)
+		.setFirstResult(pos)
+		.setMaxResults(count)
+		 .list();
+	}
+	@Override
 	public boolean add(Album album) {
 		try{
 			// add the category to the database table
@@ -88,6 +98,16 @@ public class AlbumDAOImpl implements AlbumDAO {
 			ex.printStackTrace();
 			return false;
 		}
+	}
+
+	@Override
+	public Long getCount(String type) {
+		String query = "SELECT COUNT(*) from Album WHERE Active = true and Type = :type";
+		return (Long)sessionFactory
+				.getCurrentSession()
+				.createQuery(query)
+				.setParameter("type",type)
+				.uniqueResult();
 	}
 
 }

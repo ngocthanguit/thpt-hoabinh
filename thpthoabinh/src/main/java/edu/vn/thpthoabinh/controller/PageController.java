@@ -323,22 +323,42 @@ public class PageController {
 	}	
 	
 	@RequestMapping(value="/show/image/albums")
-	public ModelAndView imageAlbums() {
+	public ModelAndView imageAlbums(@RequestParam(value="offset", required=false)String offset) {
 		ModelAndView mv= new ModelAndView("page");
 		addGeneralPage(mv,"Show Album");
 		mv.addObject("userClickImageAlbums",true);
-		List<Album> listAlbums = albumDAO.getAllAlbum("image");
+		int pos = 0;
+		if(offset!=null) {
+			try {
+				pos = Integer.parseInt(offset);
+			}catch(Exception e) {
+				
+			}
+		}
+		mv.addObject("offset", pos);
+		mv.addObject("max", albumDAO.getCount("image"));
+		List<Album> listAlbums = albumDAO.getAlbums("image", pos, 10);
 		if (listAlbums != null && listAlbums.size() > 0){
 			mv.addObject("listAlbums", listAlbums);
 		}
 		return mv;
 	}
 	@RequestMapping(value="/show/file/albums")
-	public ModelAndView fileAlbums() {
+	public ModelAndView fileAlbums(@RequestParam(value="offset", required=false)String offset) {
 		ModelAndView mv= new ModelAndView("page");
 		addGeneralPage(mv,"Show Album");
 		mv.addObject("userClickFileAlbums",true);
-		List<Album> listAlbums = albumDAO.getAllAlbum("file");
+		int pos = 0;
+		if(offset!=null) {
+			try {
+				pos = Integer.parseInt(offset);
+			}catch(Exception e) {
+				
+			}
+		}
+		mv.addObject("offset", pos);
+		mv.addObject("max", albumDAO.getCount("file"));
+		List<Album> listAlbums = albumDAO.getAlbums("file", pos, 10);
 		if (listAlbums != null && listAlbums.size() > 0){
 			mv.addObject("listAlbums", listAlbums);
 		}

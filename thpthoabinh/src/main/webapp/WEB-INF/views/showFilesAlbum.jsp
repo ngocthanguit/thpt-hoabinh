@@ -22,7 +22,21 @@
 				</c:forEach>
 			</ul>
 			<p class="panel-foot">
-				<a href="#">Xem thêm »</a>
+			<div class="text-left">
+				<c:if test="${offset > 0}">
+					<a
+						href="${contextRoot}/show/file/albums?offset=${offset - 10}">« Trang
+						trước</a>
+				</c:if>
+			</div>
+
+			<div class="text-right">
+				<c:if test="${offset + 10 < max}">
+					<a
+						href="${contextRoot}/show/file/albums?offset=${offset + 10}">Trang
+						sau »</a>
+				</c:if>
+			</div>
 			</p>
 		</div>
 	</div>
