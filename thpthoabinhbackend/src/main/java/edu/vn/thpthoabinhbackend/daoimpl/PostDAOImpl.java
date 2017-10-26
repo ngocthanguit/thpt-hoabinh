@@ -90,12 +90,26 @@ public class PostDAOImpl implements PostDAO {
 	 * DELETE
 	 * */
 	@Override
-	public boolean delete(Post post) {
+	public boolean deActive(Post post) {
 		try {
 			
 			post.setActive(false);
 			// call the update method
 			return this.update(post);
+		}
+		catch(Exception ex) {		
+			ex.printStackTrace();			
+		}		
+		return false;			
+	}
+	
+	@Override
+	public boolean delete(Post post) {
+		try {
+			sessionFactory
+			.getCurrentSession()
+				.delete(post);
+			return true;
 		}
 		catch(Exception ex) {		
 			ex.printStackTrace();			

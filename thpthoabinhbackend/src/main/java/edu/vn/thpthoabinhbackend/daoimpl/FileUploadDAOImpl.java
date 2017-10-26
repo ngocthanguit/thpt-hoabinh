@@ -66,18 +66,20 @@ public class FileUploadDAOImpl implements FileUploadDAO{
 							.list();
 	}
 
-//	@Override
-//	public boolean delete(File file) {
-//		file.setActive(false);
-//		try{
-//			// update the category to the database table
-//			sessionFactory.getCurrentSession().update(file);
-//			return true;
-//		}
-//		catch(Exception ex){
-//			ex.printStackTrace();
-//			return false;
-//		}
-//	}
+	
+	@Override
+	public boolean delete(int albumId) {
+		try{
+			List<FileUpload> listfile = getByAlbumId(albumId);
+			for(FileUpload x :listfile){
+				sessionFactory.getCurrentSession().delete(x);
+			}
+			return true;
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+			return false;
+		}
+	}
 
 }

@@ -12,6 +12,7 @@ public interface PostDAO {
 	boolean add(Post post);
 	boolean update(Post post);
 	boolean delete(Post post);
+	boolean deActive(Post post);
 
 	List<Post> getPostsByParam(String param, int count);	
 	

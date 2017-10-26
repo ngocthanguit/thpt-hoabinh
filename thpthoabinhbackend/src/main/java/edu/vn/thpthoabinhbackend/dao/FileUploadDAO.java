@@ -10,5 +10,5 @@ public interface FileUploadDAO {
 	List<FileUpload> list();
 	boolean add(FileUpload album);
 	boolean update(FileUpload album);
-//	boolean delete(File album);
+	boolean delete(int albumId);
 }

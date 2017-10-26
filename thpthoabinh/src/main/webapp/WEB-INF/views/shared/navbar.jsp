@@ -28,7 +28,7 @@
 					data-toggle="dropdown" role="button" aria-expanded="false">Tham Khảo<span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu dropdownhover-bottom" role="menu" style="">
-						<li><a href="#">Đề Kiểm Tra</a></li>
+						<li><a href="${contextRoot }/show/exam/albums">Đề Kiểm Tra</a></li>
 						<li><a href="${contextRoot }/show/file/albums">Tài Liệu Học Tập</a></li>
 					</ul></li>
 				<li><a href="${contextRoot}/show/category/6/posts">Giáo Dục</a></li>
@@ -45,6 +45,7 @@
 							<li><a href="${contextRoot }/manage/user">Quản Lý User</a></li>
 							<li><a href="${contextRoot }/manage/image/album">Upload Images</a></li>
 							<li><a href="${contextRoot}/manage/files/upload">Upload Tài Liệu Học Tập</a></li>
+							<li><a href="${contextRoot}/manage/exams/upload">Upload Đề Thi</a></li>
 							<li class="dropdown"><a href="#">Chỉnh Sửa Trang ></a>
 										<ul class="dropdown-menu dropdownhover-right">
 											<li><a href="${contextRoot}/manage/page/gioi-thieu">Trang Giới Thiệu</a></li>

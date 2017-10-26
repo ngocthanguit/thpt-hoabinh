@@ -150,7 +150,7 @@ public class PageController {
 	public ModelAndView showAllPosts(){
 		ModelAndView mv = new ModelAndView("page");
 		
-		mv.addObject("title", "All Posts");
+		mv.addObject("title", "Bài Đăng");
 		//passing the list of category
 		mv.addObject("categories",categoryDAO.list());
 		mv.addObject("userClickAllPosts", true);
@@ -325,7 +325,7 @@ public class PageController {
 	@RequestMapping(value="/show/image/albums")
 	public ModelAndView imageAlbums(@RequestParam(value="offset", required=false)String offset) {
 		ModelAndView mv= new ModelAndView("page");
-		addGeneralPage(mv,"Show Album");
+		addGeneralPage(mv,"Hình Ảnh");
 		mv.addObject("userClickImageAlbums",true);
 		int pos = 0;
 		if(offset!=null) {
@@ -346,7 +346,7 @@ public class PageController {
 	@RequestMapping(value="/show/file/albums")
 	public ModelAndView fileAlbums(@RequestParam(value="offset", required=false)String offset) {
 		ModelAndView mv= new ModelAndView("page");
-		addGeneralPage(mv,"Show Album");
+		addGeneralPage(mv,"Tài Liệu Học Tập");
 		mv.addObject("userClickFileAlbums",true);
 		int pos = 0;
 		if(offset!=null) {
@@ -357,8 +357,32 @@ public class PageController {
 			}
 		}
 		mv.addObject("offset", pos);
+		mv.addObject("type", "file");
 		mv.addObject("max", albumDAO.getCount("file"));
 		List<Album> listAlbums = albumDAO.getAlbums("file", pos, 10);
+		if (listAlbums != null && listAlbums.size() > 0){
+			mv.addObject("listAlbums", listAlbums);
+		}
+		
+		return mv;
+	}
+	@RequestMapping(value="/show/exam/albums")
+	public ModelAndView examAlbums(@RequestParam(value="offset", required=false)String offset) {
+		ModelAndView mv= new ModelAndView("page");
+		addGeneralPage(mv,"Đề Thi");
+		mv.addObject("userClickFileAlbums",true);
+		int pos = 0;
+		if(offset!=null) {
+			try {
+				pos = Integer.parseInt(offset);
+			}catch(Exception e) {
+				
+			}
+		}
+		mv.addObject("offset", pos);
+		mv.addObject("type", "exam");
+		mv.addObject("max", albumDAO.getCount("exam"));
+		List<Album> listAlbums = albumDAO.getAlbums("exam", pos, 10);
 		if (listAlbums != null && listAlbums.size() > 0){
 			mv.addObject("listAlbums", listAlbums);
 		}

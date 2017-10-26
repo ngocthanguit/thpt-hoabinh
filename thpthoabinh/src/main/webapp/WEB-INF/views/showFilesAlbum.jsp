@@ -4,7 +4,12 @@
 
 	<div class="panel panel-primary">
 		<div class="panel-heading heading-main">
-			<h3 class="panel-title">Tài Liệu Học Tập</h3>
+			<c:if test="${type == 'file'}">
+				<h3 class="panel-title">Tài Liệu Học Tập</h3>
+			</c:if>
+			<c:if test="${type == 'exam'}">
+				<h3 class="panel-title">Đề Thi</h3>
+			</c:if>
 		</div>
 		<div class="panel-body">
 			<ul class="side-news main-list-annount">

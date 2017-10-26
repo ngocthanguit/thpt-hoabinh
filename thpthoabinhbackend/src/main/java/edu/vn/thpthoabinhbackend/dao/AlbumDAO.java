@@ -11,7 +11,7 @@ public interface AlbumDAO {
 	List<Album> getAllAlbum(String type);
 	boolean add(Album album);
 	boolean update(Album album);
-	boolean delete(Album album);
+	boolean delete(int id);
 	boolean deActive(Album album);
 	Long getCount(String type);
 }

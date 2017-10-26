@@ -1,7 +1,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 
-
+<script>
+	window.type = '${type}';
+</script>
 <div class="content">
 	<br />
 	<c:if test="${not empty message}">
@@ -87,7 +89,12 @@
 	</sf:form>
 
 	<hr />
-<h1>Danh Sách Tài Liệu</h1>
+<c:if test="${type == 'file'}">
+	<h1>Danh Sách Tài Liệu</h1>
+</c:if>
+<c:if test="${type == 'exam'}">
+	<h1>Danh Sách Đề Thi</h1>
+</c:if>	
 
 <hr />
 <br />

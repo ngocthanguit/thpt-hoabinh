@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.vn.thpthoabinhbackend.dao.AlbumDAO;
+import edu.vn.thpthoabinhbackend.dao.FileUploadDAO;
 import edu.vn.thpthoabinhbackend.dto.Album;
 
 @Repository("albumDAO")
@@ -16,7 +17,8 @@ public class AlbumDAOImpl implements AlbumDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+	@Autowired
+	private FileUploadDAO fileUploadDAO;	
 	@Override
 	public Album get(int id) {
 		return sessionFactory.getCurrentSession().get(Album.class, Integer.valueOf(id));
@@ -74,10 +76,12 @@ public class AlbumDAOImpl implements AlbumDAO {
 	}
 
 	@Override
-	public boolean delete(Album album) {
+	public boolean delete(int id) {
 		try{
-			// update the category to the database table
-			sessionFactory.getCurrentSession().delete(album);
+			fileUploadDAO.delete(id);
+			Album x = new Album();
+			x.setId(id);
+			sessionFactory.getCurrentSession().delete(x);
 			return true;
 		}
 		catch(Exception ex){

@@ -590,8 +590,12 @@ $(function(){
 	
 	
 	if($filesTable.length) {
-		
-		var jsonUrl = window.contextRoot + '/json/data/admin/all/file/albums';
+		var jsonUrl = "";
+		if(window.type === "file"){
+			jsonUrl = window.contextRoot + '/json/data/admin/all/file/albums';
+		}else{
+			jsonUrl = window.contextRoot + '/json/data/admin/all/exam/albums';
+		}
 		console.log(jsonUrl);
 		
 		$filesTable.DataTable({
@@ -652,7 +656,11 @@ $(function(){
 												+ '/manage/'
 												+ data
 												+ '/album" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></a> &#160;';
-
+										str += '<a href="'
+											+ window.contextRoot
+											+ '/manage/album/'
+											+ data
+											+ '/delete" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a> &#160;';
 										return str;
 									}
 								}						           	

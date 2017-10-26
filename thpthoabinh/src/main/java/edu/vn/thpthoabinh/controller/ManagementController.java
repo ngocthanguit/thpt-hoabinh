@@ -1,11 +1,14 @@
 package edu.vn.thpthoabinh.controller;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.commons.io.FilenameUtils;
@@ -268,6 +271,37 @@ public class ManagementController {
 		albumDAO.update(album);		
 		return (isActive)? "Album Dectivated Successfully!": "Album Activated Successfully";
 	}
+	@RequestMapping(value = "/album/{id}/delete", method=RequestMethod.GET)
+	@ResponseBody
+	public void manageAlbumDelete(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {	
+		List<FileUpload> listFiles = fileUploadDAO.getByAlbumId(id);
+		for(FileUpload x : listFiles) {
+			String real_path = request.getSession().getServletContext().getRealPath("/assets/upload/files");
+			File file = new File(real_path + '/' +x.getName());
+			try {
+				boolean result = Files.deleteIfExists(file.toPath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				break;
+			}
+		}
+		String type = albumDAO.get(id).getType();
+		albumDAO.delete(id);
+		try {
+			if("image".equals(type)){
+				response.sendRedirect(request.getContextPath() + "/manage/image/album");
+			 }else if("file".equals(type)){
+				 response.sendRedirect(request.getContextPath() + "/manage/files/upload");
+			 }else{
+				 response.sendRedirect(request.getContextPath() + "/manage/exams/upload");
+			 }
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	@RequestMapping(value = "/updateuser", method = RequestMethod.POST)
 	public String adminUpdateUser(@RequestParam("username") String username, @RequestParam("role") String role) {
@@ -307,6 +341,7 @@ public class ManagementController {
 		Album album = new Album();
 		album.setType("file");
 		mv.addObject("album", album);
+		mv.addObject("type","file");	
 		if(message != null) {
 			if(message.equals("saved")){
 				mv.addObject("message", "Lưu Album thành công!");
@@ -314,7 +349,23 @@ public class ManagementController {
 		}
 		return mv;
 	}
-	
+	@RequestMapping(value = "/exams/upload", method = RequestMethod.GET)
+	public ModelAndView manageExamAlbum(@RequestParam(name="message",required=false)String message) {
+		ModelAndView mv = new ModelAndView("page");
+		mv.addObject("title","Album Management");		
+		mv.addObject("manage",true);	
+		mv.addObject("userClickManageFileAlbum",true);
+		Album album = new Album();
+		album.setType("exam");
+		mv.addObject("album", album);
+		mv.addObject("type","exam");	
+		if(message != null) {
+			if(message.equals("saved")){
+				mv.addObject("message", "Lưu Album thành công!");
+			}	
+		}
+		return mv;
+	}
 	@RequestMapping(value = "/files/save", method = RequestMethod.POST)
 	public String save(@ModelAttribute("album") Album album, BindingResult results, Model map, HttpServletRequest request) {
 		
@@ -352,13 +403,15 @@ public class ManagementController {
 		map.addAttribute("message", "saved");
 		if("image".equals(album.getType())){
 			return "redirect:/manage/image/album";
-		 }else{
+		 }else if("file".equals(album.getType())){
 			 return "redirect:/manage/files/upload";
+		 }else{
+			 return "redirect:/manage/exams/upload";
 		 }
 	}
 	
 	@RequestMapping(value = "/file/upload", method = RequestMethod.POST)
-	public String save(MultipartFile postfile, HttpServletRequest request) {
+	public String saveFile(MultipartFile postfile, HttpServletRequest request) {
 		
 		String fileName = postfile.getOriginalFilename();
 		FileUpload fileUp = new FileUpload(0, fileName);

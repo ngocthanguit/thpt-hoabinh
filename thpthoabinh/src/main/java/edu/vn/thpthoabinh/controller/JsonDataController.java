@@ -77,6 +77,12 @@ public class JsonDataController {
 		return albumDAO.list("file");
 				
 	}	
+	@RequestMapping("/admin/all/exam/albums")
+	@ResponseBody
+	public List<Album> getAllExamAlbumList() {		
+		return albumDAO.list("exam");
+				
+	}	
 	
 	@RequestMapping("/admin/all/image/albums")
 	@ResponseBody
