@@ -6,17 +6,22 @@
 <spring:url var="images" value="/resources/images" />
 <spring:url var="editor" value="/resources/editor" />
 <link href="${css}/bootstrap.min.css" rel="stylesheet">
+<!-- Custom CSS -->
+<link href="${css}/mystyle.css" rel="stylesheet">
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 
 <div class="content main-page">
+		<div class="text-center">
+			<a href="${contextRoot}/manage/image/post">Upload Ảnh</a>
+		</div>
 	<div class="row">
-
+		
 		<c:forEach items="${listImages}" var="image">
-			<div class="col-xs-4 col-md-3 album-image-wrapper">
-				
-					<img style="max-width: 100%; max-height: 100%; margin: 10px;" class="images-finder"
-						src="${contextRoot}/resources/upload/images/${image.name}.jpg" />
-				
+			<div class="col-xs-3 col-md-2 album-image-wrapper">
+				<a href="${contextRoot}/resources/upload/images/${image.name}.jpg" class="pop"> 
+					 <img class="album-image-main"
+					src="${contextRoot}/resources/upload/images/${image.name}.jpg" />
+				</a>
 			</div>
 		</c:forEach>
 

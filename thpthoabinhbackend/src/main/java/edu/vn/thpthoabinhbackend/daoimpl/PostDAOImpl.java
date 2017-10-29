@@ -194,4 +194,27 @@ public class PostDAOImpl implements PostDAO {
 		return null;
 	}
 
+	@Override
+	public List<Post> searchPosts(String key, int pos, int count) {
+		return sessionFactory
+				.getCurrentSession()
+					.createQuery("FROM Post WHERE Active = :active AND Title LIKE :key AND Id >= :id ORDER BY Id DESC")
+						.setParameter("active", true)
+						.setParameter("key","%"+key+"%")
+							.setFirstResult(pos)
+							.setMaxResults(count)
+							.setParameter("id", START_ID)
+								.list();
+	}
+	@Override
+	public Long getCount(String key) {
+		String query = "SELECT COUNT(*) from Post WHERE Active = :active AND Title LIKE :key AND Id >= :id";
+		return (Long)sessionFactory
+				.getCurrentSession()
+				.createQuery(query)
+				.setParameter("active", true)
+				.setString("key","%"+key+"%")
+				.setParameter("id", START_ID)
+				.uniqueResult();
+	}
 }

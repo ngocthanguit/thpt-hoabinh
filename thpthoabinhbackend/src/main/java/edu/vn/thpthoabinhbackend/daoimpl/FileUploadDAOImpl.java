@@ -58,7 +58,7 @@ public class FileUploadDAOImpl implements FileUploadDAO{
 
 	@Override
 	public List<FileUpload> getByAlbumId(int albumId) {
-		String selectFile = "FROM FileUpload WHERE AlbumId = :id";
+		String selectFile = "FROM FileUpload WHERE AlbumId = :id ORDER BY Id DESC";
 		return sessionFactory
 				.getCurrentSession()
 					.createQuery(selectFile)

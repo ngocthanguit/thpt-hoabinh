@@ -1,5 +1,6 @@
 package edu.vn.thpthoabinh.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.UriUtils;
 
 import edu.vn.thpthoabinh.exception.PostNotFoundException;
 import edu.vn.thpthoabinh.util.FileUtil;
@@ -406,14 +408,6 @@ public class PageController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/show/imagesfinder")
-	public ModelAndView imagefinder() {
-		ModelAndView mv= new ModelAndView("imagesFinder");
-		mv.addObject("title", "Show Albums");
-		List<FileUpload> listImages = fileUploadDAO.getByAlbumId(0);
-		mv.addObject("listImages", listImages);
-		return mv;
-	}
 	
 	@RequestMapping(value="/about")
 	public ModelAndView about() {
@@ -439,6 +433,28 @@ public class PageController {
 			return text.substring(0, 400);
 		}
 		return text.substring(0, text.length()-1);
+	}
+	
+	@RequestMapping(value = "/show/search/posts", method = RequestMethod.POST)
+	public ModelAndView showCategoryPosts(@RequestParam(value="key", required=false)String key,@RequestParam(value="offset", required=false)String offset){
+		ModelAndView mv = new ModelAndView("page");
+		
+		addGeneralPage(mv,"Tìm Kiếm");
+		int pos = 0;
+		if(offset!=null) {
+			try {
+				pos = Integer.parseInt(offset);
+			}catch(Exception e) {
+				
+			}
+		}
+		
+		//passing a single category
+		mv.addObject("listPosts",postDAO.searchPosts(key, pos, 10));
+		mv.addObject("userClickCategoryPosts", true);
+		mv.addObject("offset", pos);
+		mv.addObject("max", postDAO.getCount(key));
+		return mv;
 	}
 //	@RequestMapping(value="/page")
 //	public ModelAndView test(@RequestParam(value="greeting", required=false)String greeting){

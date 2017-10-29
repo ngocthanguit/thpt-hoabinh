@@ -26,14 +26,14 @@ public class AlbumDAOImpl implements AlbumDAO {
 
 	@Override
 	public List<Album> list(String type) {
-		String selectActiveCategory = "FROM Album WHERE Type = :type";
+		String selectActiveCategory = "FROM Album WHERE Type = :type ORDER BY Id DESC";
 		return sessionFactory.getCurrentSession().createQuery(selectActiveCategory)
 		.setParameter("type", type)
 		 .list();
 	}
 	@Override
 	public List<Album> getAllAlbum(String type) {
-		String selectActiveCategory = "FROM Album WHERE Active = :active AND Type = :type";
+		String selectActiveCategory = "FROM Album WHERE Active = :active AND Type = :type ORDER BY Id DESC";
 		return sessionFactory.getCurrentSession().createQuery(selectActiveCategory)
 		.setParameter("active", true)
 		.setParameter("type", type)
@@ -41,7 +41,7 @@ public class AlbumDAOImpl implements AlbumDAO {
 	}
 	@Override
 	public List<Album> getAlbums(String type, int pos, int count) {
-		String selectActiveCategory = "FROM Album WHERE Active = :active AND Type = :type";
+		String selectActiveCategory = "FROM Album WHERE Active = :active AND Type = :type ORDER BY Id DESC";
 		return sessionFactory.getCurrentSession().createQuery(selectActiveCategory)
 		.setParameter("active", true)
 		.setParameter("type", type)

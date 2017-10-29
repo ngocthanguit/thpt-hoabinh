@@ -1,15 +1,22 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<script>
+function Search(){
+	var key = $("#key-search").val().encode("utf-8");
+	window.location.href = window.contextRoot +"/show/search/posts?key=" + key;
+};
+</script>
 <div class="panel panel-primary">
 	<div class="panel-heading heading-side">
 		<h3 class="panel-title">Tìm Kiếm</h3>
 	</div>
 	<div class="panel-body search-panel">
-		<form role="search">
+		<form method="POST" action="${contextRoot}/show/search/posts" >
 			<div class="form-group input-group">
-				<input type="text" class="form-control" placeholder="Search..">
+				<input type="text" id="key-search" name=key class="form-control" placeholder="Search..">
+				<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
 				<span class="input-group-btn">
-					<button class="btn btn-default" type="button">
+					<button class="btn btn-default" type="submit">
 						<span class="glyphicon glyphicon-search"></span>
 					</button>
 				</span>

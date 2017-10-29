@@ -69,9 +69,9 @@
 								<sf:hidden path="dateCreated" />
 								<sf:hidden path="dateModified" />
 								<sf:hidden path="viewCount" />
-								<button type="button" class="btn btn-success btn-xs"
+								<button type="button" class="btn btn-success btn-xs hidden"
 									data-toggle="modal" data-target="#myUploadModal">Upload Ảnh</button>
-								<button type="button" class="btn btn-warning btn-xs"
+								<button type="button" class="btn btn-warning btn-xs hidden"
 									data-toggle="modal" data-target="#myCategoryModal">Add
 									New Category</button>
 							</div>

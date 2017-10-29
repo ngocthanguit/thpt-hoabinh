@@ -16,9 +16,9 @@
 	<http pattern="/resources/**" security="none"/>
 
 	<http>
-		<!-- only admin access -->
+		<!-- only admin access 
 		<intercept-url pattern="/" access="hasAuthority('ADMIN')" />
-		<intercept-url pattern="/signup" access="hasAuthority('ADMIN')" />
+		<intercept-url pattern="/signup" access="hasAuthority('ADMIN')" />-->
 		<intercept-url pattern="/manage/**" access="hasAuthority('ADMIN')" />
 		
 		<!-- rest of the world -->			

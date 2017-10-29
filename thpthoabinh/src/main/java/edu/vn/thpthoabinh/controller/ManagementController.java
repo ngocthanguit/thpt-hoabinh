@@ -370,12 +370,13 @@ public class ManagementController {
 	public String save(@ModelAttribute("album") Album album, BindingResult results, Model map, HttpServletRequest request) {
 		
 		List<MultipartFile> files = album.getFiles();
-		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		User authen_user = userDAO.getByUsername(authentication.getName());
-		album.setAuthorId(authen_user.getId());
-		albumDAO.add(album);
-		if(null != files && files.size() > 0) {
+		if(null != files && files.size() > 0 && files.get(0).getSize() > 0) {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			User authen_user = userDAO.getByUsername(authentication.getName());
+			album.setAuthorId(authen_user.getId());
+			if(!"imagepost".equals(album.getType())) {
+				albumDAO.add(album);
+			}
 			int getAlbumImage = 0;
 			for (MultipartFile file : files) {
 				String fileName = file.getOriginalFilename();
@@ -383,24 +384,30 @@ public class ManagementController {
 				//Handle file content - multipartFile.getInputStream()
 				//upload the file
 				String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-				
+				String nameWithoutEx = FilenameUtils.getBaseName(file.getOriginalFilename());
 				 if(!file.getOriginalFilename().equals("") ){
-					 if("image".equals(album.getType())){
+					 if("image".equals(album.getType()) || "imagepost".equals(album.getType())){
 						 FileUtil.uploadImages(request, file, fileUp.getName());
 						 if(getAlbumImage == 0) {
 								album.setImage(fileUp.getName());
 							}
 					 }else{
-						 fileUp.setName(fileUp.getName() + '.' + extension);
+						 fileUp.setName((SlugUtil.makeSlug(nameWithoutEx) + '_' + fileUp.getName()) + '.' + extension);
 						 FileUtil.store(request, file, fileUp.getName()); 
 					 }
 				 }
 				 fileUploadDAO.add(fileUp);
 				getAlbumImage ++;
 			}
-			albumDAO.update(album);
+			if(!"imagepost".equals(album.getType())) {
+				albumDAO.update(album);
+			}
+			map.addAttribute("message", "saved");
 		}
-		map.addAttribute("message", "saved");
+		
+		if("imagepost".equals(album.getType())) {
+			return "redirect:/manage/show/imagesfinder";
+		}
 		if("image".equals(album.getType())){
 			return "redirect:/manage/image/album";
 		 }else if("file".equals(album.getType())){
@@ -436,7 +443,25 @@ public class ManagementController {
 	public List<Subject> modelSubjects() {
 		return subjectDAO.list();
 	}
+	@RequestMapping(value="/show/imagesfinder")
+	public ModelAndView imagefinder() {
+		ModelAndView mv= new ModelAndView("imagesFinder");
+		mv.addObject("title", "Show Albums");
+		List<FileUpload> listImages = fileUploadDAO.getByAlbumId(0);
+		mv.addObject("listImages", listImages);
+		return mv;
+	}
 	
+	@RequestMapping(value = "/image/post", method = RequestMethod.GET)
+	public ModelAndView manageImagePost(@RequestParam(name="message",required=false)String message) {
+		ModelAndView mv = new ModelAndView("uploadPostImages");
+		mv.addObject("title","Thêm ảnh");		
+		Album album = new Album();
+		album.setId(0);
+		album.setType("imagepost");
+		mv.addObject("album", album);
+		return mv;
+	}
 }
 
 	
